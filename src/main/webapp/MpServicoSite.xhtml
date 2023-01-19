@@ -1,0 +1,263 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewParam name="tab" value="#{mpServicoSiteBean.paramIndexTab}"/>
+   		<f:viewAction action="#{mpServicoSiteBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:form horizontal="true" method="post" prependId="false" 
+													fieldId="frmReg" name="frmReg" id="frmReg">
+														
+			<b:growl placementFrom="top" id="messages" delay="6000" escape="true" />
+
+			<p:autoUpdate />
+		
+			<b:jumbotron fluid="true" id="servicoSiteId">
+				<b:row>
+					<b:column col-md="2">
+					</b:column>
+					<b:column col-md="3">
+						<h2>Serviços</h2>
+					</b:column>
+					<b:column col-md="6">
+						<!-- b:image small-screen="one-third" library="images" name="servicoBoleto.jpg"  
+							tooltip="Serviço BOLETO" tooltipPosition="right"
+							style="width:60%; height:200px;" />  -->
+					</b:column>
+					<b:column col-md="1">
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column col-md="4">
+					</b:column>
+					<b:column col-md="4">
+						<p></p>
+					</b:column>
+					<b:column col-md="4">
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column col-md="2">
+					</b:column>
+					<b:column col-md="5">
+						<b:panel collapsible="false" look="primary">
+							<f:facet name="heading">
+								<i class="fa fa-barcode" style="padding-right: 20px" />
+								<h:outputText value="Acesso à Area de Serviços Restritos" />
+							</f:facet>
+							<p><b:button href="#{root}/Home?paramOrigem=Boleto"
+									value="Login - Acessar área de Serviços - Clique Aqui ! »" 
+									look="primary" col-md="10" offset="2" /></p>
+							<br />
+						</b:panel>
+	
+						<b:tabView id="tabViewId" activeIndex="#{mpServicoSiteBean.indexTab}" 
+										dynamic="true" cache="false" pills="true" 
+										contentStyle="border: 1px solid #ddd;padding:10px">
+				
+							<b:tab title="Pagamento de Título - Emissão de Guia">
+								<b:panel collapsible="false" look="primary">
+									<h:panelGrid columns="2" cellpadding="10">
+										<p:spacer width="10" height="10" />
+										<h4>Emissão de Guia</h4>
+										<p:spacer width="10" height="10" />
+										<p style="font-size: 10px;"></p>
+									</h:panelGrid>
+									<h:outputText value="#{mpServicoSiteBean.txtEmissaoBoleto}" escape="false" />																	
+									<p></p>
+								</b:panel>
+						  </b:tab>
+				
+						  <b:tab title="Verificar Autorização de Cancelamento">
+								<b:panel collapsible="false" look="primary">
+									<h:panelGrid columns="2" cellpadding="10">
+										<p:spacer width="10" height="10" />
+										<h4>Verificar Autorização de Cancelamento</h4>
+										<p:spacer width="10" height="10" />
+										<p style="font-size: 10px;"></p>
+									</h:panelGrid>
+									<h:outputText value="#{mpServicoSiteBean.txtServicoAutorizaCancelamento}" 
+																									escape="false" />																	
+									<p></p>
+								</b:panel>
+						  </b:tab>
+				
+						</b:tabView>
+	
+					</b:column>
+					<b:column col-md="3">
+						<b:panel collapsible="false" look="primary">
+							<f:facet name="heading">
+								<i class="fa fa-barcode" style="padding-right: 20px" />
+								<h:outputText value="Registro a Área de Serviços" />
+							</f:facet>
+	
+							<div class="form-group">
+								<h5>Preencha o formulário abaixo para REGISTRAR-SE.</h5>
+							</div>
+	
+							<div class="form-group">
+								<b:inputText placeholder="Nome Completo" fieldSize="sm" 
+									fieldId="nomeReg" name="nomeReg" id="nome"
+									required="true" requiredMessage="Informar Nome !"
+									validatorMessage="Tamanho Nome Inválido! (min=5/max=100)"									
+									colMd="10" labelColMd="2" 
+									value="#{mpServicoSiteBean.nomeReg}">
+									<f:facet name="prepend">
+										<b:icon name="user" />
+									</f:facet>
+									<f:validateLength minimum="5" maximum="100" />
+								</b:inputText>
+							</div>
+							<div class="form-group">
+								<b:inputText placeholder="E-mail" fieldSize="sm" 
+									fieldId="emailReg" name="emailReg" id="emailReg"
+									required="true" requiredMessage="Informar E-mail !"
+									validatorMessage="Tamanho E-mail Inválido! (min.=10/max=100)"									
+									colMd="10" labelColMd="2"
+									value="#{mpServicoSiteBean.emailReg}">
+									<f:facet name="prepend">
+										<b:icon name="envelope" />
+									</f:facet>
+									<f:validateLength minimum="10" maximum="100" />
+									<f:validateRegex pattern=
+							"^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								</b:inputText>
+							</div>
+	
+							<div class="form-group">
+	
+								<b:container fluid="true">
+								  <b:row>
+								    <b:column medium-screen="11">
+								    
+										<b:panelGrid size="xs" columns="6">
+										    <b:radiobutton value="#{mpServicoSiteBean.opcaoCpfCnpj}" 
+										    		itemLabel="CPF" itemValue="cpf" 
+										    		onclick="ajax:radiobuttonBean.submit()" 
+										    		update="@(.cpfClass) @(.cpnjClass)"
+										    		required="true" requiredMessage="Cpf/Cnpj é obrigatório." />
+											<h:outputText value="" />
+										    <b:radiobutton value="#{mpServicoSiteBean.opcaoCpfCnpj}" 
+										    		itemLabel="CNPJ" itemValue="cnpj" 
+										    		update="@(.cpfClass) @(.cpnjClass)" />
+											<h:outputText value="" />
+											<h:outputText value="" />
+											<h:outputText value="" />
+										</b:panelGrid>
+								    </b:column>
+								    <b:column medium-screen="1" />
+								  </b:row>
+								  <b:row id="cpfId" class="cpfClass"
+								  	rendered="#{mpServicoSiteBean.opcaoCpfCnpj eq 'cpf'}">
+								    <b:column>
+										<b:inputText placeholder="Informe CPF" fieldSize="sm"
+											mask="999.999.999-99"
+											colMd="10" labelColMd="2"
+											value="#{mpServicoSiteBean.cpfCnpjReg}">
+											<f:facet name="prepend">
+												<b:icon name="cog" />
+											</f:facet>
+										</b:inputText>
+								    </b:column>
+								    <b:column medium-screen="3" />
+								  </b:row>
+								  <b:row  id="cnpjId" class="cnpjClass" 
+								  	rendered="#{mpServicoSiteBean.opcaoCpfCnpj eq 'cnpj'}">
+								    <b:column>
+										<b:inputText placeholder="Informe CNPJ" fieldSize="sm"										
+											mask="99.999.999/9999-99"
+											colMd="10" labelColMd="2"
+											value="#{mpServicoSiteBean.cpfCnpjReg}">
+											<f:facet name="prepend">
+												<b:icon name="cog" />
+											</f:facet>
+										</b:inputText>
+								    </b:column>
+								    <b:column medium-screen="3" />
+								  </b:row>
+								</b:container>
+							</div>
+	
+							<div class="form-group">
+								<b:inputSecret placeholder="Senha" fieldSize="sm" 
+									fieldId="senhaReg" name="senhaReg"
+									required="true" requiredMessage="Informar Senha !"
+									validatorMessage="Tamanho Senha Inválido! (min=6/max=20)"									
+									colMd="10" labelColMd="2"
+									rendered="#{not mpServicoSiteBean.mpUsuario.indAtivacao}"
+									value="#{mpServicoSiteBean.senhaReg}">
+									<f:facet name="prepend">
+										<b:iconAwesome name="key" />
+									</f:facet>
+									<f:validateLength minimum="6" maximum="20" />
+								</b:inputSecret>
+							</div>
+							<div class="form-group">
+								<b:inputSecret placeholder="Confirmação de Senha" fieldSize="sm" 
+									fieldId="senhaConfirmacaoReg" name="senhaConfirmacaoReg" 
+									required="true" requiredMessage="Informar Senha Confirmação !"
+									validatorMessage="Tamanho Senha Confirmação Inválido! (min=6/max=20)"									
+									colMd="10" labelColMd="2"
+									rendered="#{not mpServicoSiteBean.mpUsuario.indAtivacao}"
+									value="#{mpServicoSiteBean.senhaConfirmaReg}">
+									<f:facet name="prepend">
+										<b:iconAwesome name="key" />
+									</f:facet>
+									<f:validateLength minimum="6" maximum="20" />
+								</b:inputSecret>
+							</div>
+							<div class="form-group">
+								<b:label text="Informar o Codigo de ATIVAÇÃO, enviado para o seu E-mail ?" 
+									severity="primary" rendered="#{mpServicoSiteBean.mpUsuario.indAtivacao}" />
+								<b:inputText placeholder="Codigo Ativação" fieldSize="sm" 
+									fieldId="codAtivReg" name="codAtivReg" id="codAtivReg"
+									required="true" requiredMessage="Informe codigo de ativação !"
+									validatorMessage="Tamanho Ativação Inválido!"									
+									colMd="10" labelColMd="2"
+									value="#{mpServicoSiteBean.codigoAtivacaoReg}"
+									rendered="#{mpServicoSiteBean.mpUsuario.indAtivacao}">
+									<f:facet name="prepend">
+										<b:iconAwesome name="unlock" />
+									</f:facet>
+									<f:validateLength minimum="10" maximum="10" />
+								</b:inputText>
+							</div>
+							<!-- div class="form-group">
+								<p:captcha label="Captcha" />
+							</div  -->
+	               			#{' '}
+	               			#{' '}
+	               			<b:commandButton value="Registrar" look="primary" icon="chevron-right" iconAlign="right" 
+	               				 rendered="#{not mpServicoSiteBean.mpUsuario.indAtivacao}"
+	               				 action="#{mpServicoSiteBean.registrar}" />
+	               			<b:commandButton value="Confirmar o codigo de ATIVAÇÃO" look="primary" 
+	               				icon="chevron-right" iconAlign="right" 
+	               				rendered="#{mpServicoSiteBean.mpUsuario.indAtivacao}"
+	               				action="#{mpServicoSiteBean.registrarConfirmar}" />
+	               			#{' '}
+	               			#{' '}
+	               			<h:commandLink value="Reenviar o código de ATIVAÇÃO para seu E-mail"
+	               				rendered="#{mpServicoSiteBean.mpUsuario.indAtivacao}"
+	               				action="#{mpServicoSiteBean.reenviarAtivacao}" />
+	
+						</b:panel>
+					</b:column>
+					<b:column col-md="2">
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+		</b:form>
+	</ui:define>
+
+</ui:composition>

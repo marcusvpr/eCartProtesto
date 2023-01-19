@@ -1,0 +1,236 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" />
+
+		<h:form id="frmUser">
+
+			<b:messages styleClass="msgs" redisplay="true" recursive="true" />
+			<p:messages showDetail="false" autoUpdate="true" closable="true" />
+			
+			<b:growl placementFrom="top" delay="3000" escape="true" />
+
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<h3>Consulta Usuário</h3>
+					</b:column>
+					<b:column col-md="3">
+						<p:commandButton value="Exportar para XLS" ajax="false"	icon="fa fa-file-excel-o Fs14 red">
+							<p:dataExporter type="xls" target="mpUsuariosTable"	fileName="usuarios"
+								postProcessor="#{mpFilterViewUsuario.posProcessarXls}" />
+						</p:commandButton>
+					</b:column>
+				</b:row>
+
+				<b:row>
+					<b:column col-md="12">
+
+						<p:dataTable id="mpUsuariosTable" sortMode="multiple"
+							var="mpUsuarioX" value="#{mpFilterViewUsuario.mpUsuarioList}"
+							rowKey="#{mpUsuario.parametro}" reflow="true" style="margin-top:20px"
+							emptyMessage="Nenhum registro encontrado." rows="5"
+							paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="top">
+
+							<f:facet name="header">
+								<p:outputPanel style="float:right">
+									<p:commandButton update=":frmUser:scDialogId" oncomplete="PF('scDialog').show()"
+										action="#{mpFilterViewUsuario.novoMpUsuario}" ajax="true"
+										value="Novo" icon="fa fa-fw fa-edit" title="Novo Registro">
+									</p:commandButton>
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column headerText="Login" sortBy="#{mpUsuarioX.login}"
+								filterBy="#{mpUsuarioX.login}" footerText="Contém" filterMatchMode="contains">
+								<h:outputText value="#{mpUsuarioX.login}" />
+							</p:column>
+							<p:column headerText="Nome" sortBy="#{mpUsuarioX.nome}"
+								filterBy="#{mpUsuarioX.nome}" footerText="Contém" filterMatchMode="contains">
+								<h:outputText value="#{mpUsuarioX.nome}" />
+							</p:column>
+							<p:column headerText="E-mail" sortBy="#{mpUsuarioX.email}"
+								filterBy="#{mpUsuarioX.email}" footerText="Contém" filterMatchMode="contains">
+								<h:outputText value="#{mpUsuarioX.email}" />
+							</p:column>
+							<p:column headerText="Cpf/Cnpj" sortBy="#{mpUsuarioX.cpfCnpj}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.cpfCnpj}" />
+							</p:column>
+							<p:column headerText="Telefone" sortBy="#{mpUsuarioX.telefone}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.telefone}" />
+							</p:column>
+							<p:column headerText="Celular" sortBy="#{mpUsuarioX.celular}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.celular}" />
+							</p:column>
+							<p:column headerText="Dt.Nasc"
+								sortBy="#{mpUsuarioX.dataNascimento}" style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.dataNascimento}" />
+							</p:column>
+							<p:column headerText="Observação"
+								sortBy="#{mpUsuarioX.observacao}" style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.observacao}" />
+							</p:column>
+							<p:column headerText="Status"
+								sortBy="#{mpUsuarioX.mpStatus.descricao}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.mpStatus.descricao}" />
+							</p:column>
+							<p:column headerText="Sexo"
+								sortBy="#{mpUsuarioX.mpSexo.descricao}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.mpSexo.descricao}" />
+							</p:column>
+							<p:column headerText="Ind.Ativ."
+								sortBy="#{mpUsuarioX.indAtivacao}" style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.indAtivacao}" />
+							</p:column>
+							<p:column headerText="Ind.Web"
+								sortBy="#{mpUsuarioX.indUserWeb}" style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.indUserWeb}" />
+							</p:column>
+							<p:column headerText="Ind.Comarca"
+								sortBy="#{mpUsuarioX.indUserComarca}" style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.indUserComarca}" />
+							</p:column>
+							<p:column headerText="Dt.Inc"
+								sortBy="#{mpUsuarioX.mpAuditoriaObjeto.dtHrInc}"
+								style="text-align:center">
+								<h:outputText value="#{mpUsuarioX.mpAuditoriaObjeto.dtHrInc}" />
+							</p:column>
+							<p:column headerText="Ação" style="text-align:center">
+								<p:commandButton update=":frmUser:scDialogId"
+									oncomplete="PF('scDialog').show()"
+									action="#{mpFilterViewUsuario.alteraMpUsuario}" ajax="true"
+									value="Edita" icon="fa fa-fw fa-edit" title="Edita Registro">
+									<f:setPropertyActionListener value="#{mpUsuarioX}"
+										target="#{mpFilterViewUsuario.mpUsuarioSel}" />
+								</p:commandButton>
+								<p:commandButton update=":frmUser:scDialogId"
+									oncomplete="PF('scDialog').show()"
+									action="#{mpFilterViewUsuario.apagaMpUsuario}" ajax="true"
+									value="Exclui" icon="fa fa-fw fa-remove"
+									title="Exclui Registro">
+									<f:setPropertyActionListener value="#{mpUsuarioX}"
+										target="#{mpFilterViewUsuario.mpUsuarioSel}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+						<p:dialog id="scDialogId"
+							header="Usuário #{mpFilterViewUsuario.txtModoTela}"
+							widgetVar="scDialog" modal="true" showEffect="fade"
+							hideEffect="fade" resizable="true">
+
+							<p:outputPanel id="scDetailId" style="text-align:center;">
+								<p:panelGrid columns="3" layout="grid"
+									rendered="#{not empty mpFilterViewUsuario.mpUsuarioSel}"
+									style="border:0px none;background:none" styleClass="ui-fluid">
+
+									<p:outputLabel value="Login:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.login}" />
+									<p:outputLabel value="Nome:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.nome}" />
+									<p:outputLabel value="E-mail:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.email}" />
+									<p:outputLabel value="CPF/CNPJ:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.cpfCnpj}" />
+									<p:outputLabel value="Telefone:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.telefone}" />
+									<p:outputLabel value="Celular:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.celular}" />
+									<p:outputLabel value="Data Nascimento:" />
+									<p:calendar pattern="dd/MM/yyyy" mask="true" locale="pt"
+										timeZone="America/Sao_Paulo"
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.dataNascimento}" />
+
+									<p:outputLabel value="Observação:" />
+									<p:inputTextarea lines="2"
+										readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.observacao}" />
+
+									<p:outputLabel value="Sexo:" />
+									<p:selectOneMenu style="width:125px"
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.mpSexo}">
+										<f:selectItem itemLabel="Masculino" itemValue="MASCULINO" />
+										<f:selectItem itemLabel="Feminino" itemValue="FEMININO" />
+										<f:selectItem itemLabel="A Definir" itemValue="DEFINIR" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Status:" />
+									<p:selectOneMenu style="width:125px"
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.mpStatus}">
+										<f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+										<f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+										<f:selectItem itemLabel="Bloqueado" itemValue="BLOQUEADO" />
+									</p:selectOneMenu>
+
+									<p:outputLabel value="Ind.Ativação:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.indAtivacao}" />
+									<p:outputLabel value="Ind.Web:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.indUserWeb}" />
+									<p:outputLabel value="Código Ativação:" />
+									<p:inputText readonly="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.mpUsuarioSel.codigoAtivacao}" />
+
+									<p:outputLabel value="Ind.ADMINISTRADOR:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.indAdmin}" />
+									<p:outputLabel value="Ind.CARTORIO:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.indCart}" />
+									<p:outputLabel value="Ind.COMARCA:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.indComarca}" />
+									<p:outputLabel value="Ind.USUARIO:" />
+									<p:selectBooleanCheckbox
+										disabled="#{mpFilterViewUsuario.indEditavel}"
+										value="#{mpFilterViewUsuario.indUser}" />
+								</p:panelGrid>
+							</p:outputPanel>
+
+							<div>
+								<b:commandButton style="padding: 0 4px;" iconAwesome="save"
+									look="link" ajax="true"
+									onclick="ajax:mpFilterViewUsuario.mpGrava()"
+									oncomplete="PF('scDialog').hide();" update="frmUser" />
+								<b:button value="Cancela" onclick="PF('scDialog').hide();" />
+							</div>
+
+						</p:dialog>
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

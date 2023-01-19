@@ -1,0 +1,231 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpIndexSiteBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+	
+	  <h:form id="homeFormId">   
+	    <p:messages id="messages" showDetail="true" closable="true" />
+    			
+		<b:jumbotron id="homeId" style="padding-top: 5px; padding-bottom: 5px;">
+			<b:container fluid="true">
+
+				<b:row>
+					<b:column col-md="9" style="padding-top: 5px; padding-bottom: 5px;">
+						<b:row>
+							<b:column col-md="5">
+							</b:column>
+							<b:column col-md="2">
+								<b:image library="images" name="titulo_inicio.png"
+									tooltip="Início" tooltipPosition="right" 
+									style="max-width:100px; margin:0 auto; display:block; width:90%;" />							
+							</b:column>
+							<b:column col-md="5">
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-md="5">
+							</b:column>
+							<b:column col-md="2">
+								<BR />
+							</b:column>
+							<b:column col-md="5">
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-md="1" rendered="#{!mpSeguranca.indCancelamento}" />
+
+							<b:column col-md="2">
+								<b:row>
+									<a href="http://pesquisaprotesto.com.br/" target="_blank">
+										<b:image  library="images" name="home_pesquisa-gratuita-1.png"  
+											tooltip="Consulta Gratuita de protestos on-line" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+							
+							<b:column col-md="2">
+								<b:row rendered="#{mpSeguranca.indLoginBoleto}">
+									<a href="#{root}/ServicoSite?tab=0">
+										<b:image  library="images" name="home_pagamento-titulo-1.png"  
+											tooltip="Pagamento de Títulos gere seu boleto aqui" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+								<b:row rendered="#{!mpSeguranca.indLoginBoleto}">
+									<a href="#{root}/EmissaoBoleto">
+										<b:image  library="images" name="home_pagamento-titulo-1.png"  
+											tooltip="Pagamento de Títulos gere seu boleto aqui" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+
+							<b:column col-md="2">
+								<b:row>
+									<a href="#{root}/ServicoTitulo">
+										<b:image  library="images" name="home_consulta-andamento-1.png"  
+											tooltip="Consulta Andamento do seu protocolo" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+							
+							<b:column col-md="2">
+								<b:row>
+									<a href="#{root}/ServicoCancelamento">
+										<b:image  library="images" name="home_cancelamento-1.png"  
+											tooltip="Cancelamento de Protesto" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+
+							<b:column col-md="2">
+								<b:row>
+									<a href="https://cartoriosdeprotestorj.com.br/" target="_blank">
+										<b:image  library="images" name="home_servico-certidao-1.png"  
+											tooltip="Solicitação de Certidão" tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+							
+							<b:column col-md="2" rendered="#{mpSeguranca.indCancelamento}">
+								<b:row rendered="#{mpSeguranca.indLoginCancelamento}">
+									<a href="#{root}/ServicoSite?tab=1">
+										<b:image  library="images" name="home_consultar_autorizacao-1.png"  
+											tooltip="Verificar Autorização de Cancelamento... " tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+
+								<b:row rendered="#{!mpSeguranca.indLoginCancelamento}">
+									<a href="#{root}/AutorizaCancelamento">
+										<b:image  library="images" name="home_consultar_autorizacao-1.png"  
+											tooltip="Verificar Autorização de Cancelamento... " tooltipPosition="right" 
+											style="max-width:220px; margin:0 auto; display:block; width:85%; border-radius:50%;" />
+									</a>
+								</b:row>
+							</b:column>
+							
+							<b:column col-md="1" rendered="#{!mpSeguranca.indCancelamento}" />
+						</b:row>
+			
+						<b:row>
+							<b:column col-md="4">
+							</b:column>
+							<b:column col-md="4">
+								<p><p:spacer width="10" height="10" /></p>
+							</b:column>
+							<b:column col-md="4">
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-md="2">
+							</b:column>
+							<b:column col-md="8">
+								<p style="font-size: 18px;">Este é o site dos quatro cartórios de protesto da capital do Rio de Janeiro.
+								 Aqui você encontrará todas as informações para tornar mais acessível e fácil o protesto de títulos.
+								 </p>
+							</b:column>
+							<b:column col-md="2">
+							</b:column>
+						</b:row>
+						<b:row>
+							<b:column col-md="4">
+							</b:column>
+							<b:column col-md="4">
+								<b:image  library="images" name="logo_protestorj_smallXX.png"  
+									tooltip="Protesto RJ Capital..." tooltipPosition="right" 
+									style="max-width:250px; margin:0 auto; display:block; width:90%;" />
+							</b:column>
+							<b:column col-md="4">
+							</b:column>
+						</b:row>
+					</b:column>
+					<b:column col-md="3" style="padding-top: 5px; padding-bottom: 5px;">
+						<b:row>
+						 	<h3>Últimas Noticias...</h3>
+						</b:row>
+						
+						<p:dataScroller value="#{mpIndexSiteBean.mpNoticiaSiteList}" var="mpNoticiaSiteX" chunkSize="10">
+							<b:panel rendered="#{mpNoticiaSiteX.indAtivo}">
+								<h:panelGrid columns="2" cellpadding="10">
+									<p:spacer width="10" height="10" />
+									<h4>#{mpNoticiaSiteX.assunto}</h4>
+									<p:spacer width="10" height="10" />
+									<p style="font-size: 10px;">#{mpNoticiaSiteX.dataNoticiaSDF}</p>
+								</h:panelGrid>
+								<p style="font-size: 12px;">
+									#{mpNoticiaSiteX.descricao}
+								</p>
+								<p><b:button href="#{mpNoticiaSiteX.url}"
+										rendered="#{mpNoticiaSiteX.url.length() > 0}"
+								  		target="_blank" value="Saiba mais »" iconAwesome="search-plus"
+								  		icon-size="1x" look="primary" col-md="10" offset="2" /></p>
+							</b:panel>				
+						</p:dataScroller>		
+										
+					</b:column>
+				</b:row>
+			</b:container>
+		</b:jumbotron>
+		
+		<p:dialog id="scDialogAlertaSiteId" 
+				width="800" height="#{mpIndexSiteBean.tamAlertaTela}" contentWidth="100%" contentHeight="100%"
+				onShow="myFunction();" onHide="myStopFunction();"
+				header="#{mpIndexSiteBean.txtAlertaTela}"
+				widgetVar="scDialogAlertaSite" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false" positionType="absolute">
+				
+			<h:form>
+				<p:inputTextarea style="width:750px;height:250px"
+					readonly="true" value="#{mpIndexSiteBean.msgAlertaTela}" />				
+	
+				<b:container fluid="true">
+					<b:row>
+						<b:column col-md="5">
+						</b:column>
+						<b:column col-md="2">
+	                		<b:commandButton value="Fecha" look="primary" icon="chevron-right" iconAlign="right"
+	                													onclick="PF('scDialogAlertaSite').hide();" />
+						</b:column>
+						<b:column col-md="5">
+						</b:column>
+					</b:row>
+		        </b:container>
+				
+			</h:form>
+		</p:dialog>
+			
+	  </h:form>
+	     
+	  <script>  
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-25650106-1', 'auto');
+	  ga('send', 'pageview');
+	  </script>	
+	  
+	  <script>
+	  var myVar;
+	  function myFunction(){ myVar=setTimeout(function() { PF('scDialogAlertaSite').hide() }, 120000); }
+	  function myStopFunction() { clearTimeout(myVar); }
+	  </script>	  
+
+	</ui:define>
+	
+</ui:composition>

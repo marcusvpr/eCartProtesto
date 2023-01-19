@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	</head>
+    <body>
+        <table>
+            <tr>
+                <td style="width: 500px">
+        			<img src="http://www.protestorjcapital.com.br:8080/apps/resources/images/logo_protestorj_smallXXX.png"
+        							alt="www.protestorjcapital.com.br" />
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 100px"><b>SOLICITACAO DE AUTORIZACAO CANCELAMENTO</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>REQUERENTE : $mpUsuario.nome</td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Email : $mpUsuario.email</td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>CPF/CNPJ : $mpUsuario.cpfCnpj</td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><p>Conforme solicitado, encaminho a guia/boleto para pagamento dos 
+                emolumentos e demais despesas devidos pelo cancelamento do titulo com as seguintes 
+                caracteristicas:</p></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Tabelionato : $mpCartorioOficioSel.nomeCedente</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Apresentante : $mpAutorizaCancelamentoSelX.apresentante</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Protocolo : $mpAutorizaCancelamentoSelX.protocolo</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Data do Protocolo : $mpAutorizaCancelamentoSelX.dataProtocoloSDF</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Data do Processo : $mpAutorizaCancelamentoSelX.dataOcorrenciaSDF</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Devedor : $mpAutorizaCancelamentoSelX.devedor</b></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Valor do Saldo Protestado : $mpAutorizaCancelamentoSelX.saldoMOEDA</b></td>
+            </tr>
+
+        </table>
+        <table>
+            <tr>
+                <td> </td>
+                <td>
+                	<p>Obrigado por utilizar nossos serviços.
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 100px"><b>By Protesto Rj Capital - www.protestorjcapital.com.br </b></td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,169 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="1">
+						<i class="fa fa-arrows-h" aria-hidden="true" style="font-size:70px;color:blue"></i>
+					</b:column>
+					<b:column col-md="6">
+						<h4>Bloquear/Desbloquear Serviço Autorização Cancelamentos</h4>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+				</b:row>				
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+						
+						<h:form>
+							<p:messages showDetail="false" autoUpdate="true" closable="true" />
+
+							<b:panel style="padding-left:50px">	
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+									<p:outputLabel value="Selecionar?" />
+									<!-- b:radiobutton id="Oficio"
+											value="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioSel}" required="true"
+											itemLabel="Todos" itemValue="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioX}"
+											requiredMessage="Favor selecione o Ofício desejado !" -->
+	        						<b:radiobutton id="rbDest1" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio1.apelido}"
+	        								itemValue="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio1}"
+											 required="true" requiredMessage="Favor selecione o Ofício desejado !" />
+	        						<b:radiobutton id="rbDest2" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio2.apelido}" 
+	        								itemValue="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio2}" />
+	        						<b:radiobutton id="rbDest3" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio3.apelido}" 
+	        								itemValue="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio3}" />
+	        						<b:radiobutton id="rbDest4" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficioSel}" 
+	       									itemLabel="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio4.apelido}" 
+	       									itemValue="#{mpBloqueiaAutorizaCancelamentoBean.mpCartorioOficio4}" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	     					</b:panel>
+
+	     					<br />						 
+
+	     					<b:panel>
+	    						<b:panelGrid size="xs" columns="4">
+									<p:outputLabel value="Bloqueia Serviço ?" />
+	        						<b:radiobutton id="rbBloq1" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioSel}" 
+	        								itemLabel="BLOQUEADO" itemValue="false"
+											required="true" requiredMessage="Favor selecione a opção desejada !" />
+	        						<b:radiobutton id="rbBloq2" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioSel}" 
+	        								itemLabel="DESBLOQUEADO" itemValue="true" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	     					</b:panel>
+
+	     					<b:panel>
+	    						<b:panelGrid size="xs" columns="4">
+									<p:outputLabel value="Envio Email ?" />
+	        						<b:radiobutton id="rbBloq1E" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioEmailSel}" 
+	        								itemLabel="BLOQUEADO" itemValue="false"
+											required="true" requiredMessage="Favor selecione a opção desejada !" />
+	        						<b:radiobutton id="rbBloq2E" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioEmailSel}" 
+	        								itemLabel="DESBLOQUEADO" itemValue="true" />
+									<p:outputLabel value="" />
+
+									<p:outputLabel value="Cartão CIELO ?" />
+	        						<b:radiobutton id="rbBloq1C" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioCieloSel}" 
+	        								itemLabel="BLOQUEADO" itemValue="false"
+											required="true" requiredMessage="Favor selecione a opção desejada !" />
+	        						<b:radiobutton id="rbBloq2C" 
+	        								value="#{mpBloqueiaAutorizaCancelamentoBean.indBloqueioCieloSel}" 
+	        								itemLabel="DESBLOQUEADO" itemValue="true" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	     					</b:panel>
+
+	     					<b:panel>
+	    						<b:panelGrid size="xs" columns="4">
+									<p:outputLabel value="Horário Inicial" />
+							        <p:selectOneMenu id="horaI" value="#{mpBloqueiaAutorizaCancelamentoBean.mpHorarioIni}"
+							        								panelStyle="width:110px" style="width:100px">
+										<f:selectItems value="#{mpBloqueiaAutorizaCancelamentoBean.mpHorarioList}" var="mpHorarioI" 
+														itemLabel="#{mpHorarioI.hora}" itemValue="#{mpHorarioI}" />
+							        </p:selectOneMenu>
+							        
+        							<p:outputLabel value="Horário Final" />
+							        <p:selectOneMenu id="horaF" value="#{mpBloqueiaAutorizaCancelamentoBean.mpHorarioFim}"
+							        								panelStyle="width:110px" style="width:100px">
+										<f:selectItems value="#{mpBloqueiaAutorizaCancelamentoBean.mpHorarioList}" var="mpHorarioF" 
+														itemLabel="#{mpHorarioF.hora}" itemValue="#{mpHorarioF}" />
+							        </p:selectOneMenu>
+	    						</b:panelGrid>
+	     					</b:panel>
+	     					
+	     					<br />						 
+						    							
+							<b:commandButton value="ATUALIZAR »"
+								action="#{mpBloqueiaAutorizaCancelamentoBean.atualizaBloqueio}" look="primary" />
+							
+							<p:spacer width="100" height="10" /> 
+						</h:form>						
+						
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

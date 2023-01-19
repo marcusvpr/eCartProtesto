@@ -1,0 +1,142 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<h:form id="frmAS">
+		
+			<p:messages id="messages" showDetail="false" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="true" /> 
+		
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<h3>Consulta Alerta Site</h3>
+					</b:column>
+					<b:column col-md="3">
+						<p:commandButton value="Exportar para XLS" ajax="false" icon="fa fa-file-excel-o Fs14 red">
+							<p:dataExporter type="xls" target="mpAlertaSitesTable" fileName="alertaSites"
+										postProcessor="#{mpFilterViewAlertaSite.posProcessarXls}" />
+						</p:commandButton>
+					</b:column>
+				</b:row>
+	
+				<b:row>
+					<b:column col-md="12">
+									
+							<p:dataTable id="mpAlertaSitesTable" sortMode="multiple" var="mpAlertaSiteX"
+									value="#{mpFilterViewAlertaSite.mpAlertaSiteList}"
+									rowKey="#{mpAlertaSite.numeroOficio}" reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado." rows="10"
+									paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="top">									
+
+						        <f:facet name="header">
+						            <p:outputPanel style="float:right">
+             							<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+											action="#{mpFilterViewAlertaSite.novoMpAlertaSite}" ajax="true"
+            								value="Novo" icon="fa fa-fw fa-edit" title="Novo Registro">
+            							</p:commandButton>										
+						            </p:outputPanel>
+						        </f:facet>
+						        									
+								<p:column headerText="Número Ofício" sortBy="#{mpAlertaSiteX.numeroOficio}" 
+									filterBy="#{mpAlertaSiteX.numeroOficio}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpAlertaSiteX.numeroOficio}" />
+    							</p:column>														
+								<p:column headerText="DtHr.Inicial" sortBy="#{mpAlertaSiteX.dataAlertaIniSDF}"
+									filterBy="#{mpAlertaSiteX.dataAlertaIniSDF}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpAlertaSiteX.dataAlertaIniSDF}" />
+    							</p:column>														
+								<p:column headerText="DtHr.Final" sortBy="#{mpAlertaSiteX.dataAlertaFimSDF}"
+									filterBy="#{mpAlertaSiteX.dataAlertaFimSDF}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpAlertaSiteX.dataAlertaFimSDF}" />
+    							</p:column>														
+								<p:column headerText="Tamanho Mensagem">
+        							<h:outputText value="#{mpAlertaSiteX.tamanhoMsg}" />
+    							</p:column>														
+								<p:column headerText="Alerta" sortBy="#{mpAlertaSiteX.alertaMsg}"
+									filterBy="#{mpAlertaSiteX.alertaMsg}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpAlertaSiteX.alertaMsg}" />
+    							</p:column>														
+								<p:column headerText="Ação" style="text-align:center">
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewAlertaSite.alteraMpAlertaSite}" ajax="true"
+            							value="Edita" icon="fa fa-fw fa-edit" title="Edita Registro">
+                						<f:setPropertyActionListener value="#{mpAlertaSiteX}" 
+                										target="#{mpFilterViewAlertaSite.mpAlertaSiteSel}" />
+            						</p:commandButton>
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewAlertaSite.apagaMpAlertaSite}" ajax="true"
+            							value="Exclui" icon="fa fa-fw fa-remove" title="Exclui Registro">
+                						<f:setPropertyActionListener value="#{mpAlertaSiteX}" 
+                										target="#{mpFilterViewAlertaSite.mpAlertaSiteSel}" />
+            						</p:commandButton>										
+								</p:column>
+							</p:dataTable>
+		
+			    			<p:dialog id="scDialogId" width="650"
+			    					header="Alerta Site #{mpFilterViewAlertaSite.txtModoTela}"
+			    					widgetVar="scDialog" modal="true" showEffect="fade"
+			     					hideEffect="fade" resizable="true">
+						        
+						        <p:outputPanel id="scDetailId" style="text-align:center;">
+						            <p:panelGrid  columns="2" layout="grid" 
+										style="border:0px none;background:none" styleClass="ui-fluid">		 
+				
+						                <p:outputLabel value="Número Ofício:" />
+						                <p:inputText readonly="true"
+						                		value="#{mpFilterViewAlertaSite.mpAlertaSiteSel.numeroOficio}" />
+						                		
+						                <p:outputLabel value="Data Inicial:" />
+										<p:calendar pattern="dd/MM/yyyy" mask="true"
+											locale="pt" timeZone="America/Sao_Paulo"
+											value="#{mpFilterViewAlertaSite.mpAlertaSiteSel.dataAlertaIni}" />
+						                		
+						                <p:outputLabel value="Data Final:" />
+										<p:calendar pattern="dd/MM/yyyy" mask="true"
+											locale="pt" timeZone="America/Sao_Paulo"
+											value="#{mpFilterViewAlertaSite.mpAlertaSiteSel.dataAlertaFim}" />
+						                		
+						                <p:outputLabel value="Tamanho Mensagem:" />
+						                <p:inputText mask="9999"
+						                		readonly="#{mpFilterViewAlertaSite.indEditavel}"
+						                		value="#{mpFilterViewAlertaSite.mpAlertaSiteSel.tamanhoMsg}" />
+
+						                <p:outputLabel value="Alerta:" />
+						                <p:inputTextarea lines="10" cols="70" 
+						                		readonly="#{mpFilterViewAlertaSite.indEditavel}"
+						                		value="#{mpFilterViewAlertaSite.mpAlertaSiteSel.alertaMsg}" />
+						         	</p:panelGrid>
+			        			</p:outputPanel>
+	
+						        <div>
+									<b:commandButton style="padding: 0 8px;" iconAwesome="save" look="link" ajax="true"  
+										onclick="ajax:mpFilterViewAlertaSite.mpGrava()" 
+										oncomplete="PF('scDialog').hide();" 
+										update="frmAS" value="Confirma" />
+						            <b:button value="Cancela" onclick="PF('scDialog').hide();" />
+						        </div>
+						   					        
+						    </p:dialog>
+	
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

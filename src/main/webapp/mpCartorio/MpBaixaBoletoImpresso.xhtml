@@ -1,0 +1,127 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="1">
+						<i class="fa fa-download" aria-hidden="true" style="font-size:70px;color:blue"></i>
+					</b:column>
+					<b:column col-md="6">
+						<h3>Baixar Movimento de Boletos Impressos</h3>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+				</b:row>				
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+						
+						<h:form enctype="multipart/form-data">
+						    <p:growl id="messages" />
+
+							<b:panel style="padding-left:50px">	
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+									<p:outputLabel value="Selecionar?" />
+									<!-- b:radiobutton id="Oficio"
+											value="#{mpBaixaBoletoImpressoBean.mpCartorioOficioSel}" required="true"
+											itemLabel="Todos" itemValue="#{mpBaixaBoletoImpressoBean.mpCartorioOficioX}"
+											requiredMessage="Favor selecione o Ofício desejado !" -->
+	        						<b:radiobutton id="rbDest1" value="#{mpBaixaBoletoImpressoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBaixaBoletoImpressoBean.mpCartorioOficio1.apelido}"
+	        								itemValue="#{mpBaixaBoletoImpressoBean.mpCartorioOficio1}"
+											 required="true" requiredMessage="Favor selecione o Ofício desejado !" />
+	        						<b:radiobutton id="rbDest2" value="#{mpBaixaBoletoImpressoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBaixaBoletoImpressoBean.mpCartorioOficio2.apelido}" 
+	        								itemValue="#{mpBaixaBoletoImpressoBean.mpCartorioOficio2}" />
+	        						<b:radiobutton id="rbDest3" value="#{mpBaixaBoletoImpressoBean.mpCartorioOficioSel}" 
+	        								itemLabel="#{mpBaixaBoletoImpressoBean.mpCartorioOficio3.apelido}" 
+	        								itemValue="#{mpBaixaBoletoImpressoBean.mpCartorioOficio3}" />
+	        						<b:radiobutton id="rbDest4" value="#{mpBaixaBoletoImpressoBean.mpCartorioOficioSel}" 
+	       									itemLabel="#{mpBaixaBoletoImpressoBean.mpCartorioOficio4.apelido}" 
+	       									itemValue="#{mpBaixaBoletoImpressoBean.mpCartorioOficio4}" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	     					</b:panel>
+
+							<div>
+				            	<p:outputLabel value="Data De : " />
+								<p:spacer />
+								<p:calendar pattern="dd/MM/yyyy" mask="true"
+									locale="pt" timeZone="America/Sao_Paulo"
+									value="#{mpBaixaBoletoImpressoBean.dataDe}" />
+								<p:spacer />
+								<p:spacer />
+				            	<p:outputLabel value="Data Até : " />
+								<p:spacer />
+								<p:calendar pattern="dd/MM/yyyy" mask="true"
+									locale="pt" timeZone="America/Sao_Paulo"
+									value="#{mpBaixaBoletoImpressoBean.dataAte}" />
+								<p:spacer />
+						   </div>
+
+	     					<br />						 
+						    							
+							<p:commandButton value="Download Boletos Impressos »" ajax="false" look="primary" 
+										onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+							     <p:fileDownload value="#{mpBaixaBoletoImpressoBean.file}" />
+							</p:commandButton>
+							
+							<p:spacer width="100" height="10" /> 
+							<!-- h:outputText value="Ind.SQL: " />
+							<p:selectBooleanCheckbox value="#{mpBaixaBoletoImpressoBean.indSQL}"  -->
+						</h:form>						
+						
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,297 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpAutorizaCancelamentoBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<h:outputScript name="js/print.min.js" target="head" />
+
+	    <script type="application/javascript">
+	       	function handleMsg(msg){
+	        	alert(msg);
+	    	}
+	    </script>
+	    
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:jumbotron fluid="true" id="autorizaCancelamentoId">
+			<b:row>
+				<b:column col-md="1">
+				</b:column>
+				<b:column col-md="5">
+					<h4>Serviço Verificar Autorização de Cancelamento: </h4>
+				</b:column>
+				<b:column col-md="5">
+					<!-- b:image small-screen="one-third" library="images" name="servicoCancelamento.jpg"  
+						tooltip="Serviço BOLETO" tooltipPosition="right"
+						style="width:60%; height:200px;" />  -->
+				</b:column>
+				<b:column col-md="1">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="12">
+					<b:panel collapsible="false" look="primary">
+						<f:facet name="heading">
+							<h:outputText value="Seleção: " />
+						</f:facet>
+
+						 <b:form id="frmSelBol" inline="true">
+						 
+							<p:messages />
+							<p:focus />
+							<p:growl id="msg" />
+														
+							<b:panel style="padding-left:100px">
+	
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6"
+									rendered="#{mpSeguranca.isAdministrador() or (mpAutorizaCancelamentoBean.indUsuario)}">
+									<p:outputLabel value="Selecionar?" />
+									<b:radiobutton id="Oficio"
+										value="#{mpAutorizaCancelamentoBean.mpCartorioOficioSel}"
+										required="true"
+										itemLabel="#{mpAutorizaCancelamentoBean.mpCartorioOficio1.apelido}"
+										itemValue="#{mpAutorizaCancelamentoBean.mpCartorioOficio1}"
+										requiredMessage="Favor selecione o Ofício desejado !" />
+									<b:radiobutton id="rbDest2"
+										value="#{mpAutorizaCancelamentoBean.mpCartorioOficioSel}"
+										itemLabel="#{mpAutorizaCancelamentoBean.mpCartorioOficio2.apelido}"
+										itemValue="#{mpAutorizaCancelamentoBean.mpCartorioOficio2}" />
+									<b:radiobutton id="rbDest3"
+										value="#{mpAutorizaCancelamentoBean.mpCartorioOficioSel}"
+										itemLabel="#{mpAutorizaCancelamentoBean.mpCartorioOficio3.apelido}"
+										itemValue="#{mpAutorizaCancelamentoBean.mpCartorioOficio3}" />
+									<b:radiobutton id="rbDest4"
+										value="#{mpAutorizaCancelamentoBean.mpCartorioOficioSel}"
+										itemLabel="#{mpAutorizaCancelamentoBean.mpCartorioOficio4.apelido}"
+										itemValue="#{mpAutorizaCancelamentoBean.mpCartorioOficio4}" />
+								</b:panelGrid>
+							</b:panel>
+							
+							<b:panel collapsible="false" look="primary">
+								
+								<f:facet name="heading">
+									<h:outputText value="" />
+								</f:facet>
+								
+								<b:panelGrid size="xs" columns="12">
+								    <b:radiobutton value="#{mpAutorizaCancelamentoBean.opcaoCpfCnpj}" 
+								    		itemLabel="CPF" itemValue="cpf" 
+								    		onclick="ajax:radiobuttonBean.submit()" update="@form"
+								    		required="true" requiredMessage="Cpf/Cnpj é obrigatório." />
+								    <b:radiobutton value="#{mpAutorizaCancelamentoBean.opcaoCpfCnpj}" 
+								    		itemLabel="CNPJ" itemValue="cnpj" update="@form" />
+									<h:outputText value="" />
+									<h:outputText value="" />
+									<h:outputText value="" />
+									<h:outputText value="" />
+								</b:panelGrid>
+
+								<h:panelGrid columns="3" cellpadding="5">
+									<h:panelGrid columns="3" cellpadding="5">
+										<b:inputText label="Número do CPF:" labelStyle="width:120px;" id="cpf"							
+											placeholder="Informe CPF"
+											mask="999.999.999-99"
+											rendered="#{mpAutorizaCancelamentoBean.opcaoCpfCnpj eq 'cpf'}"
+											value="#{mpAutorizaCancelamentoBean.usuarioCpfCnpj}">
+										</b:inputText>
+										<b:inputText label="Número do CNPJ:" labelStyle="width:120px;" id="cnpj"							
+											placeholder="Informe CNPJ"
+											mask="99.999.999/9999-99"
+											rendered="#{mpAutorizaCancelamentoBean.opcaoCpfCnpj eq 'cnpj'}"
+											value="#{mpAutorizaCancelamentoBean.usuarioCpfCnpj}">
+										</b:inputText>
+						                <b:commandButton id="cbListarId" value="Listar"
+						                	look="primary" icon="chevron-right" iconAlign="right" process="@this"                     
+						                    action="#{mpAutorizaCancelamentoBean.listar}" />
+						            </h:panelGrid>
+									<h:panelGrid columns="4" cellpadding="5" 
+																	rendered="#{mpSeguranca.indEnviaEmailBoleto}">
+										<p:spacer width="50" height="10" /> 
+										<p:outputLabel value=" Envia por E-mail ?" />
+										<p:spacer width="10" height="10" /> 
+								        <p:inputSwitch onLabel="Sim" offLabel="Não"
+								        	value="#{mpAutorizaCancelamentoBean.indEmailBoleto}">
+								            <p:ajax listener="#{mpAutorizaCancelamentoBean.addMessageEmail}" 
+								            	update="emailBoletoId msg" />
+								        </p:inputSwitch>
+						            </h:panelGrid>
+									<h:panelGrid columns="1" cellpadding="5" 
+																		rendered="#{mpSeguranca.indEnviaEmailBoleto}">
+					                	<p:inputText id="emailBoletoId" size="45"
+					                		readonly="#{!mpAutorizaCancelamentoBean.indEmailBoleto}"
+					                		value="#{mpAutorizaCancelamentoBean.emailBoleto}" />
+						            </h:panelGrid>
+								</h:panelGrid>
+
+							</b:panel>
+
+							<b:tabView id="tabViewIdEB" activeIndex="0"
+										dynamic="true" cache="false" pills="true" 
+										contentStyle="border: 1px solid #ddd;padding:10px">
+							
+			  					<b:tab id="tabIdEB" title="Emissão Boleto Autorização de Cancelamento">									
+									<b:row>
+										<b:column col-md="12">
+										
+											<b:dataTable value="#{mpAutorizaCancelamentoBean.mpAutorizaCancelamentoList}"
+												var="mpAutorizaCancelamentoX" id="dataTableId"
+												customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+												reflow="true" style="margin-top:20px"
+												emptyMessage="Nenhum registro encontrado."
+												paginator="true" paginatorPosition="top">
+					
+												<b:dataTableColumn style="text-align:center;" label="Oficio"
+													value="#{mpAutorizaCancelamentoX.codigoOficio}" />
+												<b:dataTableColumn style="text-align:center;"  label="Apresentante"
+													value="#{mpAutorizaCancelamentoX.apresentante}" />
+												<b:dataTableColumn style="text-align:center;"  label="Protocolo"
+													value="#{mpAutorizaCancelamentoX.protocolo}" />
+												<b:dataTableColumn style="text-align:center;"  label="Dt.Protocolo"
+													value="#{mpAutorizaCancelamentoX.dataProtocoloSDF}" />
+												<b:dataTableColumn style="text-align:center;"  label="Devedor"
+													value="#{mpAutorizaCancelamentoX.devedor}" />
+												<b:dataTableColumn style="text-align:center;"  label="Saldo"
+													value="#{mpAutorizaCancelamentoX.valor}" />
+												<b:dataTableColumn style="text-align:center;"  label="Ocorrencia"
+													value="#{mpAutorizaCancelamentoX.ocorrencia}" />
+												<b:dataTableColumn style="text-align:center;"  label="Dt.Ocorrência"
+													value="#{mpAutorizaCancelamentoX.dataOcorrenciaSDF}" />
+													
+												<b:dataTableColumn label="Ação">
+													<p:commandButton id="geraButton" look="primary" icon="print"
+															action="#{mpAutorizaCancelamentoBean.geraBoleto}"
+															value="Gerar Boleto" ajax="false">
+														<f:setPropertyActionListener value="#{mpAutorizaCancelamentoX}" 
+																target="#{mpAutorizaCancelamentoBean.mpAutorizaCancelamentoSelX}" />									
+													</p:commandButton>																				
+												</b:dataTableColumn>
+													
+											</b:dataTable>
+										</b:column>
+									</b:row>							
+								</b:tab>					
+			  					<b:tab id="tab2aVia" title="Boleto(s) Emitidos (2a.Via)">			
+									<f:facet name="anchor"><b:iconAwesome name="cog" spin="true" /></f:facet>
+									<b:row>
+										<b:column col-md="1" />
+										<b:column col-md="11">
+											<h:panelGroup>
+										    	<b:panelGrid size="xs" columns="4">
+													<p:outputLabel value="" />
+													<p:outputLabel value="" />
+													<b:inputText placeholder="Informe o CPF/CNPJ" size="14"
+														value="#{mpAutorizaCancelamentoBean.cpfCnpj}">
+														<f:facet name="prepend">
+															<h:outputText value="CPF / CNPJ:" />
+														</f:facet>
+													</b:inputText>
+													<b:commandButton value="Listar Boletos Emitidos »"
+														action="#{mpAutorizaCancelamentoBean.listaBoletoEmitido}" 
+														look="primary" update="frmSelBol" />
+												</b:panelGrid>
+											</h:panelGroup>
+										</b:column>
+									</b:row>
+									<b:row>
+										<b:column col-md="1" />
+										<b:column col-md="10">
+					
+											<b:dataTable id="idBoletoTab" 
+												value="#{mpAutorizaCancelamentoBean.mpBoletoListP}" 
+												var="mpBoletoXP" class="edtBoletoTab"						
+												customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+																			
+												<b:dataTableColumn value="#{mpBoletoXP.codigoOficio}º" order="asc" 
+																								label="Oficio" 
+													style="text-align:center;" />
+												<b:dataTableColumn value="#{mpBoletoXP.nomeSacado}" order="asc" 
+																								label="Nome Sacado" />
+												<b:dataTableColumn value="#{mpBoletoXP.numeroDocumento}"
+													label="Numero Documento" style="text-align:center;" />
+												<b:dataTableColumn label="Data Vencimento" style="text-align:center;">
+													<h:outputText value="#{mpBoletoXP.dataVencimento}">
+														<f:convertDateTime pattern="dd/MM/yyyy" 
+																						timeZone="America/Sao_Paulo" />
+													</h:outputText>
+												</b:dataTableColumn>
+												<b:dataTableColumn label="Valor Documento"
+													style="text-align:center;">
+													<h:outputText value="#{mpBoletoXP.valorDocumento}">
+														<f:convertNumber type="currency" pattern="###,##0.00" />
+													</h:outputText>
+												</b:dataTableColumn>
+												<b:dataTableColumn value="#{mpBoletoXP.contadorImpressao}" label="Prt" />
+												<b:dataTableColumn label="Ação">
+
+												  	<b:commandButton id="downloadLink" value="Gerar 2a.Via do Boleto"
+												  		ajax="false" look="primary" icon="print">
+														<f:setPropertyActionListener value="#{mpBoletoXP}" 
+															target="#{mpAutorizaCancelamentoBean.mpBoletoSelX}" />									
+												    	<p:fileDownload 
+												    		value="#{mpAutorizaCancelamentoBean.downloadValue}" />
+												  	</b:commandButton>														
+																							
+												</b:dataTableColumn>
+											</b:dataTable>
+					
+										</b:column>
+										<b:column col-md="1" />
+									</b:row>
+								</b:tab>					
+			
+							</b:tabView>								
+							
+						</b:form>						
+					</b:panel>
+				</b:column>
+			</b:row>
+		</b:jumbotron>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <title><ui:insert name="titulo">Cartórios Protestos Capital - RJ</ui:insert></title>
+        <meta name="author" content="MPXDS.com.br"></meta>
+        
+        <h:outputStylesheet library="css" name="mpSistema.css" />
+        <h:outputScript library="js" name="jquery.maskMoney.js"/>
+        <h:outputScript library="js" name="mpValidadores.js"/>
+        
+    	<script src="https://maps.google.com/maps/api/js?key=AIzaSyCm_ysbO1o2DVSGd-qFHlsy9EnwIiL0xSM" defer="defer"
+            type="text/javascript"></script>
+            
+		<h:outputScript library="primefaces" name="gmap/gmap.js" />   	   	
+        
+	</h:head>
+
+    <h:body style="padding-top: 5px; padding-bottom: 5px;">
+    
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:navBar brand=" Cartórios de Protestos Capital - RJ #{mpSeguranca.mostraServidorTeste()}" 
+																	brandHref="#{root}/Inicio" inverse="true" fixed="top"
+			brandImg="#{root}/resources/images/#{mpSeguranca.logoMenu}">
+			<b:navbarLinks pull="right">
+				<b:navLink value="Inicio" href="#{root}/Inicio" iconAwesome="fa-home" iconAlign="left" active="true" />
+				<b:navLink value="Serviços" href="#{root}/Servicos"></b:navLink>
+				<b:navLink value="Informações" href="#{root}/Informacoes"></b:navLink>
+				<b:navLink value="Legislações" href="#{root}/Legislacoes"></b:navLink>
+				<b:navLink value="Links" href="#{root}/Links"></b:navLink>
+				<b:navLink value="Contato" href="#{root}/Contato"></b:navLink>
+				<b:dropMenu value="Central do Cliente">
+		       		<b:navLink value="Login - Area Restrita para Cliente Cadastrado" href="#{root}/Home"
+		               													iconAwesome="fa-lock" iconAlign="left" />
+				</b:dropMenu>
+			</b:navbarLinks>
+		</b:navBar>
+		
+		
+			<b:container fluid="true">
+				<b:row>
+					<b:column col-md="4">
+					</b:column>
+					<b:column col-md="4">
+						<p:spacer width="10" height="50" />
+					</b:column>
+					<b:column col-md="4">
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column col-md="1">
+					</b:column>
+					<b:column col-md="10">
+						<b:carousel id="parque" style="width:100%;" interval="2500">
+							<b:carouselItem style="padding-left:10px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto4-1XXX.jpg"  
+									tooltip="Economia, Segurança e Eficiência..." 
+									style="width:100%;" tooltipPosition="right"  />
+							</b:carouselItem>
+							<b:carouselItem style="padding-left:10px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto3-1XXX.jpg"  
+									tooltip="Titulos enviados para protestos são solucionados em 3 dias..." 
+									style="width:100%;" tooltipPosition="right"  />
+							</b:carouselItem>
+							<b:carouselItem style="padding-left:10px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto1-1XXX.jpg"  
+									tooltip="Cartorio a Instituição que o Brasil confia..." 
+									style="width:100%;" tooltipPosition="right"  />
+							</b:carouselItem>
+							<b:carouselItem style="padding-left:10px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto2-1XXX.jpg"  
+									tooltip="Eficiência e rapidez na cobrança de dividas..." 
+									style="width:100%;" tooltipPosition="right"  />
+							</b:carouselItem>
+						</b:carousel>
+					</b:column>
+					<b:column col-md="1">
+					</b:column>
+				</b:row>
+			</b:container>
+		
+		<div id="conteudo">
+			<ui:insert name="corpo"/>
+		</div>
+		
+		<p:separator style="margin-top: 20px"/>
+		
+		<footer>
+            <ui:include src="/WEB-INF/template/MpFooter.xhtml" />
+		</footer>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5e94cbe135bcbb0c9ab0a8f1/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
+<!--End of Tawk.to Script-->
+
+
+<script type="text/javascript">
+PrimeFaces.locales['pt'] = {
+            closeText: 'Fechar',
+            prevText: 'Anterior',
+            nextText: 'Próximo',
+            currentText: 'Começo',
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Des'],
+            dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+            dayNamesMin: ['D','S','T','Q','Q','S','S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Só Horas',
+            timeText: 'Tempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            currentText: 'Data Atual',
+            ampm: false,
+            month: 'Mês',
+            week: 'Semana',
+            day: 'Dia',
+            allDayText : 'Todo Dia'
+        };
+</script>			
+
+	</h:body>
+	
+</html>

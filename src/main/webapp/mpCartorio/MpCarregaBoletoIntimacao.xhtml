@@ -1,0 +1,173 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpCarregaBoletoIntimacaoBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="1">
+						<i class="fa fa-upload" aria-hidden="true" style="font-size:70px;color:blue"></i>
+					</b:column>
+					<b:column col-md="6">
+						<h3>Carregar Movimento Boleto Intimação</h3>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+				</b:row>				
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+						
+						<h:form id="frmUB" enctype="multipart/form-data">
+							<p:messages showDetail="false" autoUpdate="true" closable="true" />
+
+							<p:focus />
+							<p:growl id="msg" />
+
+							<b:panel style="padding-left:50px">	
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+									<p:outputLabel value="Selecionar?" />
+	        						<b:radiobutton id="Oficio" value="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio1.apelido}" 
+	        									itemValue="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio1}" 
+	        									required="true" requiredMessage="Favor selecione o Ofício desejado !" />
+	        						<b:radiobutton id="rbDest2" value="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio2.apelido}" 
+	        									itemValue="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio2}" />
+	        						<b:radiobutton id="rbDest3" value="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio3.apelido}" 
+	        									itemValue="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio3}" />
+	        						<b:radiobutton id="rbDest4" value="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio4.apelido}" 
+	        									itemValue="#{mpCarregaBoletoIntimacaoBean.mpCartorioOficio4}" />
+	    						</b:panelGrid>
+	     					</b:panel>
+	     					
+							<h:panelGrid columns="8" cellpadding="5">
+								<p:spacer width="50" height="10" /> 
+								<p:outputLabel value=" Carga DIÁRIA ?" />
+								<p:spacer width="10" height="10" /> 
+						        <p:inputSwitch onLabel="Sim" offLabel="Não"
+						        	value="#{mpCarregaBoletoIntimacaoBean.indCargaDiaria}">
+						            <p:ajax listener="#{mpCarregaBoletoIntimacaoBean.addMessageCargaDiaria}" 
+						            	update="msg" />
+						        </p:inputSwitch>
+
+								<p:spacer width="50" height="10" /> 
+								<p:outputLabel value=" Registra BRADESCO ?" />
+								<p:spacer width="10" height="10" /> 
+						        <p:inputSwitch onLabel="Sim" offLabel="Não"
+						        	value="#{mpCarregaBoletoIntimacaoBean.indRegistroBradesco}">
+						            <p:ajax listener="#{mpCarregaBoletoIntimacaoBean.addMessageRegistroBradesco}" 
+						            	update="msg" />
+						        </p:inputSwitch>
+				            </h:panelGrid>
+	     					
+						    <p:fileUpload value="#{mpCarregaBoletoIntimacaoBean.file}" mode="simple" skinSimple="true" 
+						    																	label="Escolher"/>
+	     					<br />
+	     					
+	    					<b:panelGrid size="xs" columns="6">
+				            	<p:outputLabel value="Dt.Protocolo: " />
+								<p:calendar pattern="dd/MM/yyyy" mask="true"
+									locale="pt" timeZone="America/Sao_Paulo"
+									value="#{mpCarregaBoletoIntimacaoBean.dataSel}">
+									<p:ajax listener="#{mpCarregaBoletoIntimacaoBean.addMessageDataSel}" update="msg" />
+						      	</p:calendar>
+									
+								<p:spacer />
+								<p:spacer />
+								<p:spacer />
+								<p:spacer />
+						   </b:panelGrid>
+	     					
+	     					<br />
+							<p:commandButton value="Enviar Arquivo ..." 
+									rendered="#{!mpCarregaBoletoIntimacaoBean.indCargaBoleto}"
+									ajax="false" actionListener="#{mpCarregaBoletoIntimacaoBean.upload}" />	
+																										
+							<p:commandButton value="Gerar Arquivo API Intima21 ..." 
+									rendered="#{mpCarregaBoletoIntimacaoBean.indCargaBoleto}"
+									ajax="false" actionListener="#{mpCarregaBoletoIntimacaoBean.intima21}" />
+									
+							<p:commandButton value="Download Arquivo API Intima21 ..." 
+								ajax="false" immediate="true"
+								actionListener="#{mpCarregaBoletoIntimacaoBean.download()}"
+								rendered="#{mpCarregaBoletoIntimacaoBean.indCargaBoleto}"
+								onclick="PrimeFaces.monitorDownload(start, stop);">
+								<p:fileDownload value="#{mpCarregaBoletoIntimacaoBean.fileSC}" />
+							</p:commandButton>
+																										
+							<p:commandButton value="Enviar Arquivo API Intima21 ..." 
+								ajax="false" actionListener="#{mpCarregaBoletoIntimacaoBean.enviaArquivoIntima21}" />
+																
+						</h:form>						
+						
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+<script type="text/javascript">
+    //<![CDATA[
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+    //]]>
+</script>
+
+	</ui:define>
+
+</ui:composition>

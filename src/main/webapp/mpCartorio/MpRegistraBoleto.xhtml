@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="2">
+						<i class="fa fa-bank" aria-hidden="true" style="font-size:96px;color:blue"></i>
+					</b:column>
+					<b:column col-md="5">
+						<h3>Registrar Boleto - BRADESCO</h3>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+				</b:row>				
+				<b:row>
+					<b:column col-md="12">
+						
+						<h:form>
+						
+							<b:messages styleClass="msgs" redisplay="true" recursive="true" />
+							<p:messages showDetail="false" autoUpdate="true" closable="true" />
+			
+							<b:growl placementFrom="top" delay="3000" escape="true" />
+							
+					    	<b:panelGrid size="xs" columns="4">
+								<p:outputLabel value="Numero Oficio: ( 4 )" />
+								<b:dateTimePicker value="#{mpRegistraBoletoBean.dataIntimacao}" show-time="false" 
+									format="DD/MM/YYYY" label="Data Documento:" col-md="8" offset="2" />
+								<b:inputText placeholder="Informe o Número do Protocolo"
+									value="#{mpRegistraBoletoBean.numeroIntimacao}">
+									<f:facet name="prepend">
+										<h:outputText value="Número do Protocolo:" />
+									</f:facet>
+								</b:inputText>
+								<p:commandButton value="Registrar Boleto" ajax="false"
+												actionListener="#{mpRegistraBoletoBean.registrarBoleto}" />
+							</b:panelGrid>
+							
+						</h:form>						
+						
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

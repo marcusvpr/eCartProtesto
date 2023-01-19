@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>commons</param-value>
+	</context-param>
+
+	<context-param>
+   	 	<param-name>BootsFaces_THEME</param-name>
+    	<param-value>cerulean</param-value>
+		<!-- param-value>default</param-value  -->
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+		<param-value>0</param-value>
+	</context-param>
+
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LdD9i0UAAAAAMfHASCxbDF1yMVu99dB824krma9</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LdD9i0UAAAAAMV5UZp41-PlL-XoZdEqe2J61WjH</param-value>
+    </context-param>	
+
+	<!-- Activates the waitcursor and the double-click protection -->
+	<context-param>
+		<param-name>net.bootsfaces.blockUI</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
+	</listener>
+	
+	<resource-env-ref>
+		<resource-env-ref-name>BeanManager</resource-env-ref-name>
+		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
+	</resource-env-ref>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+	     <init-param>
+    	     <param-name>requestProcessorAttribute</param-name>
+        	 <param-value>mpxds1</param-value>
+     	</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Jersey Servlet configurations -->
+    <servlet>
+    	<servlet-name>Jersey REST Service</servlet-name>
+    	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    	<init-param>
+      		<param-name>com.sun.jersey.config.property.packages</param-name>
+     	 	<param-value>com.mpxds.mpbasic.rest</param-value>
+    	</init-param>
+	    <!-- init-param>
+    	     <param-name>requestProcessorAttribute</param-name>
+        	 <param-value>mpxds2</param-value>
+     	</init-param -->
+     	<load-on-startup>1</load-on-startup>
+  	</servlet>
+  	<servlet-mapping>
+   		<servlet-name>Jersey REST Service</servlet-name>
+    	<url-pattern>/restapi/*</url-pattern>
+  	</servlet-mapping>
+  	<!-- Jersey Servlet configurations -->	
+  	
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/Erro</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/Erro404</location>
+	</error-page>
+	
+	<!-- inicio - forçar a utilização de SSL CONFIDENTIAL / NONE -->
+	<security-constraint>
+  		<web-resource-collection>
+    	<web-resource-name>securedapp</web-resource-name>
+    		<url-pattern>/*</url-pattern>
+  		</web-resource-collection>
+  		<user-data-constraint>
+    		<transport-guarantee>NONE</transport-guarantee>
+  		</user-data-constraint>
+	</security-constraint>
+	<!-- fim - forçar a utilização de SSL -->	
+
+</web-app>

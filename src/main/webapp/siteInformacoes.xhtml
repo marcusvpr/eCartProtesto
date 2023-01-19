@@ -1,0 +1,232 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:define name="corpo">
+		
+		<b:jumbotron id="informacaoId" style="padding-top: 5px; padding-bottom: 5px;">
+			<b:container fluid="true">
+				<b:row>
+					<b:column col-md="5">
+					</b:column>
+					<b:column col-md="2">
+						<!-- h3 align="center"><font size="+2" color="grey">Informações</font></h3>  -->
+						<b:image library="images" name="titulo_informacoes.png"
+							tooltip="Informações" tooltipPosition="right" 
+							style="max-width:100px; margin:0 auto; display:block; width:90%;" />							
+					</b:column>
+					<b:column col-md="5">
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column col-md="1">
+					</b:column>
+					<b:column col-md="10">
+						<h2></h2>
+	
+						<p:accordionPanel>
+							<p:tab title="1. Protesto" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+									O QUE É O PROTESTO ?<BR />
+									<BR />A Lei Federal nº 9.492, de 10 de setembro de 1997 em conjunto com a Consolidação Normativa da Corregedoria Geral de Justiça do Estado do Rio de Janeiro disciplinam a atividade do protesto de títulos, e definem o protesto como: ato formal e solene pelo qual se prova a inadimplência e o descumprimento de obrigação originada em títulos e outros documentos de dívida. 
+									<BR /><BR />Portanto, protesto é um serviço público, realizado pelo Tabelião de Protesto, agente dotado de fé pública, a quem é delegado o exercício da atividade notarial nos termos do art 3.º, da Lei nº 8.935, de 18 de novembro de 1994, e art. 236 da Constituição Federal. Sua atividade é regulamentada pelo Poder Público e está sujeita à fiscalização do Poder Judiciário. 
+									<BR /><BR />No entanto, mais que a definição legal, PROTESTO É A FERRAMENTA MAIS RÁPIDA E EFICAZ DE COBRANÇA, pela alta eficiência na recuperação de créditos
+									<BR /><BR />É por meio do protesto  que as instituições de proteção de crédito como a SERASA e o SCPC conseguem as informações sobre os devedores inadimplentes e, com isso, adotam as medidas restritivas.
+									<BR /><BR />Você pode protestar qualquer título ou documento de dívida, desde contratos de aluguel até notas promissórias.
+									<BR /><BR />Como possui amparo legal e fiscalização do Poder Judiciário, o protesto é uma das formas mais seguras para receber as suas dívidas
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="2. Vantagens ao Protestar" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+* GARANTIA DE ENTREGA DA INTIMAÇÃO PARA O DEVEDOR 
+<BR /><BR />Tudo fica documentado para você ter a segurança de que o devedor foi notificado e terá até três dias úteis para realizar o pagamento.
+<BR /><BR />*MEIO RÁPIDO DE RECUPERAÇÃO DE CRÉDITO 
+<BR /><BR />Quem não recebe a dívida, tem pressa. Para recuperar o seu dinheiro rapidamente, a melhor maneira é protestar. 
+<BR /><BR />*O PROTESTO TORNA PÚBLICA A INADIMPLÊNCIA E SÓ TERMINA QUANDO FOR CANCELADO. 
+<BR /><BR />Ao contrário da negativação realizada pelos órgãos de proteção ao crédito, que só pode ser divulgada por até cinco anos, o protesto permanece no nome do devedor até o seu cancelamento. 
+<BR /><BR />* O PROTESTO NÃO IMPEDE A EXECUÇÃO E VICE-VERSA 
+<BR /><BR />Isso significa que os processos não se anulam, podem acontecer simultaneamente. Vale ressaltar que a eficiência do protesto é superior a da execução. 
+<BR /><BR />* O PROTESTO INTERROMPE A PRESCRIÇÃO 
+<BR /><BR />Isso quer dizer que não ocorre a perda do exercício de direito devido à passagem do tempo. Por isso, quando você não receber uma dívida que está vencida, não perca tempo: proteste antes da data de prescrição.
+<BR /><BR />Com o protesto, o prazo recomeça e você tem mais chances de recuperar o valor. Esse direito está resguardado no art. 202, III do Código Civil. 
+<BR /><BR />* DIREITO DE REGRESSO 
+<BR /><BR />Garante o exercício do direito de regresso contra endossantes, sacador e seus avalistas, ou seja, você pode cobrar a dívida com quem negociou com você e não apenas do devedor.
+<BR /><BR />*PERMITE ATUALIZAÇÃO DA DÍVIDA 
+<BR /><BR />O protesto fixa  o termo inicial da incidência de juros, taxas e atualizações monetárias sobre o valor da obrigação contida no título ou documento de dívida, se não houver prazo assinalado (art. 40, Lei nº 9.492/97);
+<BR /><BR />* O PROTESTO PODE RESULTAR EM FALÊNCIA.
+<BR /><BR />Caso a dívida não seja paga no vencimento e o valor total seja superior ao teto limite estabelecido, o juiz pode decretar a falência do devedor.								</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="3. Ciclo do Protesto" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">COMO PROTESTAR
+	<BR /><BR />O processo de protesto de títulos é muito simples! Os cartórios de protesto são o banco de dados de inadimplência oficial do poder público no Brasil.
+	<BR /><BR />Conforme rege a Lei 9.492/97:
+	<BR /><BR />1.	O título é protocolizado pelo credor no Tabelionato de Protesto;
+	<BR /><BR />2.	O Tabelião envia intimação do Protesto ao devedor;
+	<BR /><BR />3.	No endereço do devedor, informado pelo apresentante, o aviso de recepção (AR) é assinado por quem receber a intimação;
+	<BR /><BR />4.	Se o devedor não for localizado, o Tabelião efetuará intimação por edital, que será fixado no próprio Tabelionato e publicado na imprensa local. (art. 14, Lei 9492/97).
+	<BR /><BR />5.	O Protesto será registrado pelo Tabelião no primeiro dia útil seguinte ao término do prazo para pagamento.
+	<BR /><BR />Mais:
+	<BR /><BR />•	O credor pode desistir antes da efetivação do Protesto, desde que retire o título e pague os emolumentos e despesas do Tabelião.
+	<BR />•	O devedor pode evitar o Protesto pelo pagamento do título ou pela sustação judicial.
+	<BR />•	O pagamento deve ser efetuado por meio de boleto bancário ou diretamente no cartório.
+	<BR />•	O Protesto no Rio de Janeiro conta com significativo índice de eficiência de pagamento, em torno de 53%, nos 3 primeiros dias úteis. Ou seja, os títulos ou documentos de dívida de emissão recente encaminhados a protesto, não seram protestados, pois, em sua grande maioria, os devedores efetuam o pagamento dos mesmos, após o recebimento da intimação.
+									</p>
+									<b:image small-screen="one-third" library="images" name="O_CICLO_DO_PROTESTO-768x1024.jpg"  
+										tooltip="Fluxo de Protesto" tooltipPosition="right" style="width:70%;" />								
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="4. Retirada" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+	É permitida a desistência do protesto desde que efetuada antes de sua lavratura.
+	
+	<BR /><BR />A desistência do protesto deverá ser feita da seguinte forma: 
+	<BR /><BR />a) o apresentante deverá solicitar a retirada ao Tabelionato mediante entrega do recibo de protocolo ou,
+	<BR /><BR />b) elaborar requerimento ao Tabelião (caso seja pessoa jurídica, esta carta deverá ser em papel timbrado) que deverá conter todos os dados do título (número do título, valor, número e data do protocolo), solicitando a devolução do título sem protesto. 
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="5. Sustação" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+Por algum tipo de equívoco, títulos podem ser indevidamente encaminhados a protesto. No entanto, o protesto indevido pode ser evitado por meio da sustação, que representa uma determinação judicial de suspensão do protesto, até a analise do caso pelo magistrado. 
+<BR /><BR />Após o recebimento da determinação de sustação, apenas com autorização judicial o título poderá ser pago, retirado ou protestado e ficará à disposição do juízo no Tabelionato.
+<BR /><BR />Se a ordem de sustação for revogada pelo juiz, o Protesto será lavrado e registrado até o primeiro dia útil posterior ao recebimento da revogação, exceto se a efetivação do Protesto depender de consulta ao apresentante. 
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="6. Títulos Irregulares" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+	Os títulos que não preencherem os requisitos necessários para que se proceda ao seu  protesto serão devolvidos por irregularidade, sem cobrança dos emolumentos.
+	
+	<BR /><BR />Nestes casos, o título será devolvido ao apresentante mediante a apresentação do recibo do protocolo e poderá ser reapresentado desde que seja(m) sanada(s) a(s) irregularidade(s) que ensejou(aram) sua devolução.
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="7. Efeitos do Protesto" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+	APÓS LAVRADO O PROTESTO:
+	<BR /><BR />•	Comprova-se a inadimplência do devedor, tornando-a PÚBLICA;
+	<BR />•	Interrompe-se a prescrição do título (art. 202, CCB);
+	<BR />•	O credor pode promover ação contra seus devedores, funcionando o protesto como um meio de conservar direitos;
+	<BR />•	Garante-se o direito regressivo contra os coobrigados, desde que efetivada dentro dos prazos legais;
+	<BR />•	Habilita o credor a ingressar com pedido de falência;
+	<BR />•	Incidem juros, taxas e atualizações monetárias sobre o valor da obrigação, conforme art. 40 da Lei nº 9.492, de 1997.
+	<BR />•	O documento não aceito é considerado vencido (marca a data de vencimento da dívida).
+									
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="8. Cancelamento" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+	<BR /><BR />O cancelamento do protesto pode ser realizado de forma física ou eletrônica.
+	
+	<BR /><BR />* CANCELAMENTO ELETRÔNICO
+	
+	<BR /><BR />Chegou a hora de dar adeus à burocracia. Por meio do Sistema de Cancelamento Eletrônico, é possível fazer uma declaração de anuência on-line e enviá-la ao cartório de protesto pela internet., através do site www.cartoriosdeprotestorj.com.br
+	<BR /><BR />Mais tempo e facilidade para você que agora não precisa nem imprimir tão pouco reconhecer firma desse documento. Tudo é feito com rapidez e segurança. Basta possuir um certificado digital para acessar o Sistema de Cancelamento Eletrônico e assinar digitalmente a declaração.
+	
+	<BR /><BR />* CANCELAMENTO PRESENCIAL
+	
+	<BR /><BR />Para cancelar um protesto presencialmente, você terá que entregar ao tabelião
+	<BR /><BR />a) o título protestado (com carimbo de protesto e assinatura do Tabelião ou de eu Substitutos) ou 
+	<BR /><BR />b) uma declaração de anuência. Essa declaração autoriza o processo de cancelamento e deve ter a assinatura do credor bem como a firma reconhecida. Não esqueça de levar um documento de identificação (RG, CNH ou outros documentos representantes de órgão de classe: OAB, CREA, CRM, etc).
+	<BR /><BR />c) uma ordem judicial.
+	
+	<BR /><BR />COMO DEVEM SER AS CARTAS DE ANUÊNCIA:
+	<BR /><BR />Quando o credor é PESSOA FÍSICA:
+	<BR />- o credor deverá providenciar carta de anuência em papel simples, com sua qualificação: nome completo, número do RG e do CPF, nacionalidade, estado civil, endereço e telefone para contato. Deverá, também, reconhecer firma da sua assinatura.
+	<BR />- na carta de anuência deverão constar todos os dados do título protestado: número do título, valor, data de emissão e vencimento, nº protocolo e data, e, se possível, número do livro e da folha do instrumento de protesto.
+	<BR />- mencionar o nome completo do devedor, bem como o número de seu RG e CPF ou CNPJ
+	<BR />- declarar que o título foi quitado ou que não há oposição ao cancelamento do protesto
+	
+	<BR /><BR />Quando o credor é PESSOA JURÍDICA:
+	<BR /><BR />- A empresa credora deverá providenciar carta de anuência em papel timbrado, contendo o número do CNPJ, endereço completo e telefone para contato.
+	<BR />- a assinatura deverá ter sua firma reconhecida
+	<BR />- se a carta for assinada por procurador, anexar cópia autenticada da procuração que deverá conter poderes especiais para dar e receber quitação.
+	<BR />- na carta deverão ser mencionadas todos os dados do título protestado: número, data de emissão e vencimento, nº protocolo e data, e, se possível, número do livro e da folha do instrumento de protesto.
+	<BR />- na carta deverá constar o nome completo do devedor bem como o número de seu RG e CPF ou CNPJ
+	<BR />- declarar que o título foi quitado ou que não há oposição ao cancelamento do protesto.
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="9. Certidão" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<p style="font-size: 14px;">
+	<BR /><BR />A certidão de protesto pode ser solicitada de forma física ou eletrônica.
+	<BR /><BR />* CERTIDÃO ELETRÔNICA
+	
+	<BR /><BR />A certidão eletrônica é realizada 100% eletronicamente. O pedido é realizado por meio do portal e você irá recebê-la no seu e-mail. Todo o processo é feito sem material físico. Mais praticidade e rapidez para você. Veja o site www.cartoriosdeprotestorj.com.br
+	<BR /><BR />* CERTIDÃO FÍSICA
+	
+	<BR /><BR />Você pode requisitar a certidão física no próprio cartório, preenchendo uma solicitação informando o nome e o CPF ou CNPJ.
+									</p>
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+	
+						<p:accordionPanel> <!-- activeIndex="-"> -->
+							<p:tab title="10. Tabela de Emolumentos" 
+								titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+						     	<h:panelGrid columns="1" cellpadding="10">
+									<b:image small-screen="one-third" library="images" name="tabelaCustasEmolumentoX.png"  
+										tooltip="Tabela de Custas e Emolumentos" tooltipPosition="right"
+										style="width:100%; height:80%;" />
+						        </h:panelGrid>
+						     </p:tab>					
+						</p:accordionPanel>					
+					</b:column>
+					<b:column col-md="1">
+					</b:column>
+				</b:row>
+			</b:container>
+		</b:jumbotron>
+	
+	</ui:define>
+				
+</ui:composition>

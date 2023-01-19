@@ -1,0 +1,135 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="1">
+						<i class="fa fa-upload" aria-hidden="true" style="font-size:70px;color:blue"></i>
+					</b:column>
+					<b:column col-md="6">
+						<h3>Carregar Movimento de Titulos</h3>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+												
+						<h:form id="form" enctype="multipart/form-data">
+							<p:messages showDetail="false" autoUpdate="true" closable="true" />
+
+						    <p:fileUpload id="btnUp" fileLimit="1" sizeLimit="161920000" update=":form"
+						    	fileUploadListener="#{mpCarregaTituloBean.upload}"  
+						    	mode="advanced" dragDropSupport="false" auto="false" 
+						    	cancelLabel="Cancelar" label="Escolher... " />						    																	
+	     					<br />						 
+							<b:panel style="padding-left:50px" rendered="#{mpCarregaTituloBean.indFile}">	
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    						</b:panelGrid>
+	    						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+									<p:outputLabel value="Selecionar?" />
+	        						<b:radiobutton id="Oficio" value="#{mpCarregaTituloBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaTituloBean.mpCartorioOficio1.apelido}" 
+	        									itemValue="#{mpCarregaTituloBean.mpCartorioOficio1}" required="true"
+	        									requiredMessage="Favor selecione o Ofício desejado !" />
+	        						<b:radiobutton id="rbDest2" value="#{mpCarregaTituloBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaTituloBean.mpCartorioOficio2.apelido}" 
+	        									itemValue="#{mpCarregaTituloBean.mpCartorioOficio2}" />
+	        						<b:radiobutton id="rbDest3" value="#{mpCarregaTituloBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaTituloBean.mpCartorioOficio3.apelido}" 
+	        									itemValue="#{mpCarregaTituloBean.mpCartorioOficio3}" />
+	        						<b:radiobutton id="rbDest4" value="#{mpCarregaTituloBean.mpCartorioOficioSel}" 
+	        									itemLabel="#{mpCarregaTituloBean.mpCartorioOficio4.apelido}" 
+	        									itemValue="#{mpCarregaTituloBean.mpCartorioOficio4}" />
+	    						</b:panelGrid>
+	     					</b:panel>
+	     					<br />						     						
+	        				<!-- b:selectBooleanCheckbox id="chkPbId" value="#{mpCarregaTituloBean.indPBar}" 
+	        					update=":form" caption="Exibir Barra de Progresso" label="Favor decida ?" />  -->
+	     					<br />						     						
+				            <!-- botao de processar -->
+				            <b:formGroup rendered="#{mpCarregaTituloBean.indPBar}">
+				            	<p:commandButton update=":form :prg" rendered="#{mpCarregaTituloBean.indFile}" id="btnInc"
+				            		value="Processar Inclusão Títulos... ( #{mpCarregaTituloBean.file.fileName} ) " 
+				                    onclick="PF('pb').start();PF('poll').start();" onstart="PF('dlg').show()"
+				                    oncomplete="PF('dlg').hide();PF('pb').cancel();PF('poll').stop();"
+				                    actionListener="#{mpCarregaTituloBean.processarTitulos}" />
+				          	</b:formGroup>
+				            <b:formGroup rendered="#{!mpCarregaTituloBean.indPBar}">				          	
+				          		<p:commandButton value="Enviar" ajax="false"
+				          				rendered="#{mpCarregaTituloBean.indFile}"
+				          				actionListener="#{mpCarregaTituloBean.uploadX}" />
+				          	</b:formGroup>
+						</h:form>						
+						
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+		
+        <!-- Janela cotendo  o progressbar e a mensagem de TITULOS processados -->
+        <p:dialog widgetVar="dlg" appendTo="@(body)" modal="true" width="400" height="200"
+                  header="Progresso" draggable="false" closable="false"
+                  closeOnEscape="false" resizable="false" minimizable="false">
+                  
+            <h:form id="prg">
+                <!-- atualizador do componente mensagem-->
+                <p:poll interval="1" widgetVar="poll" autoStart="false" async="true"
+                        update=":prg:msg" immediate="true"/>
+                <h:outputText value="#{mpCarregaTituloBean.mensagem}" id="msg"/>  
+                <br/>
+              	<!-- progressbar-->
+                <p:progressBar widgetVar="pb" ajax="true" value="#{mpCarregaTituloBean.progresso}" 
+                               labelTemplate="{value}%" styleClass="animated" global="false" />
+                <br/>
+                <br/>
+				<p:commandButton value="Cancelar Inclusão Títulos..." onclick="PF('pb').cancel();PF('poll').stop();"
+								actionListener="#{mpCarregaTituloBean.cancelar}" />
+				                    
+				                    
+            </h:form>
+        </p:dialog>		
+
+	</ui:define>
+
+</ui:composition>

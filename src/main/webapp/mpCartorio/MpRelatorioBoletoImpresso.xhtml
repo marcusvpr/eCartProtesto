@@ -1,0 +1,137 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpRelatorioBoletoImpressosBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="1">
+						<i class="fa fa-print" aria-hidden="true" style="font-size:96px;color:blue"></i>
+					</b:column>
+					<b:column col-md="6">
+						<h3>Relatório Boletos Impressos</h3>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+					<b:column col-md="4" />
+				</b:row>				
+				<b:row>
+					<b:column col-md="12">
+						
+						<h:form id="frm">
+							<p:messages autoUpdate="true" closable="true" />
+				
+							<b:panel style="padding-left:100px">
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+								</b:panelGrid>
+								
+								<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+									<h:panelGroup>
+										<p:outputLabel value="Selecionar?" />
+										<b:radiobutton id="Oficio"
+											value="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioSel}"
+											required="true"
+											itemLabel="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio1.apelido}"
+											itemValue="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio1}"
+											requiredMessage="Favor selecione o Ofício desejado !" />
+									</h:panelGroup>
+									<b:radiobutton id="rbDest2"
+										value="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioSel}"
+										itemLabel="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio2.apelido}"
+										itemValue="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio2}" />
+									<b:radiobutton id="rbDest3"
+										value="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioSel}"
+										itemLabel="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio3.apelido}"
+										itemValue="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio3}" />
+									<b:radiobutton id="rbDest4"
+										value="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioSel}"
+										itemLabel="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio4.apelido}"
+										itemValue="#{mpRelatorioBoletoImpressosBean.mpCartorioOficio4}" />
+									<b:radiobutton id="rbDestX"
+										value="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioSel}"
+										itemLabel="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioX.apelido}"
+										itemValue="#{mpRelatorioBoletoImpressosBean.mpCartorioOficioX}" />
+								</b:panelGrid>
+							</b:panel>
+				
+							<p:panelGrid columns="8" layout="grid"
+								style="border:0px !important; background:none;"
+								styleClass="ui-panelgrid-blank">
+								<p:outputLabel value="Data Inicial: " />
+								<p:calendar id="dataInicial" placeholder="Data Inicial"
+														pattern="dd/MM/yyyy" showOn="button"
+														value="#{mpRelatorioBoletoImpressosBean.dataInicio}" />
+								<p:outputLabel value="Data Final: "  />
+								<p:calendar id="dataFinal" placeholder="Data Final"
+														pattern="dd/MM/yyyy" showOn="button"
+														value="#{mpRelatorioBoletoImpressosBean.dataFim}" />
+								<p:outputLabel />
+								<p:commandButton value="Emitir Relatório" icon="ui-icon-search" ajax="false"
+										 				action="#{mpRelatorioBoletoImpressosBean.emitir}" />
+							</p:panelGrid>
+
+							<p:panelGrid columns="5" layout="grid"
+								style="border:0px !important; background:none;"
+								styleClass="ui-panelgrid-blank">
+								<p:outputLabel />
+								<p:outputLabel />
+								<b:selectBooleanCheckbox value="#{mpRelatorioBoletoImpressosBean.indOrdenaDataNumeroProtocolo}" 
+									caption="Ordenar Data/Número Protocolo" />						 
+								<p:outputLabel />
+								<p:outputLabel />
+							</p:panelGrid>
+
+						</h:form>
+						
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

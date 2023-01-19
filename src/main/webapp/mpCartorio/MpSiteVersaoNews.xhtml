@@ -1,0 +1,229 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:jumbotron fluid="true">
+		
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Versão Atualizações/Correções - Release Notes</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			
+			<b:row>
+				<b:column col-md="3">
+				</b:column>
+				<b:column col-md="6">
+					<p  style="font-size: 14px;">					
+
+	<BR /><BR />. 2020-01-23 - Versão: 1.1.5f ...
+	<BR /><b>- Trata bloqueio boleto pelo robot/titulo para status diferente de 'EM ADAMENTO' ;</b>
+	
+	<BR /><BR />. 2020-01-30 - Versão: 1.1.5g ...
+	<BR /><b>- Trata bloqueio boleto pelo robot/titulo para status diferente de 'EM ADAMENTO' e 'EXCLUIDO DEPOSITO EMITIDO' ;</b>
+
+	<BR /><BR />. 2020-03-03 - Versão: 1.1.5h ...
+	<BR /><b>- Trata desbloqueio boleto pelo robot/titulo para status igual à 'EXCLUIDO DEPOSITO EMITIDO' ;</b>
+	<BR /><b>- Tela nova com 'Versão NEWS', mostra as versões e últimas atualizações/novidades do sistema ;</b>
+	
+	<BR /><BR />. 2020-03-18 - Versão: 1.1.5i ...
+	<BR /><b>- Trata Emissão ALERTA na exibição do site - Controle via Cadastro de Alerta Site ;</b>
+	<BR /><b>- Renovação Certificado Digital 1o.Oficio (Validade = 18/03/2021) ;</b>
+	
+	<BR /><BR />. 2020-03-23 - Versão: 1.1.5j ...
+	<BR /><b>- Implementar CHAT no site (Freshdesk CHAT) ;</b>
+	<BR /><b>- Implementar VPN Hamachi - Home Office ;</b>
+	<BR /><b>- Retirar telefone fax 4o.Oficio - Pagina de contatos ;</b>
+	<BR /><b>- Implementar pagina inicial - Barra lateral - Últimas Noticias ;</b>
+	<BR /><b>- Implementar Cadastro de Notícia Site, será exibida na pagina inicial ;</b>
+	<BR /><b>- Implementar na página principal do site (rodapé/footer), permissão para exibir a mensagem,
+			   via “SistConfig = txtSiteFooter” ;</b>
+	<BR /><b>- Incluir na página inicial opção(balão) de cancelamento de protesto ;</b>
+	<BR /><b>- Alterar pagina de emissão de guia, para exibir instruções cadastradas,
+			   via “SistConfig = txtEmissaoBoleto” ;</b>
+	<BR /><b>- Criar pagina de Serviço de Cancelamento, para exibir instruções cadastradas,
+			   via “SistConfig = txtServicoCancelamento” ;</b>
+	<BR /><b>- Alterar Cadastro de 'SistemaConfig', para editar texto formatado e aumento do campo 'valorT', 
+			   para 10.000 caracteres ;</b>
+	<BR /><b>- Incluir na página inicial opção (balão) de solicitações de certidões ;</b>
+	<BR /><b>- Alterar página de serviços, separar as opções solicitações de certidões e cancelamento de protesto ;</b>
+	
+	<BR /><BR />. 2020-04-01 - Versão: 1.1.5k ...
+	<BR /><b>- Ajustar pagina Consulta de Títulos, preencher com zeros à esquerda o número do protocolo, informado
+			   pelo usuário. Formato a ser informado = 999999 (Ex.: 4394 -> 004394) e ajuste redirecionamento para
+			   Titulo em Aberto ;</b>
+	<BR /><b>- Incluir em LINKS ... url do CENPROT ;</b>
+	<BR /><b>- Criar entradas no Menu (Perfil Cartorio), BPM Processo: Entrada de Tiulos (Imagem) ;</b>
+	
+	<BR /><BR />. 2020-04-01 - Versão: 1.1.5l ...
+	<BR /><b>- Atualizar Tabela de Emolumentos 2020 (Enviada pela Viviane 2o.Of.) ;</b>
+	<BR /><b>- Gerar ENUM, com informações das COMARCAS cadastradas ;</b>
+	<BR /><b>- Ajustar página Consulta de Títulos incluindo ComboBox de Comarcas, ativar exibição/seleção de COMARCA,
+			   via 'SistConfig = indAtivaComarca';</b>
+	<BR /><b>- Gerar campo 'Ind_UserComarca' na tabela de Usuários ;</b>
+	<BR /><b>- Ajustar Cadastro de Usuários, seleção para perfil 'Ind.Comarca' e incluir 'COMARCAS', na Tabela de grupos ;</b>
+	<BR /><b>- Criar Cadastro de Grupos ;</b>
+	<BR /><b>- Ajustar página Emissão de Boletos, incluindo ComboBox de Comarcas (indAtivaComarca = true) ;</b>
+	<BR /><b>- Criar JSON.Schema para os arquivos de Boletos/Titulos a serem carregados pelas Comarcas no site ;</b>
+
+	<BR /><BR />. 2020-04-01 - Versão: 1.1.5m ...
+	<BR /><b>- Criar Tabela (MpAutorizaCancelamento/MpAutorizaCancelamentoCargaLog), que será atualizada via 
+			   UpLoad/Diário ;</b>
+	<BR /><b>- Ajustar página de Registro, solicitar CPF/CNPJ ;</b>
+	<BR /><b>- Ajustar página de LOGIN, caso não exista CPF/CNPJ, abrir Alerta/Dialogo solicitando o mesmo ;</b>
+	<BR /><b>- Ajustar template do e-mail de Registro, incluindo o CPF/CNPJ ;</b>
+	<BR /><b>- Criar Icone/Bola na Tela Incial para aceesar a página de Serviço Autorização de Cancelamento, que será
+		 	   exibida via “SistConfig = indAtivaCancelameto” ;</b>
+	<BR /><b>- Criar Página de Serviço 'Verifica Autorização de Cancelamento', para exibir instruções cadastradas,
+			   via “SistConfig = txtServicoAutorizaCancelamento” ;</b>
+	<BR /><b>- Criar Página de Usuário A' Verifica utorização de Cancelamento, para exibir ao usuário logado no sistema,
+			   os cancelamentos relacionados ao seu CPF/CNPJ” (Perfil: Usuário) ;</b>	
+	<BR /><b>- Criar Página de Carga Autorização de Cancelamento (formato = .csv) (Perfil: Cartório) ;</b>
+
+	<BR /><BR />. 2020-04-04 - Versão: 1.1.5n ...
+	<BR /><b>- Ajustar pagina 'Emissão Guia/Boleto', capturar CPF/CNPJ do usuário logado, caso exista ;</b>
+	<BR /><b>- Criar Página de Serviço Site, unificando as páginas de 'Emissão de Guia/Boleto e 'Verifica Autorização de
+			   Cancelamento' ;</b>
+	<BR /><b>- Criar Página de Consulta Autorização de Cancelamento (Perfil: Usuário), caso o usuário não
+			   consiga gerar um boleto, será enviado um email para o setor responsavel do cartorio, 
+			   vide 'SistConfig = OfX_emailAutorizaCancelamento' e para o usuário logado, com ABA que permita
+				visualizar e gerar 2a.Via dos boletos emitidos;</b>
+	<BR /><b>- Implementar pagina 'INICIAL', Notícias do Site com rolamento horizontal ;</b>
+	<BR /><b>- Implementar pagina 'HOME', gráfico boletos de autorização de cancelamento, criado campo 'indCancelamento' na
+			   tabela 'mpBoletoLogs' ;</b>
+
+	<BR /><BR />. 2020-04-11 - Versão: 1.1.5o ...
+	<BR /><b>- Implementar ativação de envio boleto por email no sistema, vide 'SistConfig = indEnviaEmailBoleto' ;</b>
+	<BR /><b>- Ajustar pagina 'Emissão Guia/Boleto', opção envio boleto por e-mail ;</b>
+	<BR /><b>- Ajustar pagina 'Verificar Autorização Cancelamento', opção envio boleto por e-mail ;</b>
+	<BR /><b>- Ajustar pagina 'Inicial', padronizar icones/bola com cores amarelo/branco e tamanho de fontes  ;</b>
+	<BR /><b>- Ajustar pagina 'Verificar Autorização Cancelamento', ordem de exibição das autorizações por 'Data Protocolo / Protocolo' ;</b>
+	<BR /><b>- Ajustar pagina 'Verificar Autorização Cancelamento', caso não encontre o registro na 'Tabela Boletos', verificar
+			   se existe na 'Tabela Status Titulo', com status = 'CANCELADO' ... emitir um alerta ; </b>
+	<BR /><b>- Ajustar pagina 'Carga Autorização Cancelamento', incluir um botão (Sim/Não), para 'Carga Diária' = SIM e
+			   'Carga 3 (três) Anos Inicial' = NÂO (Exclui todos os Registros da 'Tabela Autorização Cancelamento') ; </b>
+	<BR /><b>- Implementar pagina 'Bloquear/Desbloquear Autorização Cancelamento', vide 'SistConfig = OfX_HorarioAutorizaCancelamento' ;</b>
+	<BR /><b>- Ajustar Página de Carga Autorização de Cancelamento, permitir carga de planilha Excel (formato = .xls) (Perfil: Cartório) ;</b>
+	<BR /><b>- Ajustar pagina 'Verificar Autorização Cancelamento', ajustar informações(Emolumentos e demais tarifas) e 
+	           formatação do conteúdo do e-mail (Issue - Vide Bruno/Prisco) ;</b>
+
+	<BR /><BR />. 2020-04-27 - Versão: 1.1.5p ...
+	<BR /><b>- Ajustar páginas 'Consulta Boleto/Tituolo/Cancelamento', seleção por número protocolo (Evitar grandes
+			   acessos ao Banco de Dados);</b> 
+	<BR /><b>- Criar ENUM de Horários (Ex.: 01:00 , 02:00 ... , 23:59) ;</b> 
+	<BR /><b>- Criar Página 'Bloqueio de Consulta Titulos' com opção de ajustes no horário de funcionamento ;</b> 
+	<BR /><b>- Ajustar Página 'Bloqueio de Emissão Guia/Boleto', incluir opção de ajustes no horário de funcionamento ;</b> 
+	<BR /><b>- Ajustar Página 'Bloqueio de Autorização de Cancelamento', incluir opção de ajustes no horário de funcionamento ;</b> 
+	<BR /><b>- Ajustar Página 'Emissão Guia/Boleto', tratar o envio boleto por email ;</b>
+	<BR /><b>- Ajustar Página 'Carga Autorização Cancelamento', tratar erro 4o.Ofico falta das colunas 'AgenciaCedente/Bairro' ;</b>
+
+	<BR /><BR />. 2020-04-30 - Versão: 1.1.5q ...
+	<BR /><b>- Implementar API Rest - CIELO (Pagamento de Cartão Credito);</b> 
+	<BR /><b>- Alterar Páginas 'Bloqueio Serviço Boleto/Cancelamento', incluir opção de ativação 'Envio Email' e 
+	          'Cartão CIELO', vide 'SistConfig = OfX_IndAtivaCartaoCieloCancelamento / OfX_IndAtivaCartaoCieloBoleto /
+	          OfX_IndEnviaEmailBoleto / OfX_IndEnviaEmailCancelamento';</b> 
+	<BR /><b>- Ajustar Página 'Emissão Guia/Boleto', incluir a opção para pagamento com cartão de crédito, através
+				da funcionalidade de um assistente ;</b>
+
+	<BR /><BR />. 2020-05-05 - Versão: 1.1.5r ...
+	<BR /><b>- Implementar API WSDL - Intima21 (Intimação Eletrônica), criar classes -> 'Intimação, Intimacoes, Mensagem,
+				Mensagens, RelatorioErro, Resposta' ;</b> 
+	<BR /><b>- Criar Página 'Carga Intimação Eletrônica' e tabelas 'MpBoletoIntimacao, MpBoletoIntimacaoLog, MpBoletoIntimacaoCargaLog' 
+				e suas respectivas 'Service/Repository' com botão para a integração com a API Intima21, vide 'SistConfig =
+				indAtivaIntima21' + 'OfX_BoletoIntimacaoNumeroGuia' ;</b> 
+	<BR /><b>- Otimizar código, implementando uma classe de serviço para Geração/Registro Boletos/BoletosIntimacao/ApiRest ;</b> 
+	<BR /><b>- Criar Classe Serviço com funcionalidades: 'PDF/Zip' + 'Base64' ;</b>
+	<BR /><b>- Criar Classe 'SistemaConfigHeader' ;</b>
+	<BR /><b>- Criar Página 'Pesquisa Boleto Intimação' ;</b>
+	<BR /><b>- Alterar Layout 'PDF/IntimaçãoEletronica', vide 'SistConfig = 'txtPDFLayoutIntima21' ,
+				'txtPDFLayout1Intima21' , 'txtPDFLayout2Intima21' ;</b>
+	<BR /><b>- Criar Página 'Baixa Intimação Eletrônica P21' ;</b>
+	<BR /><b>- Configurar Parametros da API Intima21 URL (Teste/Produção e Usuários), vide 'SistConfig = 'indAtivaIntima21' ;</b>
+	<BR /><b>- Correção Erro Geração Guia (Dados Trocados), reportado pelo Heraldo (1Of.) ;</b>
+	<BR /><b>- Criar Tabela 'mpUsuarioContato', para guardar dados (cpfCnpj/nome/email/telefone) de retorno da Api Intima21 ;</b>
+	<BR /><b>- Criar Página 'Pesquisa Usuário Contato' ;</b>
+
+	<BR /><b>- Ajustar Página 'Pesquisa Boleto Intimação', exibir PDF associado (21/05/2020) -> problema de registro '69' na
+				emissão guia ;</b>
+	<BR /><b>- Ajustar Página 'Carga Boleto Intimação', colocar opções: 'IndCargaDiaria' e 'IndRegistroBoleto' e tratar carga pelo arquivo/Enviado ! ;</b>
+	<BR /><b>- Ajustar Página 'Contato', colocar telefone/whatsapp 1o.Oficio (21)99937-0791 - href="https://wa.me/5521999370791</b>
+	<BR /><b>- Aumentar memória servidor (SaveInCloud/JElastic) de 5Gb para 6Gb ;</b>
+	<BR /><b>- Ajustar Página 'Consulta LOGS', incluir ABA 'Boleto Intimação Carga' ;</b>
+	<BR /><b>- Ajustar Página 'Carga Boleto Intimação', incluir Data De/Até para seleção por 'DataDocumento' o 
+				envio dos dados para a API 'Intima21' ;</b>
+	<BR /><b>- Ajustar Página 'Carga Boleto Intimação', criar coluna 'dataProtocolo' na tabela 'MpBoletoIntimacao',
+				criar opção de Ajuste ('OfX_mensagemRegistroBoleto' / 'indValor = true') para acerta a 'dataProtocolo' na
+				Base Carregada, criar função para atualizar 'dataProtocolo' na carga do movimento ;</b> 
+
+	<BR /><BR />. 2020-05-27 - Versão: 1.1.5s ...
+	<BR /><b>- Correção do erro '3X2', na emissão da guia pelo usuário web, reportado pelo Heraldo (1o.Oficio), e criação de controle para o
+				erro '69' registro Boleto/Bradesco = 'indBradescoErro69', bloquear emissão e alertar usuário! ;</b>
+	<BR /><b>- Menu Cartório, criar link para 'Servidor de Testes' ;</b>
+	<BR /><b>- Criar Página 'Cadastro Controle de Carga', vide 'SistConfig = 'indAtivaCargaControle' ;</b>
+	<BR /><b>- Ajustar Páginas, 'Carga Boleto, Título, Autorização Cancelamento e Intimação Eletrônica', para verificar controle de
+				 carga ;</b>
+	<BR /><b>- Criar/Clonar novo servidor de TESTE (SaveInCloud/JElastic), URL = 'http://191.243.197.21:8080/apps/' ;</b>
+	<BR /><b>- Ajustar Horario Funcionamento dos cartórios das 12H às 16H (Bruno2of.02/06/2020) ;</b>
+	<BR /><b>- Ajustar Texto PDF Intimação Horário e Legenda Espécie (Subst.repetição texto!) ;</b>
+
+	<BR /><BR />. 2020-06-03 - Versão: 1.1.5t->t0 ...
+	<BR /><b>- Refatoração controle numeração da guia Boleto (MpBoletoBean / MpBoletoService) ;</b>
+	<BR /><b>- Ajuste Página Verifica Autorização Cancelamento, evitar página de erro, devido à existência de 
+			boletos em duplicidade. (Reportado por Heraldo.1Of/12.06.2020) ;</b>
+	<BR /><b>- Melhoria de Performance, adicionados indexeds nas tabelas: 'MpBoleto'(Oficio, Protocolo, CpfCnpj), 'MpTitulo'(Oficio,
+			Protocolo, DataProcotoloco), 'MpBoletoIntimacao'(Oficio, Protocolo, CpfCnpj), 'MpAutorizaçaoCancelamento'(Oficio,
+			Protocolo, DataProcotoloco). (Reportado por Irineu.1Of/19.06.2020) ;</b>
+	<BR /><b>- Inclusão Novos Telefones do 1o.Oficio: 2531-1687/2531-2597/2531-2568/2351-2578. (Daniele.1Of/25.06.2020) ;</b>
+	<BR /><b>- 1.1.5t0 ... ((Heraldo.1Of+Viviane.2Of - 30/06/2020</b>
+	<BR /><b>- Melhoria de Performance, adicionado indexs nas tabelas: ( MpUsuario, MpUsuarioContato, MpBoleto, MpTitulo, 
+				MpAutorizaCancelamento, MpSistemaConfig )  ;</b>
+	<BR /><b>- Ajustes parâmetros JPA/Hibernate: name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider" ;</b>
+	<BR /><b>- Refatoração Repository dos gráficos, tratar Logs vazios ;</b>
+	<BR /><b>- Ajuste Conta Corrente 3o.Oficio ;</b>
+
+	<BR /><BR />. 2020-07-16 - Versão: 1.1.5u ...
+	<BR /><b>- Ajustar Página 'Pesquisa Intimação Eletrônica', incluir botão 'EXCLUIR'! (Yuri.4Of) ;</b>
+	<BR /><b>- Criar Página de 'Carga Certidão Eletrônica', salvandos os PDFs no S3.Minio (Provedor SaveInCloud),
+				link para acesso ao serviço: 'https://s3-protestorjcapital.jelastic.saveincloud.net/' ;</b>
+
+	<BR /><BR />. 2020-08-26 - Versão: 1.1.5-PriscoEnd ...
+	<BR /><b>- Correçao geração Boleto do 1o.Oficio (Heraldo.1of) ;</b>
+	<BR /><b>- Prisco Pediu Divorcio x MPXDS ! ;</b>
+
+	<BR /><BR />. 2020-10-03 - Versão: 1.1.7a ...
+	<BR /><b>- Correçao erro na geração Boleto do 1o.Oficio (Heraldo.1of e Bruno.2of) ;</b>
+	<BR /><b>- Viviane.2of solicitou para liberar o acesso ao Cancelamento (AutorizaCancelamento) e emissão de boleto (EmissaoBoleto), sen autenticação ;</b>
+	<BR /><b>- Criar 'indLoginCancelamento' e 'indLoginBoleto' ;</b>
+
+	<BR /><BR />. 2020-11-07 - Versão: 1.1.9 ...
+	<BR /><b>- Alteração novas contas BRADESCO (Prisco/Heraldo), vide 'SistConfig = OfX_AgenciaContaBradesco ;</b>
+	
+	<BR /><b>  ( Agencia: = 7101-3 / Igual para todos os Ofícios. ) ;</b>
+
+	<BR /><b>[ 1o.Oficio: - Conta Corrente = 0315771-7 ] ;</b>
+	<BR /><b>[ 2o.Oficio: - Conta Corrente = 0318399-8 ] ;</b>
+	<BR /><b>[ 3o.Oficio: - Conta Corrente = 0341564-3 / 0341565-1 ];</b>
+	<BR /><b>[ 4o.Oficio: - Conta Corrente = 0318484-6 ] ;</b>
+	
+						</p>
+				</b:column>
+				<b:column col-md="3">
+				</b:column>
+			</b:row>
+		</b:jumbotron>
+	
+	</ui:define>
+	
+</ui:composition>

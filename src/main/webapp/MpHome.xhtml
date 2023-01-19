@@ -1,0 +1,140 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+	xmlns:hf="http://highfaces.org"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+   			<f:viewParam name="paramOrigem" value="#{mpHomeBean.paramOrigem}" />
+   			<f:viewAction action="#{mpHomeBean.init}" />
+			<f:event listener="#{mpGraficoBoletoLogsBean.preRender}" type="preRenderView" />
+			<f:event listener="#{mpGraficoTituloLogsBean.preRender}" type="preRenderView" />
+			<f:event listener="#{mpGraficoUsuarioNewsBean.preRender}" type="preRenderView" />
+			<f:event listener="#{mpGraficoBoletoAutorizaCancelamentoLogsBean.preRender}" type="preRenderView" />
+		</f:metadata>
+
+		<b:container>
+			<h:form id="mpHomeFormId">
+			
+				<b:growl placementFrom="top" id="messages" delay="6000" escape="true" />
+
+				<br />
+				<p:hotkey bind="F10"  action="#{mpHomeBean.callEmissaoBoleto}"/>
+	
+				<h:link outcome="/MpHome.xhtml">
+					<b:row>
+						<br />
+					</b:row>
+					<b:row>
+						<b:column col-md="3">
+							<b:row>
+								<h4>Seja bem-vindo(a). #{mpSeguranca.nomeUsuario} .</h4>
+								<br /><br /><br />
+							</b:row>
+							<b:row>
+								<b:image style="max-width:200px; margin:0 auto; display:block; width:70%;" library="images"
+									name="#{mpSeguranca.logoSistema}"
+									tooltip="Cartórios de Protesto Capital - RJ"
+									tooltipPosition="right" />
+							</b:row>
+						</b:column>
+						<b:column col-md="9">
+						
+							<b:row>
+								<b:column col-md="3" />
+								<b:column col-md="5">
+									<b:flyOutMenu width="100px" align="center">
+									    <b:navLink />
+									    <b:navLink value="Acompanhar Status do Protocolo" href="#{root}/EmissaoTitulo"
+									    		style="font-size:20px;" rendered="#{mpHomeBean.isIndTitulo()}" />
+									    <b:navLink />
+									    <b:navLink value="Emitir Boleto" href="#{root}/EmissaoBoleto" 
+									    		style="font-size:20px;" rendered="#{mpHomeBean.isIndBoleto()}" />
+									    <b:navLink />
+									    <b:navLink value="Verificar Autorização de Cancelamento" href="#{root}/AutorizaCancelamento" 
+							    				style="font-size:20px;" 
+							    				rendered="#{mpHomeBean.isIndBoleto() and mpSeguranca.indCancelamento}" />
+									    <b:navLink />
+									</b:flyOutMenu>					
+								</b:column>
+							</b:row>
+						
+							<b:row>
+								<p:chart id="myChartB" type="line" model="#{mpGraficoBoletoLogsBean.model}" 
+																		rendered="#{mpSeguranca.isCartorio()}" />
+							</b:row>
+							<b:row>
+								<p:chart id="myChartT" type="line" model="#{mpGraficoTituloLogsBean.model}" 
+																		rendered="#{mpSeguranca.isCartorio()}" />
+							</b:row>
+							<b:row>
+								<p:chart id="myChartU" type="line" model="#{mpGraficoUsuarioNewsBean.model}" 
+																		rendered="#{mpSeguranca.isCartorio()}" />
+							</b:row>
+								<p:chart id="myChartBAC" type="line" model="#{mpGraficoBoletoAutorizaCancelamentoLogsBean.model}" 
+										rendered="#{mpSeguranca.isCartorio() and mpSeguranca.indCancelamento}" />
+						</b:column>
+					</b:row>
+				</h:link>
+									
+		   </h:form>
+		   
+			<p:dialog id="scDialogCpfCnpj" width="600"
+					header="Atualização do seu CPF ou CNPJ ..."
+					widgetVar="scDialogCpfCnpj" modal="true" showEffect="fade"
+					hideEffect="fade" resizable="true" closable="false">
+
+				 <b:form id="dlgHomeFormId" inline="true">
+				 
+					<p:messages />
+					<p:focus />
+
+					<b:panel collapsible="false" look="primary">
+						
+						<f:facet name="heading">
+							<h:outputText value="" />
+						</f:facet>
+						
+						<b:panelGrid size="xs" columns="6">
+						    <b:radiobutton value="#{mpHomeBean.opcaoCpfCnpj}" itemLabel="CPF"  itemValue="cpf" 
+						    		onclick="ajax:radiobuttonBean.submit()" update="@form"
+						    		required="true" requiredMessage="Cpf/Cnpj é obrigatório." />
+						    <b:radiobutton value="#{mpHomeBean.opcaoCpfCnpj}" itemLabel="CNPJ" itemValue="cnpj"
+						    		update="@form" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+						</b:panelGrid>
+ 																												
+						<h:panelGrid columns="3" cellpadding="5">
+							<b:inputText label="CPF:" labelStyle="width:80px;" id="cpf"							
+								placeholder="Informe CPF"
+								mask="999.999.999-99"
+								rendered="#{mpHomeBean.opcaoCpfCnpj eq 'cpf'}"
+								value="#{mpHomeBean.cpfCnpjReg}">
+							</b:inputText>
+							<b:inputText label="CNPJ:" labelStyle="width:80px;" id="cnpj"							
+								placeholder="Informe CNPJ"
+								mask="99.999.999/9999-99"
+								rendered="#{mpHomeBean.opcaoCpfCnpj eq 'cnpj'}"
+								value="#{mpHomeBean.cpfCnpjReg}">
+							</b:inputText>
+						</h:panelGrid>
+		                <b:commandButton id="cbRegistrar" value="Confirmar"
+		                	look="primary" icon="chevron-right" iconAlign="right" process="@this"                     
+		                    action="#{mpHomeBean.registrar}" />
+					</b:panel>
+				</b:form>						
+			</p:dialog>
+		   		   
+		</b:container>
+		
+	</ui:define>
+
+</ui:composition>

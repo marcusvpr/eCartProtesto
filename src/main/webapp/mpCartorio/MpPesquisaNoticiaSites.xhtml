@@ -1,0 +1,155 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<h:form id="frmAS">
+		
+			<p:messages id="messages" showDetail="false" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="true" /> 
+		
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<h3>Consulta Noticia Site</h3>
+					</b:column>
+					<b:column col-md="3">
+						<p:commandButton value="Exportar para XLS" ajax="false" icon="fa fa-file-excel-o Fs14 red">
+							<p:dataExporter type="xls" target="mpNoticiaSitesTable" fileName="alertaSites"
+										postProcessor="#{mpFilterViewNoticiaSite.posProcessarXls}" />
+						</p:commandButton>
+					</b:column>
+				</b:row>
+	
+				<b:row>
+					<b:column col-md="12">
+									
+							<p:dataTable id="mpNoticiaSitesTable" sortMode="multiple" var="mpNoticiaSiteX"
+									value="#{mpFilterViewNoticiaSite.mpNoticiaSiteList}"
+									rowKey="#{mpNoticiaSite.numeroOficio}" reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado." rows="10"
+									paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="top">									
+
+						        <f:facet name="header">
+						            <p:outputPanel style="float:right">
+             							<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+											action="#{mpFilterViewNoticiaSite.novoMpNoticiaSite}" ajax="true"
+            								value="Novo" icon="fa fa-fw fa-edit" title="Novo Registro">
+            							</p:commandButton>										
+						            </p:outputPanel>
+						        </f:facet>
+						        									
+								<p:column headerText="Número Ofício" sortBy="#{mpNoticiaSiteX.numeroOficio}" 
+									filterBy="#{mpNoticiaSiteX.numeroOficio}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.numeroOficio}" />
+    							</p:column>														
+								<p:column headerText="Data/Hora" sortBy="#{mpNoticiaSiteX.dataNoticiaSDF}"
+									filterBy="#{mpNoticiaSiteX.dataNoticiaSDF}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.dataNoticiaSDF}" />
+    							</p:column>														
+								<p:column headerText="Assunto" sortBy="#{mpNoticiaSiteX.assunto}"
+									filterBy="#{mpNoticiaSiteX.assunto}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.assunto}" />
+    							</p:column>														
+								<p:column headerText="Descrição" sortBy="#{mpNoticiaSiteX.descricao}"
+									filterBy="#{mpNoticiaSiteX.descricao}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.descricao}" />
+    							</p:column>														
+								<p:column headerText="URL" sortBy="#{mpNoticiaSiteX.url}"
+									filterBy="#{mpNoticiaSiteX.url}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.url}" />
+    							</p:column>														
+								<p:column headerText="Ativo?" sortBy="#{mpNoticiaSiteX.indAtivo}"
+									filterBy="#{mpNoticiaSiteX.indAtivo}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpNoticiaSiteX.indAtivo ? 'Sim' : 'Não'}" />
+    							</p:column>														
+								<p:column headerText="Ação" style="text-align:center">
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewNoticiaSite.alteraMpNoticiaSite}" ajax="true"
+            							value="Edita" icon="fa fa-fw fa-edit" title="Edita Registro">
+                						<f:setPropertyActionListener value="#{mpNoticiaSiteX}" 
+                										target="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel}" />
+            						</p:commandButton>
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewNoticiaSite.apagaMpNoticiaSite}" ajax="true"
+            							value="Exclui" icon="fa fa-fw fa-remove" title="Exclui Registro">
+                						<f:setPropertyActionListener value="#{mpNoticiaSiteX}" 
+                										target="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel}" />
+            						</p:commandButton>										
+								</p:column>
+							</p:dataTable>
+		
+			    			<p:dialog id="scDialogId" width="650"
+			    					header="Noticia Site #{mpFilterViewNoticiaSite.txtModoTela}"
+			    					widgetVar="scDialog" modal="true" showEffect="fade"
+			     					hideEffect="fade" resizable="true">
+						        
+						        <p:outputPanel id="scDetailId" style="text-align:center;">
+						            <p:panelGrid  columns="2" layout="grid" 
+										style="border:0px none;background:none" styleClass="ui-fluid">		 
+				
+						                <p:outputLabel value="Número Ofício:" />
+						                <p:inputText readonly="true"
+						                		value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.numeroOficio}" />
+						                		
+						                <p:outputLabel value="Data/Hora:" />
+										<p:calendar pattern="dd/MM/yyyy hh:mm" mask="true" readyonly="true"
+											locale="pt" timeZone="America/Sao_Paulo"
+											value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.dataNoticia}" />
+						                								                		
+						                <p:outputLabel value="Assunto:" />
+						                <p:inputTextarea lines="5" cols="70" 
+						                		readonly="#{mpFilterViewNoticiaSite.indEditavel}"
+						                		value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.assunto}" />
+						                								                		
+						                <p:outputLabel value="Descrição:" />
+						                <p:inputTextarea lines="10" cols="70" 
+						                		readonly="#{mpFilterViewNoticiaSite.indEditavel}"
+						                		value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.descricao}" />
+						                								                		
+						                <p:outputLabel value="URL link:" />
+						                <p:inputTextarea lines="2" cols="70" 
+						                		readonly="#{mpFilterViewNoticiaSite.indEditavel}"
+						                		value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.url}" />
+						                								                		
+						                <p:outputLabel value="Ativo?:" />
+										<p:selectBooleanButton id="value1"
+												value="#{mpFilterViewNoticiaSite.mpNoticiaSiteSel.indAtivo}" 
+												onLabel="Sim" offLabel="Não" style="width:60px" />						                		
+						                		
+						         	</p:panelGrid>
+			        			</p:outputPanel>
+	
+						        <div>
+									<b:commandButton style="padding: 0 8px;" iconAwesome="save" look="link" ajax="true"  
+										onclick="ajax:mpFilterViewNoticiaSite.mpGrava()" 
+										oncomplete="PF('scDialog').hide();" 
+										update="frmAS" value="Confirma" />
+						            <b:button value="Cancela" onclick="PF('scDialog').hide();" />
+						        </div>
+						   					        
+						    </p:dialog>
+	
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

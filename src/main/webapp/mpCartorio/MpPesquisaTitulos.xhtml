@@ -1,0 +1,135 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpPesquisaTitulosBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:jumbotron fluid="true">
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Consulta Título</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="2" />
+				<b:column col-md="8">
+
+					<h:form id="frmTits">
+						<p:messages id="messages" showDetail="false" autoUpdate="true"
+							closable="true" />
+
+						<b:panel style="padding-left:100px">
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 1° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 2° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 3° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 4° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+								<p:outputLabel value="Selecionar?" />
+								<b:radiobutton id="Oficio"
+									value="#{mpPesquisaTitulosBean.mpCartorioOficioSel}"
+									required="true"
+									itemLabel="#{mpPesquisaTitulosBean.mpCartorioOficio1.apelido}"
+									itemValue="#{mpPesquisaTitulosBean.mpCartorioOficio1}"
+									requiredMessage="Favor selecione o Ofício desejado !" />
+								<b:radiobutton id="rbDest2"
+									value="#{mpPesquisaTitulosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaTitulosBean.mpCartorioOficio2.apelido}"
+									itemValue="#{mpPesquisaTitulosBean.mpCartorioOficio2}" />
+								<b:radiobutton id="rbDest3"
+									value="#{mpPesquisaTitulosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaTitulosBean.mpCartorioOficio3.apelido}"
+									itemValue="#{mpPesquisaTitulosBean.mpCartorioOficio3}" />
+								<b:radiobutton id="rbDest4"
+									value="#{mpPesquisaTitulosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaTitulosBean.mpCartorioOficio4.apelido}"
+									itemValue="#{mpPesquisaTitulosBean.mpCartorioOficio4}" />
+							</b:panelGrid>
+						</b:panel>
+
+						<b:formGroup>
+							<b:inputText placeholder="Informe o Número do Protocolo" cols="6"
+								value="#{mpPesquisaTitulosBean.numeroIntimacao}">
+								<f:facet name="prepend">
+									<h:outputText value="Número do Protocolo :" style="font-weight:bold" />
+								</f:facet>
+							</b:inputText>
+							<b:commandButton value="Pesquisar »"
+								action="#{mpPesquisaTitulosBean.pesquisaTitulo}" look="primary" />
+						</b:formGroup>
+					</h:form>
+
+				</b:column>
+				<b:column col-md="2" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="10">
+					<h:form id="frmSCT">
+						<b:dataTable value="#{mpPesquisaTitulosBean.mpTituloList}"
+							var="mpTituloX" class="edtTituloTab"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+							reflow="true" style="margin-top:20px"
+							emptyMessage="Nenhum registro encontrado."
+							paginator="true" paginatorPosition="top">								
+							
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.codigoOficio}" label="Oficio" />
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.dataProtocolo}" label="Data Protocolo" />
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.numeroProtocolo}" label="Número Protocolo" />
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.status}" label="Status" />
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.complemento}" label="Complemento" />
+							<b:dataTableColumn style="text-align:center;" 
+								value="#{mpTituloX.classeTitulo}" label="Classe" />
+						</b:dataTable>
+
+					</h:form>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+
+	</ui:define>
+
+</ui:composition>

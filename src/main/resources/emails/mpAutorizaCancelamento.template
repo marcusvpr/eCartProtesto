@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	</head>
+    <body>
+        <table>
+            <tr>
+                <td style="width: 500px">
+        			<img src="http://www.protestorjcapital.com.br:8080/apps/resources/images/logo_protestorj_smallXXX.png"
+        							alt="www.protestorjcapital.com.br" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Solitacao de Autorizacao Cancelamento.</td>
+            </tr>
+            <tr>
+                <td style="width: 500px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Nome : </b>$mpUsuario.nome</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Email : </b>$mpUsuario.email</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Cpf/Cnpj : </b>$mpUsuario.cpfCnpj</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"> ==================================================== </td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Oficio : </b>$mpCartorioOficioSel.nomeCedente</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Apresentante : </b>$mpAutorizaCancelamentoSelX.apresentante</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Protocolo : </b>$mpAutorizaCancelamentoSelX.protocolo</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Data do Protocolo : </b>$mpAutorizaCancelamentoSelX.dataProtocoloSDF</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Devedor : </b>$mpAutorizaCancelamentoSelX.devedor</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Saldo : </b>$mpAutorizaCancelamentoSelX.saldoMOEDA</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Ocorrencia : </b>$mpAutorizaCancelamentoSelX.ocorrencia</b></td>
+            </tr>
+            <tr>
+                <td style="width: 500px"><b>Data do Protesto : </b>$mpAutorizaCancelamentoSelX.dataOcorrenciaSDF</b></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td> </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 100px"></td>
+            </tr>
+            <tr>
+                <td style="width: 500px">Esse e' um e-mail automatico. NAO RESPONDER !</td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,872 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+ <f:metadata>
+  	<f:viewParam name="idC" value="#{mpContatoSiteBean.idC}" />
+	
+   	<f:viewAction action="#{mpContatoSiteBean.init}" />
+ </f:metadata>
+	
+ <h:head>
+	<title>Cartórios Protestos Capital - RJ</title>
+	<meta name="author" content="MPXDS.com"></meta>	
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCm_ysbO1o2DVSGd-qFHlsy9EnwIiL0xSM" defer="defer"
+            type="text/javascript"></script>
+            
+	<h:outputScript library="primefaces" name="gmap/gmap.js" />   	   	
+    
+    <h:outputStylesheet library="css" name="mpSistema.css" />
+
+	<style type="text/css">
+	    .ui-sticky {
+	        top: 50px !important;
+	    }
+	    @media (max-width: 960px) {
+	        .ui-sticky {
+	            top: 110px !important;
+	        }
+	    }
+	</style>
+
+ </h:head>
+
+ <!-- Add 50px padding top to the body for the navbar -->
+ <h:body style="padding-top:50px; padding-bottom:20px;">
+	
+	<ui:param name="root" value="#{request.contextPath}" />
+
+	<b:navBar brand=" Cartórios de Protestos Capital - RJ" brandHref="#" inverse="true" fixed="top"
+														brandImg="#{root}/resources/images/#{mpSeguranca.logoMenu}">
+		<b:navbarLinks pull="right">
+			<b:navLink value="Inicio" href="#homeId" iconAwesome="fa-home" iconAlign="left" active="true" />
+			<b:navLink value="Serviços" href="#{root}/servicoSite.xhtml"></b:navLink>
+			<b:navLink value="Informações" href="#informacaoId"></b:navLink>
+			<b:navLink value="Legislações" href="#legislacaoId"></b:navLink>
+			<b:navLink value="Links" href="#linksUteisId"></b:navLink>
+			<b:navLink value="Contato" href="#contatoEnderecoId"></b:navLink>
+			<b:dropMenu value="Cartórios">
+               	<b:navLink value="Area Restrita para Cliente Cadastrado" href="#{root}/Home"
+               														iconAwesome="fa-lock" iconAlign="left" />
+			</b:dropMenu>
+		</b:navbarLinks>
+	</b:navBar>
+	
+	<p:toolbar id="tb">
+    	<f:facet name="left">
+			<b:container fluid="true">
+				<b:row>
+					<b:column col-md="3">
+					</b:column>
+					<b:column col-md="8">
+						<b:carousel id="parque" style="width:70%;" interval="2500">
+							<b:carouselItem style="padding-left:50px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto3-1X.jpg"  
+									tooltip="Titulos enviados para protestos são solucionados em 3 dias..." style="width:83%;"
+									tooltipPosition="right"  />
+							</b:carouselItem>
+							<b:carouselItem style="padding-left:50px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto1-1X.jpg"  
+									tooltip="Cartorio a Instituição que o Brasil confia..." style="width:84%;"
+									tooltipPosition="right"  />
+							</b:carouselItem>
+							<b:carouselItem style="padding-left:50px;">
+								<b:image small-screen="one-third" library="images" name="banner_protesto2-1X.jpg"  
+									tooltip="Eficiência e rapidez na cobrança de dividas..." style="width:100%;"
+									tooltipPosition="right"  />
+							</b:carouselItem>
+						</b:carousel>
+					</b:column>
+					<b:column col-md="1">
+					</b:column>
+				</b:row>
+			</b:container>
+    	</f:facet>
+    </p:toolbar>
+	
+	<p:sticky target="tb" />
+	
+	<b:jumbotron id="homeId">
+		<div style="height:350px"></div>
+		<b:container fluid="true">
+			<b:row>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+					<p><p:spacer width="10" height="10" /></p>
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+			</b:row>
+
+			<!--  b:row>
+				<b:column col-md="3">
+					<p><p:spacer width="10" height="10" /></p>
+				</b:column>
+				<b:column col-md="2">
+					<a href="http://pesquisaprotesto.com.br/" target="_blank">
+						<b:image  library="images" name="home_pesquisa-gratuita-1.png"  
+							tooltip="Pesquisa gratuita..." tooltipPosition="right" 
+							style="max-width:250px; margin:0 auto; display:block; width:80%; border-radius:50%;" />
+					</a>
+				</b:column>
+				<b:column col-md="2">
+					<a href="#{root}/ServicoBoleto">
+						<b:image  library="images" name="home_pagamento-titulo-1.png"  
+							tooltip="Pagamento de Títulos..." tooltipPosition="right" 
+							style="max-width:250px; margin:0 auto; display:block; width:80%; border-radius:50%;" />
+					</a>
+				</b:column>
+				<b:column col-md="2">
+					<a href="#{root}/ServicoTitulo">
+						<b:image  library="images" name="home_consulta-andamento-1.png"  
+							tooltip="Consulta andamento..." tooltipPosition="right" 
+							style="max-width:250px; margin:0 auto; display:block; width:80%; border-radius:50%;" />
+					</a>
+				</b:column>
+				<b:column col-md="3">
+					<p><p:spacer width="10" height="10" /></p>
+				</b:column>
+			</b:row> -->
+
+			<b:row>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+					<p><p:spacer width="10" height="10" /></p>
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="2">
+				</b:column>
+				<b:column col-md="8">
+					<p>Este é o site dos quatro cartórios de protesto da capital do Rio de Janeiro,
+					 aqui você encontrará todas as informações para tornar mais acessível e fácil o protesto de títulos.
+					 </p>
+				</b:column>
+				<b:column col-md="2">
+				</b:column>
+			</b:row>
+		</b:container>
+	</b:jumbotron>
+	
+	<b:jumbotron fluid="true" id="servicoId">
+		<div style="height:350px"></div>
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+				<h2 align="center"><font size="+3" color="grey">Confira Nossos Serviços</font></h2>
+				<!--  b:image small-screen="one-third" library="images" name="servicos.png"  
+						tooltip="Nossos Serviços" tooltipPosition="right"
+						style="width:70%;" -->
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+				<p></p>
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column col-md="1" />
+			<b:column col-md="5">
+				<b:panel>
+					<h:panelGrid columns="3" cellpadding="10">
+						<b:iconAwesome value="search" size="2x" />
+						<p:spacer width="10" height="10" />
+						<h3>Consulta status do Protocolo</h3>
+					</h:panelGrid>
+
+					<p style="font-size: 14px;"> Consultar o Andamento(Status) de um Protocolo, mediante pesquisa pelo número e
+					data de protocolo.</p>
+					
+					<p><b:button href="#{root}/ServicoTitulo" value="Acessar »" look="primary" 
+										iconAwesome="search" icon-size="1x" col-md="4" offset="2" /></p>
+					<p style="font-size: 14px;"> <BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /></p>
+				</b:panel>				
+			</b:column>
+			<b:column col-md="5">
+				<b:panel>
+					<h:panelGrid columns="3" cellpadding="10">
+						<b:iconAwesome value="cart-arrow-down" size="2x" />
+						<p:spacer width="10" height="10" />
+						<h3>Pagamento Título</h3>
+					</h:panelGrid>
+
+					<p style="font-size: 14px;">Emissão de boleto bancário para pagamento de título:<BR />
+						* Vedado o pagamento a menor do valor contido no boleto;<BR />
+						* Vedado o pagamento após a data de vencimento;<BR />
+						* Vedado o pagamento sujeito a compensação de cheque;<BR />
+						* Se o pagamento do boleto for feito sem a observância dos itens acima, o mesmo não 
+						será considerado e o título será protestado.<BR />
+						<BR />
+						As informações sobre os pagamentos feitos na rede bancária serão atualizados no primeiro
+						dia útil subsequente. 
+					</p>
+					
+					<p><b:button href="#{root}/ServicoBoleto" value="Acessar »" look="primary" 
+										iconAwesome="credit-card" icon-size="1x" col-md="4" offset="2" /></p>
+				</b:panel>				
+			</b:column>
+			<b:column col-md="1" />
+		</b:row>
+		<b:row>
+			<b:column col-md="1" />
+			<b:column col-md="5">
+				<b:panel>
+					<h:panelGrid columns="3" cellpadding="10">
+						<b:iconAwesome value="search-minus" size="2x" />
+						<p:spacer width="10" height="10" />
+						<h3>Consulta de Protestos (IEPTB RJ)</h3>
+					</h:panelGrid>
+					
+					<p style="font-size: 14px;">Consulte gratuitamente um protesto de forma rápida, segura e gratuita,
+					   em todo Estado do Rio de Janeiro e, também, em alguns outros Estados do Brasil.</p>
+					
+					<p><b:button href="http://pesquisaprotesto.com.br/" target="_blank" value="Acessar »" 
+									iconAwesome="search-plus" icon-size="1x" look="primary" col-md="4" offset="2" /></p>
+					<p style="font-size: 14px;"><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /><BR /></p>
+					
+				</b:panel>				
+			</b:column>
+			<b:column col-md="5">
+				<b:panel>
+					<h:panelGrid columns="3" cellpadding="10">
+						<b:iconAwesome value="cogs" size="2x" />
+						<p:spacer width="10" height="10" />
+						<h3>Solicitação de Certidões / Cancelamentos (IEPTB RJ)</h3>
+					</h:panelGrid>
+
+					<p style="font-size: 14px;">Certidões:<BR />
+						* Sistema que permite a Solicitação de Certidões de protesto junto aos cartórios
+						 ou distribuidores do Estado do Rio de Janeiro.  A certidão solicitada poderá ser
+						 retirada pessoalmente, enviada pelos correios ou recebida através de arquivo
+						  assinado eletronicamente.
+					</p>
+					<p style="font-size: 14px;">Cancelamentos:<BR />
+						* Sistema que permite solicitar cancelamento de protesto, pelo credor do Título,
+						 que possua assinatura eletrônica. 
+    				</p>
+					
+					<p><b:button href="https://cartoriosdeprotestorj.com.br/certidao-fisica" target="_blank" 
+									iconAwesome="sticky-note-o" icon-size="1x"
+									value="Acessar Certidões»" look="primary" col-md="6" offset="2" /></p>
+					<p><p:spacer width="10" height="10" /></p>
+					<p><b:button href="https://cartoriosdeprotestorj.com.br/cancelamento" target="_blank"
+									iconAwesome="sticky-note" icon-size="1x" 
+									value="Acessar Cancelamento»" look="primary" col-md="6" offset="2" /></p>
+				</b:panel>				
+			</b:column>
+			<b:column col-md="1" />
+		</b:row>
+	</b:jumbotron>
+	
+	<b:jumbotron id="informacaoId">
+		<div style="height:350px"></div>
+		<b:container fluid="true">
+			<b:row>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+					<h2 align="center"><font size="+3" color="grey">Informações</font></h2>
+					<!--  b:image small-screen="one-third" library="images" name="informacao.png"  
+						tooltip="Informações" tooltipPosition="right"
+						style="width:60%;" /> -->
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="1">
+				</b:column>
+				<b:column col-md="10">
+					<h2 class="heading-3"></h2>
+
+					<p:accordionPanel>
+						<p:tab title="1. Protesto" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+								O QUE É O PROTESTO ?<BR />
+								<BR />A Lei Federal nº 9.492, de 10 de setembro de 1997 em conjunto com a Consolidação Normativa da Corregedoria Geral de Justiça disciplinam a atividade do protesto de títulos, e definem o protesto como: ato formal e solene pelo qual se prova a inadimplência e o descumprimento de obrigação originada em títulos e outros documentos de dívida.
+<BR />Portanto, protesto é um serviço público, realizado pelo Tabelião de Protesto, agente dotado de fé pública, a quem é delegado o exercício da atividade notarial nos termos do art 3.º, da Lei nº 8.935, de 18 de novembro de 1994, e art. 236 da Constituição Federal. Sua atividade é regulamentada pelo Poder Público e está sujeita à fiscalização do Poder Judiciário.
+<BR />Mais que a definição legal PROTESTO É A FERRAMENTA MAIS RÁPIDA E EFICAZ DE COBRANÇA, pela alta eficiência na recuperação de créditos, + de 53% dos títulos são pagos em até 3 dias úteis, além de provar a inadimplência e o descumprimento de obrigação, tornando-os públicos, de conhecimento do mercado financeiro, é por meio dele que as instituições de proteção de crédito como a SERASA e o SCPC conseguem as informações sobre os devedores inadimplentes e, com isso, adotam as medidas restritivas.
+<BR />Você pode protestar qualquer título ou documento de dívida, desde contratos de aluguel até notas promissórias. Como possui amparo legal e fiscalização do Poder Judiciário, o protesto é uma das formas mais seguras para receber as suas dívidas. 
+
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="2. Vantagens ao Protestar" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+<BR />COM O  EFEITOS DO PROTESTO, VOCÊ TEM MUITAS VANTAGENS, CONHEÇA:
+<BR /><BR />GARANTIA DE ENTREGA DA INTIMAÇÃO PARA O DEVEDOR
+<BR /><BR />Tudo fica documentado para você ter a segurança de que o devedor foi notificado e terá até três dias úteis para realizar o pagamento
+<BR />MEIO RÁPIDO DE RECUPERAÇÃO DE CRÉDITO
+<BR /><BR />Quem não recebe a dívida, tem pressa. Para recuperar o seu dinheiro rapidamente, a melhor maneira é protestar.
+<BR /><BR />O PROTESTO TORNA PÚBLICA A INADIMPLÊNCIA E SÓ TERMINA QUANDO FOR CANCELADO.
+Ao contrário da negativação realizada pelos órgãos de proteção ao crédito, que só pode ser divulgada por até cinco anos, o protesto permanece no nome do devedor até o seu cancelamento.
+<BR /><BR />O PROTESTO NÃO IMPEDE A EXECUÇÃO E VICE-VERSA
+<BR /><BR />Isso significa que os processos não se anulam, podem acontecer simultaneamente. Vale ressaltar que a eficiência do protesto é superior a da execução.
+<BR /><BR />O PROTESTO INTERROMPE A PRESCRIÇÃO
+<BR />Isso quer dizer que não ocorre a perda do exercício de direito devido à passagem do tempo. Por isso, quando você não receber uma dívida que está vencida, não perca tempo: proteste antes da data de prescrição. Com o protesto, o prazo recomeça e você tem mais chances de recuperar o valor. Esse direito está resguardado no art. 202, III do Código Civil.
+
+<BR /><BR />DIREITO DE REGRESSO 
+<BR />Garante o exercício do direito de regresso contra endossantes, sacador e seus avalistas, ou seja, você pode cobrar a dívida com quem negociou com você e não apenas do devedor
+
+<BR /><BR />PERMITE ATUALIZAÇÃO DA DÍVIDA
+<BR /><BR />Ao fixar o termo inicial da incidência de juros, taxas e atualizações monetárias sobre o valor da obrigação contida no título ou documento de dívida, se não houver prazo assinalado (art. 40, Lei nº 9.492/97);
+O PROTESTO PODE RESULTAR EM FALÊNCIA
+<BR /><BR />Caso a dívida não seja paga no vencimento e o valor total seja superior ao teto limite estabelecido, o juiz pode decretar a falência do devedor. Isso somente ocorre se os títulos forem protestados anteriormente
+
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="3. Ciclo do Protesto" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">COMO PROTESTAR
+<BR /><BR />O processo de protesto de títulos é muito simples! Os cartórios de protesto são o banco de dados de inadimplência oficial do poder público no Brasil.
+<BR /><BR />Conforme rege a Lei 9.492/97:
+<BR /><BR />1.	O título é protocolizado pelo credor no Tabelionato de Protesto;
+<BR /><BR />2.	O Tabelião envia intimação do Protesto ao devedor;
+<BR /><BR />3.	No endereço do devedor, informado pelo apresentante, o aviso de recepção (AR) é assinado por quem receber a intimação;
+<BR /><BR />4.	Se o devedor não for localizado, o Tabelião efetuará intimação por edital, que será fixado no próprio Tabelionato e publicado na imprensa local. (art. 14, Lei 9492/97).
+<BR /><BR />5.	O Protesto será registrado pelo Tabelião no primeiro dia útil seguinte ao término do prazo para pagamento.
+<BR /><BR />Mais:
+<BR /><BR />•	O credor pode desistir antes da efetivação do Protesto, desde que retire o título e pague os emolumentos e despesas do Tabelião.
+<BR />•	O devedor pode evitar o Protesto pelo pagamento do título ou pela sustação judicial.
+<BR />•	O pagamento deve ser efetuado por meio de boleto bancário ou diretamente no cartório.
+<BR />•	O Protesto no Rio de Janeiro conta com significativo índice de eficiência de pagamento, em torno de 53%, nos 3 primeiros dias úteis. Ou seja, no máximo metade dos títulos ou documentos de dívida de emissão recente encaminhados a protesto chegam a ser protestados, pois, em sua grande maioria, os devedores efetuam o pagamento dos mesmos no prazo.
+								</p>
+								<b:image small-screen="one-third" library="images" name="O_CICLO_DO_PROTESTO-768x1024.jpg"  
+									tooltip="Fluxo de Protesto" tooltipPosition="right" style="width:70%;" />								
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="4. Retirada" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+É permitida a desistência do protesto desde que efetuada antes de sua lavratura.
+
+<BR /><BR />A desistência do protesto deverá ser feita da seguinte forma: O apresentante deverá solicitar ao Tabelionato mediante entrega do protocolo de recibo ou elaborar requerimento ao Tabelião (caso seja pessoa jurídica, esta carta deverá ser em papel timbrado) onde deverão constar todos os dados do título (número do título, valor, número e data do protocolo), solicitando a devolução do título sem protesto. 
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="5. Sustação" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+Por descuido, ou mesmo má fé, algumas vezes títulos são indevidamente encaminhados a protesto. Mas, o protesto indevido pode ser evitado por meio da sustação, que representa uma ação judicial cautelar, que, se atendida, interrompe o procedimento do protesto.
+Apenas com autorização judicial o título poderá ser pago, retirado ou protestado e ficará à disposição do juízo no Tabelionato. Se a ordem de sustação for revogada pelo juiz, o Protesto será lavrado e registrado até o primeiro dia útil posterior ao recebimento da revogação, exceto se a efetivação do Protesto depender de consulta ao apresentante.
+A decisão liminar da sustação do protesto é provisória e tem validade de 30 dias, assim sendo, antes de expirar o prazo deverá ser proposta outra ação, que é denominada de principal, onde se pleiteará a declaração de inexistência da relação jurídica ou a anulação do título.
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="6. Títulos Irregulares" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+Os títulos que não preencherem os requisitos necessários para que se proceda ao seu  protesto serão devolvidos por irregularidade.
+
+<BR /><BR />Nestes casos, o título será devolvido ao apresentante mediante a apresentação do protocolo de recibo e poderá ser reapresentado desde que seja(m) sanada(s) a(s) irregularidade(s) que ensejou(aram) sua devolução.
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="7. Efeitos do Protesto" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+APÓS LAVRADO O PROTESTO:
+<BR /><BR />•	Comprova-se a inadimplência do devedor, tornando-a PÚBLICA;
+<BR />•	Interrompe-se a prescrição do título (art. 202, CCB);
+<BR />•	O credor pode promover ação contra seus devedores, funcionando o protesto como um meio de conservar direitos;
+<BR />•	Garante-se o direito regressivo contra os coobrigados, desde que efetivada dentro dos prazos legais;
+<BR />•	Habilita-se ao credor ingressar com pedido de falência;
+<BR />•	O Juiz de falências pode fixar o termo inicial da falência decretada, não podendo retrocedê-lo por mais de 60 dias antes do primeiro protesto – conforme art. 14, III do Decreto-lei nº 7.661, de 1945;
+<BR />•	Incidem juros, taxas e atualizações monetárias sobre o valor da obrigação, como dito pelo art. 40 da Lei nº 9.492, de 1997.
+<BR />•	O documento não aceito é considerado vencido (marca a data de vencimento da dívida).
+								
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="8. Cancelamento" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+<BR />CANCELAMENTO DE PROTESTO
+<BR /><BR />O cancelamento de protesto pode ser realizado de forma física ou eletrônica.
+
+<BR /><BR />CANCELAMENTO ELETRÔNICO
+
+<BR /><BR />Chegou a hora de dar adeus à burocracia. Por meio do Sistema de Cancelamento Eletrônico, é possível fazer uma declaração de anuência on-line e enviá-la ao cartório de protesto pela internet., através do site www.cartoriosdeprotestorj.com.br
+<BR /><BR />Mais tempo e facilidade para você que agora não precisa nem imprimir tão pouco reconhecer firma desse documento. Tudo é feito com rapidez e segurança. Basta que possua um certificado digital para acessar o Sistema de Cancelamento Eletrônico e assinar digitalmente a declaração.
+
+<BR /><BR />CANCELAMENTO PRESENCIAL
+
+<BR /><BR />Para cancelar um protesto presencialmente, você terá que entregar ao tabelião o título protestado (com carimbo de protesto e assinatura do Tabelião ou de eu Substitutos) ou uma declaração de anuência. Essa declaração autoriza o processo de cancelamento e deve ter a assinatura do credor bem como a firma reconhecida. Não esqueça de levar um documento que te identifique (RG, CNH ou outros documentos representantes de órgão de classe: OAB, CREA, CRM, etc)
+
+<BR /><BR />O cancelamento também pode ser feito por força de uma ordem judicial.
+
+<BR /><BR />COMO DEVEM SER AS CARTAS DE ANUÊNCIA:
+<BR /><BR />Quando o credor é PESSOA FÍSICA:
+<BR />- o credor deverá providenciar carta de anuência em papel simples, com sua qualificação: nome completo, número do RG e do CPF, nacionalidade, estado civil, endereço e telefone para contato. Deverá, também, reconhecer firma de sua assinatura.
+<BR />- na carta de anuência deverão constar todos os dados do título protestado: número do título, valor, data de emissão e vencimento, nº protocolo e data, e, se possível, número do livro e da folha do instrumento de protesto.
+<BR />- mencionar o nome completo do devedor, bem como o número de seu RG e CPF ou CNPJ
+<BR />- declarar que o título foi quitado ou que não há oposição ao cancelamento do protesto
+
+<BR /><BR />Quando o credor é PESSOA JURÍDICA:
+<BR /><BR />- A empresa credora deverá providenciar carta de anuência em papel timbrado, contendo o número do CNPJ, endereço completo e telefone para contato.
+<BR />- a assinatura deverá ter sua firma reconhecida
+<BR />- se a carta for assinada por procurador, anexar cópia autenticada da procuração que deverá conter poderes especiais para dar e receber quitação.
+<BR />- na carta deverão ser mencionadas todos os dados do título protestado: número, data de emissão e vencimento, nº protocolo e data, e, se possível, número do livro e da folha do instrumento de protesto.
+<BR />- na carta deverá constar o nome completo do devedor bem como o número de seu RG e CPF ou CNPJ
+<BR />- declarar que o título foi quitado ou que não há oposição ao cancelamento do protesto.
+
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="9. Certidão" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<p style="font-size: 14px;">
+<BR />CERTIDÃO
+<BR /><BR />ORIENTAÇÕES GERAIS
+
+<BR /><BR />A certidão de protesto pode ser solicitada de forma física ou eletrônica.
+<BR /><BR />CERTIDÃO ELETRÔNICA
+
+<BR /><BR />A certidão eletrônica é realizada 100% eletronicamente. O pedido é realizado por meio do portal e você irá recebê-la no seu e-mail. Todo o processo é feito sem material físico. Mais praticidade e rapidez para você. Veja o site www.cartoriosdeprotestorj.com.br
+<BR /><BR />CERTIDÃO FÍSICA
+
+<BR /><BR />Você pode requisitar a certidão física no próprio cartório, preenchendo uma solicitação informando o nome e o CPF ou CNPJ.
+								</p>
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+
+					<p:accordionPanel> <!-- activeIndex="-"> -->
+						<p:tab title="10. Tabela de Emolumentos" 
+							titleStyle="color:#888888; font-weight: bold; font-size: 18px;">
+					     	<h:panelGrid columns="1" cellpadding="10">
+								<b:image small-screen="one-third" library="images" name="tabelaCustasEmolumentoX.png"  
+									tooltip="Tabela de Custas e Emolumentos" tooltipPosition="right"
+									style="width:100%; height:80%;" />
+					        </h:panelGrid>
+					     </p:tab>					
+					</p:accordionPanel>					
+				</b:column>
+				<b:column col-md="1">
+				</b:column>
+			</b:row>
+		</b:container>
+	</b:jumbotron>
+
+	<b:jumbotron id="legislacaoId">
+		<div style="height:350px"></div>
+		<b:container fluid="true">
+			<b:row>
+				<b:column col-md="4">
+				</b:column>
+				<b:column col-md="4">
+					<h2 align="center"><font size="+3" color="grey">Legislações</font></h2>
+					<!-- b:image small-screen="one-third" library="images" name="legislacao.png"  
+						tooltip="Lesgislações" tooltipPosition="right"
+						style="width:60%;" />  -->
+				</b:column>
+				<b:column col-md="4">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="3">
+				</b:column>
+				<b:column col-md="9">
+					<h2 class="heading-3"></h2>
+
+					<p style="font-size: 14px;">
+•	Lei do Protesto - Lei nº 9.492/97 
+<BR /><BR />Define competência, regulamenta os serviços concernentes ao protesto de títulos e outros documentos de dívida e dá outras providências.
+<BR /><a href="https://www.planalto.gov.br/ccivil_03/leis/l9492.htm" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	CAP. IX – DO TABELIONATO DE  PROTESTO – CONSOLIDAÇÃO NORMATIVA DA CORREGEDORIA GERAL DA JUSTIÇA DO RJ
+<BR /><a href="https://www.primeiroprotestosp.com.br/ArquivosCliente/1471881e-df12-4cdb-be06-e4f7b7c006b6.pdf" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	CÓDIGO CIVIL
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/365e337d-f452-4be2-a56f-8e4b84a9ae84" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	CÓDIGO DE PROCESSO CIVIL
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/c4ffb38b-60b7-45a7-86d3-cee33e2760a1" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	CONSTITUIÇÃO FEDERAL DE 1988
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/0672dd90-52a3-475d-8a9e-2ef9942ad617" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	DECRETO Nº 2.044, DE 31 DE DEZEMBRO DE 1908
+<BR />•	Legislação sobre notas promissórias e letras de câmbio.
+Define a letra de câmbio e a nota promissória e regula as Operações Cambiais. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/1fb0a263-221b-49e5-a073-8dc0ba2fbad5" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE CÉDULA DE PRODUTO RURAL
+<BR />•	Institui a Cédula de Produto Rural, e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/794203c6-cd51-479a-bf26-97ec09aa2d9f" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE CONTRATO DE CÂMBIO
+<BR />•	Disciplina o mercado de capitais e estabelece medidas para o seu desenvolvimento. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/7153c751-17b4-4514-8cb6-320364fce3c5" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE TÍTULOS DE CRÉDITO COMERCIAIS
+<BR />•	Dispõe sobre títulos de crédito comercial e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/3a8ab0ac-e0ff-4aac-84ed-35e03c58b7ab" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE TÍTULOS DE CRÉDITO INDUSTRIAIS
+<BR />•	Dispõe sôbre títulos de crédito industrial e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/03cf6178-3572-43d4-9975-2f32c00475af" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE TÍTULOS DE CRÉDITO RURAIS
+<BR />•	Dispõe sôbre títulos de crédito rural e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/ec9b1d26-126a-4160-b745-840b77976e0a" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEGISLAÇÃO SOBRE WARRANT AGROPECUÁRIO E CONHECIMENTO DE DEPÓSITO AGROPECUÁRIO
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/fab3dd54-83e7-4105-b19b-0ab1e286f8a9" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />• LEGISLAÇÃO SOBRE WARRANT E CONHECIMENTO DE DEPÓSITO
+<BR />•	Institui regras para o estabelecimento de empresas de armazens gerais, determinando os direitos e obrigações dessas empresas. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/7ccf4192-2e7b-45d7-8089-d2e336a5285d" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEI COMPLEMENTAR Nº 123/06 - LEI DAS MICROEMPRESAS E EMPRESAS DE PEQUENO PORTE
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/850c2ccf-b774-4807-a79b-cb89eddf5420" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />• LEI DAS DUPLICATAS - LEI Nº 5.474/69
+<BR />•	Dispõe sobre as Duplicatas, e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/197df78e-3930-4dd6-8d58-9f2da95b4715" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEI DE REGISTROS PÚBLICOS - LEI Nº 6.015/73
+<BR />•	Dispõe sobre os registros públicos, e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/9f14efab-4ea1-4b67-a1a7-4647c1424c81" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />• LEI DO CHEQUE - LEI Nº 7.357/85
+<BR />• Dispõe sobre o cheque e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/1355d34d-5639-4301-bd82-3acb812a1d54" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />• LEI DOS NOTÁRIOS E REGISTRADORES - LEI Nº 8.935/94
+<BR />•	Regulamenta o art. 236 da Constituição Federal, dispondo sobre serviços notariais e de registro. (Lei dos cartórios) 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/f6a8775b-9cdf-49ca-aeee-63db36408e1e" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />• LEI Nº 13.160/08
+<BR />• Lei que permite o protesto de certidões da dívida ativa e encargos condominiais.
+<BR />Altera a Lei nº 11.331, de 26 de dezembro de 2002, que dispõe sobre emolumentos relativos aos atos praticados pelos serviços notariais e de registro. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/a50b289a-5440-44ff-8c45-6a8dd04a5632" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•LEI SOBRE A CÉDULA DE CRÉDITO BANCÁRIO - LEI Nº 10.931/2004
+<BR />•	Dispõe sobre o patrimônio de afetação de incorporações imobiliárias, Letra de Crédito Imobiliário, Cédula de Crédito Imobiliário, Cédula de Crédito Bancário.
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/edbd34b0-656a-4cac-8306-b86e5ed6d756" target="_blank">
+		•	Ler mais</a>
+<BR /><BR />•	LEI SOBRE CERTIDÃO DA DÍVIDA ATIVA - LEI 6.830/80
+<BR />•	Dispõe sobre a cobrança judicial da Dívida Ativa da Fazenda Pública, e dá outras providências. 
+<BR /><a href="https://www.primeiroprotestosp.com.br/Pagina/Exibir/f074f416-ac59-4870-a2f4-ba57323e6755" target="_blank">
+		•	Ler mais</a>
+					</p>
+				</b:column>
+			</b:row>
+		</b:container>
+	</b:jumbotron>
+	
+	<b:jumbotron fluid="true" id="linksUteisId">
+		<div style="height:350px"></div>
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+				<h2 align="center"><font size="+3" color="grey">Links Úteis</font></h2>
+					
+				<!-- b:image small-screen="one-third" library="images" name="link_util.png"  
+					tooltip="Links Úteis" tooltipPosition="right"
+					style="width:50%;" />  -->
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column col-md="2">
+			</b:column>
+			<b:column col-md="8">
+				<p  style="font-size: 14px;">					
+<BR /><BR />. PESQUISA GRATUITA DE PROTESTO
+<BR /><a href="http://pesquisaprotesto.com.br/" target="_blank">http://pesquisaprotesto.com.br/</a>
+
+<BR /><BR />. INSTITUTO DE ESTUDOS DE PROTESTO DE TÍTULOS DO BRASIL:
+<BR /><a href="http://www.protestodetitulos.org.br/" target="_blank">http://www.protestodetitulos.org.br/</a>
+
+<BR /><BR />. INSTITUTO DE ESTUDOS DE PROTESTO DE TÍTULOS DO BRASIL - SEÇÃO RIO DE JANEIRO:
+<BR /><a href="http://www.cartoriosdeprotestorj.com.br/" target="_blank">http://www.cartoriosdeprotestorj.com.br/</a>
+
+<BR /><BR />. ASSOCIAÇÃO DOS NOTÁRIOS E REGISTRADORES DO BRASIL:
+<BR /><a href="http://www.anoregbr.org.br/" target="_blank">http://www.anoregbr.org.br/</a>
+
+<BR /><BR />. ASSOCIAÇÃO DOS NOTÁRIOS E REGISTRADORES DO RIO DE JANEIRO
+<BR /><a href="http://www.anoregrj.org.br/" target="_blank">http://www.anoregrj.org.br/</a>
+
+<BR /><BR />. COLÉGIO NOTARIAL: 
+<BR /><a href="http://www.cnbsp.org.br/" target="_blank">http://www.cnbsp.org.br/</a>
+
+<BR /><BR />. ARPEN - ASSOCIAÇÃO DOS REGISTRADORES DE PESSOAS NATURAIS DO ESTADO DO RIO DE JANEIRO: 
+<BR /><a href="http://www.arpenrj.org.br/" target="_blank">http://www.arpenrj.org.br/</a>
+
+<BR /><BR />. ARISP - ASSOCIAÇÃO DOS REGISTRADORES DE IMÓVEIS DE SÃO PAULO: 
+<BR /><a href="http://www.arisp.com.br/" target="_blank">http://www.arisp.com.br/</a>
+
+<BR /><BR />. IRIB - INSTITUTO DE REGISTRO IMOBILIÁRIO DO BRASIL: 
+<BR /><a href="http://www.irib.org.br/" target="_blank">http://www.irib.org.br/</a>
+
+<BR /><BR />. TRIBUNAL DE JUSTIÇA DO ESTADO DO RIO DE JANEIRO: 
+<BR /><a href="http://www.tjrj.jus.br/" target="_blank">http://www.tjrj.jus.br/</a>
+
+<BR /><BR />. MINISTÉRIO PÚBLICO DO ESTADO DO RIO DE JANEIRO: 
+<BR /><a href="http://www.mp.rj.gov.br/" target="_blank">http://www.mp.rj.gov.br/</a>
+
+<BR /><BR />. OAB CONSELHO FEDERAL: 
+<BR /><a href="http://www.oab.org.br/" target="_blank">http://www.oab.org.br/</a>
+
+<BR /><BR />. DEFENSORIA PÚBLICA DA UNIÃO: 
+<BR /><a href="http://www.dpu.gov.br/" target="_blank">http://www.dpu.gov.br/</a>
+
+<BR /><BR />. DEFENSORIA PÚBLICA DO ESTADO DO RIO DE JANEIRO: 
+<BR /><a href="http://www.defensoria.rj.gov.br/" target="_blank">http://www.defensoria.rj.gov.br/</a>
+
+<BR /><BR />. GOVERNO FEDERAL: 
+<BR /><a href="http://www.presidencia.gov.br/" target="_blank">http://www.presidencia.gov.br/</a>
+<BR /><a href="http://www.brasil.gov.br/" target="_blank">http://www.brasil.gov.br/</a>
+
+<BR /><BR />. RECEITA FEDERAL DO BRASIL: 
+<BR /><a href="http://www.receita.fazenda.gov.br/" target="_blank">http://www.receita.fazenda.gov.br/</a>
+
+<BR /><BR />. PROCURADORIA GERAL DA FAZENDA NACIONAL: 
+<BR /><a href="http://www.pgfn.fazenda.gov.br/" target="_blank">http://www.pgfn.fazenda.gov.br/</a>
+
+<BR /><BR />. PROCURADORIA GERAL DO ESTADO DO RIO DE JANEIRO
+<BR /><a href="http://www.d???????" target="_blank">http://www.d???????</a>
+
+<BR /><BR />. PROCURADORIA GERAL DO MUNICÍPIO DO RIO DE JANEIRO
+<BR /><a href="http://www.????????" target="_blank">http://www.????????</a>
+
+<BR /><BR />. SUPREMO TRIBUNAL FEDERAL: 
+<BR /><a href="http://www.stf.gov.br/" target="_blank">http://www.stf.gov.br/</a>
+
+<BR /><BR />. SUPERIOR TRIBUNAL DE JUSTIÇA: 
+<BR /><a href="http://www.stj.jus.br/portal/site/STJ" target="_blank">http://www.stj.jus.br/portal/site/STJ</a>
+
+<BR /><BR />. SENADO FEDERAL: 
+<BR /><a href="http://www.senado.gov.br/" target="_blank">http://www.senado.gov.br/</a>
+
+<BR /><BR />. CÂMARA DOS DEPUTADOS: 
+<BR /><a href="http://www.camara.gov.br/" target="_blank">http://www.camara.gov.br/</a>
+
+<BR /><BR />. BANCO CENTRAL DO BRASIL:
+<BR /><a href="http://www.bcb.gov.br/" target="_blank">http://www.bcb.gov.br/</a>
+
+<BR /><BR />. SERASA:
+<BR /><a href="https://www.serasaexperian.com.br/" target="_blank">https://www.serasaexperian.com.br/</a>
+
+<BR /><BR />. PGFN:
+<BR /><a href="http://www.pgfn.fazenda.gov.br/" target="_blank">http://www.pgfn.fazenda.gov.br/</a>
+
+<BR /><BR />. CONDOLIDAÇÃO NORMATIVA RJ:
+<BR /><a href="#{root}/resources/pdfs/Consolidacao Normativa Rio 2017.pdf" target="_blank">Consolidacao Normativa Rio 2017.pdf</a>
+				</p>
+			</b:column>
+			<b:column col-md="2">
+			</b:column>
+		</b:row>
+	</b:jumbotron>
+
+	<b:jumbotron fluid="true" id="contatoEnderecoId">
+		<div style="height:350px"></div>
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+				<h2 align="center"><font size="+3" color="grey">Contatos</font></h2>
+				<!-- b:image small-screen="one-third" library="images" name="endereco.jpg"  
+						tooltip="Endereços" tooltipPosition="right"
+						style="width:60%;" />  -->
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+
+		<b:row>
+			<b:column col-md="4">
+			</b:column>
+			<b:column col-md="4">
+				<p></p>
+			</b:column>
+			<b:column col-md="4">
+			</b:column>
+		</b:row>
+		<b:row>
+			<b:column col-md="2" />
+			<b:column col-md="4">
+				<b:panel>
+					<b:row>
+    					<b:column><h3><h:outputText value="#{mpSiteBean.mpCartorioOficio1.nome}"/></h3></b:column>				
+					</b:row>
+					<b:row><b:column /></b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio1.endereco}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio1.bairroCidadeUF}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio1.telefone}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Fax.: #{mpSiteBean.mpCartorioOficio1.fax}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio1.email}"/></b:column>				
+					</b:row>
+				</b:panel>
+			</b:column>
+			<b:column col-md="4">
+				<b:panel>
+					<b:row>
+    					<b:column><h3><h:outputText value="#{mpSiteBean.mpCartorioOficio2.nome}"/></h3></b:column>				
+					</b:row>
+					<b:row><b:column /></b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio2.endereco}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio2.bairroCidadeUF}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio2.telefone}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Fax.: #{mpSiteBean.mpCartorioOficio2.fax}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio2.email}"/></b:column>				
+					</b:row>
+				</b:panel>
+			</b:column>
+			<b:column col-md="2" />
+		</b:row>
+		<b:row>
+			<b:column col-md="2" />
+			<b:column col-md="4">
+				<b:panel>
+					<b:row>
+    					<b:column><h3><h:outputText value="#{mpSiteBean.mpCartorioOficio3.nome}"/></h3></b:column>				
+					</b:row>
+					<b:row><b:column /></b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio3.endereco}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio3.bairroCidadeUF}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio3.telefone}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Fax.: #{mpSiteBean.mpCartorioOficio3.fax}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio3.email}"/></b:column>				
+					</b:row>
+				</b:panel>
+			</b:column>
+			<b:column col-md="4">
+				<b:panel>
+					<b:row>
+    					<b:column><h3><h:outputText value="#{mpSiteBean.mpCartorioOficio4.nome}"/></h3></b:column>				
+					</b:row>
+					<b:row><b:column /></b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio4.endereco}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio4.bairroCidadeUF}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio4.telefone}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="Fax.: #{mpSiteBean.mpCartorioOficio4.fax}"/></b:column>				
+					</b:row>
+					<b:row>
+    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio4.email}"/></b:column>				
+					</b:row>
+				</b:panel>
+			</b:column>
+			<b:column col-md="2" />
+		</b:row>
+	</b:jumbotron>
+			
+	<b:container>
+		<hr />
+		<footer>
+            <ui:include src="/WEB-INF/template/MpFooter.xhtml" />
+		</footer>
+	</b:container>
+	
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-25650106-1', 'auto');
+  ga('send', 'pageview');
+	</script>	
+	
+ </h:body>
+</html>

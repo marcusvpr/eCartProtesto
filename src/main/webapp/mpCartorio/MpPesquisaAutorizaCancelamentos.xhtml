@@ -1,0 +1,187 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpPesquisaAutorizaCancelamentosBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" />
+
+		<b:jumbotron fluid="true">
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Consulta Autorização Cancelamento</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="2" />
+				<b:column col-md="8">
+
+					<h:form id="frmBols">
+						<p:messages id="messages" showDetail="false" autoUpdate="true"
+							closable="true" />
+
+						<b:panel style="padding-left:100px">
+
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 1° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 2° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 3° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 4° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6"
+								rendered="#{mpSeguranca.isAdministrador()}">
+								<p:outputLabel value="Selecionar?" />
+								<b:radiobutton id="Oficio"
+									value="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficioSel}"
+									required="true"
+									itemLabel="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio1.apelido}"
+									itemValue="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio1}"
+									requiredMessage="Favor selecione o Ofício desejado !" />
+								<b:radiobutton id="rbDest2"
+									value="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio2.apelido}"
+									itemValue="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio2}" />
+								<b:radiobutton id="rbDest3"
+									value="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio3.apelido}"
+									itemValue="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio3}" />
+								<b:radiobutton id="rbDest4"
+									value="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio4.apelido}"
+									itemValue="#{mpPesquisaAutorizaCancelamentosBean.mpCartorioOficio4}" />
+							</b:panelGrid>
+						</b:panel>
+
+						<b:formGroup>
+							<b:inputText placeholder="Informe o Número do Protocolo" cols="6"
+								value="#{mpPesquisaAutorizaCancelamentosBean.numeroIntimacao}">
+								<f:facet name="prepend">
+									<h:outputText value="Número do Protocolo :" style="font-weight:bold" />
+								</f:facet>
+							</b:inputText>
+							<p:spacer />
+							<b:commandButton value="Consultar AutorizaCancelamentos »"
+								action="#{mpPesquisaAutorizaCancelamentosBean.pesquisaAutorizaCancelamento}" 
+																									look="primary" />
+						</b:formGroup>
+					</h:form>
+
+				</b:column>
+				<b:column col-md="2" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="10">
+					<h:form id="frmSCB">
+						<b:dataTable value="#{mpPesquisaAutorizaCancelamentosBean.mpAutorizaCancelamentoList}"
+							var="mpAutorizaCancelamentoX" class="edtAutorizaCancelamentoTab"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+							reflow="true" style="margin-top:20px"
+							emptyMessage="Nenhum registro encontrado."
+							paginator="true" paginatorPosition="top">
+
+							<b:dataTableColumn style="text-align:center;" label="Oficio"
+								value="#{mpAutorizaCancelamentoX.codigoOficio}" />
+							<b:dataTableColumn style="text-align:center;"  label="Apresentante"
+								value="#{mpAutorizaCancelamentoX.apresentante}" />
+							<b:dataTableColumn style="text-align:center;"  label="Codigo"
+								value="#{mpAutorizaCancelamentoX.codigo}" />
+							<b:dataTableColumn style="text-align:center;"  label="Data"
+								value="#{mpAutorizaCancelamentoX.dataSDF}" />
+							<b:dataTableColumn style="text-align:center;"  label="Protocolo"
+								value="#{mpAutorizaCancelamentoX.protocolo}" />
+							<b:dataTableColumn style="text-align:center;"  label="Dt.Protocolo"
+								value="#{mpAutorizaCancelamentoX.dataProtocoloSDF}" />
+							<b:dataTableColumn style="text-align:center;"  label="Dt.Remessa"
+								value="#{mpAutorizaCancelamentoX.dataRemessaSDF}" />
+							<b:dataTableColumn style="text-align:center;"  label="Ag.Cod.Cedente"
+								value="#{mpAutorizaCancelamentoX.agenciaCodigoCedente}" />
+							<b:dataTableColumn style="text-align:center;"  label="Cedente"
+								value="#{mpAutorizaCancelamentoX.cedente}" />
+							<b:dataTableColumn style="text-align:center;"  label="Sacador"
+								value="#{mpAutorizaCancelamentoX.sacador}" />
+							<b:dataTableColumn style="text-align:center;"  label="Doc.Sacador"
+								value="#{mpAutorizaCancelamentoX.documentoSacador}" />
+							<b:dataTableColumn style="text-align:center;"  label="Devedor"
+								value="#{mpAutorizaCancelamentoX.devedor}" />
+							<b:dataTableColumn style="text-align:center;"  label="Doc.Devedor"
+								value="#{mpAutorizaCancelamentoX.documentoDevedor}" />
+							<b:dataTableColumn style="text-align:center;"  label="Endereco"
+								value="#{mpAutorizaCancelamentoX.endereco}" />
+							<b:dataTableColumn style="text-align:center;"  label="Cep"
+								value="#{mpAutorizaCancelamentoX.cep}" />
+							<b:dataTableColumn style="text-align:center;"  label="Bairro"
+								value="#{mpAutorizaCancelamentoX.bairro}" />
+							<b:dataTableColumn style="text-align:center;"  label="Cidade"
+								value="#{mpAutorizaCancelamentoX.cidade}" />
+							<b:dataTableColumn style="text-align:center;"  label="Uf"
+								value="#{mpAutorizaCancelamentoX.uf}" />
+							<b:dataTableColumn style="text-align:center;"  label="Nosso Número"
+								value="#{mpAutorizaCancelamentoX.nossoNumero}" />
+							<b:dataTableColumn style="text-align:center;"  label="Num.Título"
+								value="#{mpAutorizaCancelamentoX.numeroTitulo}" />
+							<b:dataTableColumn style="text-align:center;"  label="Valor"
+								value="#{mpAutorizaCancelamentoX.valor}" />
+							<b:dataTableColumn style="text-align:center;"  label="Saldo"
+								value="#{mpAutorizaCancelamentoX.saldo}" />
+							<b:dataTableColumn style="text-align:center;"  label="Espécie"
+								value="#{mpAutorizaCancelamentoX.especie}" />
+							<b:dataTableColumn style="text-align:center;"  label="Praça Protesto"
+								value="#{mpAutorizaCancelamentoX.pracaProtesto}" />
+							<b:dataTableColumn style="text-align:center;"  label="Tip.Autoriz."
+								value="#{mpAutorizaCancelamentoX.tipoAutorizacao}" />
+							<b:dataTableColumn style="text-align:center;"  label="Situação"
+								value="#{mpAutorizaCancelamentoX.situacao}" />
+							<b:dataTableColumn style="text-align:center;"  label="Impresso"
+								value="#{mpAutorizaCancelamentoX.impresso}" />
+							<b:dataTableColumn style="text-align:center;"  label="Vencimento"
+								value="#{mpAutorizaCancelamentoX.vencimento}" />
+							<b:dataTableColumn style="text-align:center;"  label="Ocorrencia"
+								value="#{mpAutorizaCancelamentoX.ocorrencia}" />
+							<b:dataTableColumn style="text-align:center;"  label="Dt.Ocorrência"
+								value="#{mpAutorizaCancelamentoX.dataOcorrenciaSDF}" />
+
+						</b:dataTable>
+					</h:form>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+
+	</ui:define>
+
+</ui:composition>

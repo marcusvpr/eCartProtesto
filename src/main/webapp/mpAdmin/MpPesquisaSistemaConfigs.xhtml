@@ -1,0 +1,178 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<h:form id="frmSC">
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="true" /> 
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<h3>Consulta Sistema Configuração</h3>
+					</b:column>
+					<b:column col-md="3">
+						<p:commandButton value="Exportar para XLS" ajax="false" icon="fa fa-file-excel-o Fs14 red">
+							<p:dataExporter type="xls" target="mpSistemaConfigsTable" fileName="sistemaConfigs"
+										postProcessor="#{mpFilterViewSistemaConfig.posProcessarXls}" />
+						</p:commandButton>
+					</b:column>
+				</b:row>
+	
+				<b:row>
+					<b:column col-md="12">
+									
+							<p:dataTable id="mpSistemaConfigsTable" sortMode="multiple" var="mpSistemaConfigX"
+									value="#{mpFilterViewSistemaConfig.mpSistemaConfigList}"
+									rowKey="#{mpSistemaConfig.parametro}" reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado." rows="10"
+									paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="top">									
+
+						        <f:facet name="header">
+						            <p:outputPanel style="float:right">
+             							<p:commandButton update=":frmSC:scDialogId" oncomplete="PF('scDialog').show()" 
+											action="#{mpFilterViewSistemaConfig.novoMpSistemaConfig}" ajax="true"
+            								value="Novo" icon="fa fa-fw fa-edit" title="Novo Registro">
+            							</p:commandButton>										
+						            </p:outputPanel>
+						        </f:facet>
+						        									
+								<p:column headerText="Parâmetro" sortBy="#{mpSistemaConfigX.parametro}" 
+									filterBy="#{mpSistemaConfigX.parametro}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpSistemaConfigX.parametro}" />
+    							</p:column>														
+								<p:column headerText="Descrição" sortBy="#{mpSistemaConfigX.descricao}"
+									filterBy="#{mpSistemaConfigX.descricao}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpSistemaConfigX.descricao}" />
+    							</p:column>														
+								<p:column headerText="Tipo" sortBy="#{mpSistemaConfigX.mpTipoCampo.descricao}" 
+																							style="text-align:center">
+        							<h:outputText value="#{mpSistemaConfigX.mpTipoCampo.descricao}" />
+    							</p:column>														
+								<p:column headerText="Texto" style="text-align:center">
+        							<h:outputText value="#{mpSistemaConfigX.valorT}" />
+    							</p:column>														
+								<p:column headerText="Número" style="text-align:center">
+        							<h:outputText value="#{mpSistemaConfigX.valorN}" />
+    							</p:column>														
+								<p:column headerText="Decimal" style="text-align:center">
+        							<h:outputText value="#{mpSistemaConfigX.valorD}" />
+    							</p:column>														
+								<p:column headerText="Boolean" style="text-align:center">
+        							<h:outputText value="#{mpSistemaConfigX.indValor}" />
+    							</p:column>											
+								<p:column headerText="Ação" style="text-align:center">
+             						<p:commandButton update=":frmSC:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewSistemaConfig.alteraMpSistemaConfig}" ajax="true"
+            							value="Edita" icon="fa fa-fw fa-edit" title="Edita Registro">
+                						<f:setPropertyActionListener value="#{mpSistemaConfigX}" 
+                										target="#{mpFilterViewSistemaConfig.mpSistemaConfigSel}" />
+            						</p:commandButton>
+             						<p:commandButton update=":frmSC:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewSistemaConfig.apagaMpSistemaConfig}" ajax="true"
+            							value="Exclui" icon="fa fa-fw fa-remove" title="Exclui Registro">
+                						<f:setPropertyActionListener value="#{mpSistemaConfigX}" 
+                										target="#{mpFilterViewSistemaConfig.mpSistemaConfigSel}" />
+            						</p:commandButton>										
+								</p:column>
+							</p:dataTable>
+		
+			    			<p:dialog id="scDialogId" width="650"
+			    					header="Sistema Configuração #{mpFilterViewSistemaConfig.txtModoTela}"
+			    					widgetVar="scDialog" modal="true" showEffect="fade"
+			     					hideEffect="fade" resizable="true">
+						        
+						        <p:outputPanel id="scDetailId" style="text-align:center;">
+						            <p:panelGrid  columns="2" layout="grid" 
+						            	rendered="#{not empty mpFilterViewSistemaConfig.mpSistemaConfigSel}"
+										style="border:0px none;background:none" styleClass="ui-fluid">		 
+				
+						                <p:outputLabel value="Parâmetro:" />
+						                <p:inputText readonly="#{mpFilterViewSistemaConfig.indEditavel}"
+						                		value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.parametro}" />
+						                <p:outputLabel value="Descrição:" />
+						                <p:inputTextarea lines="3" readonly="#{mpFilterViewSistemaConfig.indEditavel}"
+						                		value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.descricao}" />
+	
+						                <p:outputLabel value="Tipo Campo:" />
+								        <p:selectOneMenu style="width:125px" 
+								        	disabled="#{mpFilterViewSistemaConfig.indEditavel}"
+								        	value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.mpTipoCampo}">
+								            <f:selectItem itemLabel="Boolean" itemValue="BOOLEAN" />
+								            <f:selectItem itemLabel="Decimal" itemValue="DECIMAL" />
+								            <f:selectItem itemLabel="Número" itemValue="NUMERO" />
+								            <f:selectItem itemLabel="Texto" itemValue="TEXTO" />
+								            <f:selectItem itemLabel="Texto Editor" itemValue="TEXTOEDITOR" />
+								        </p:selectOneMenu>
+	
+						                <p:outputLabel value="Texto:" />
+									    <p:textEditor widgetVar="editor2" width="600"
+						                	rendered="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.indTextoEditor}"
+									    	value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.valorT}" 						          	
+									    	height="300" style="margin-bottom:10px" placeholder="Enter your content">
+									        <f:facet name="toolbar">
+									             <span class="ql-formats">
+									                <button class="ql-bold"></button>
+									                <button class="ql-italic"></button>
+									                <button class="ql-underline"></button>
+									                <button class="ql-strike"></button>
+									            </span>
+									            <span class="ql-formats">
+									                <select class="ql-font"></select>
+									                <select class="ql-size"></select>
+									            </span>
+									        </f:facet>
+									    </p:textEditor>
+						                <p:inputTextarea lines="3" readonly="#{mpFilterViewSistemaConfig.indEditavel}"
+						                	rendered="#{!mpFilterViewSistemaConfig.mpSistemaConfigSel.indTextoEditor}"
+						                	value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.valorT}" />
+    						                		
+						                		
+						                <p:outputLabel value="Número:" />
+						                <p:inputText styleClass="moeda" 
+						                		readonly="#{mpFilterViewSistemaConfig.indEditavel}"
+						                		value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.valorN}">
+											<f:convertNumber maxFractionDigits="0" minFractionDigits="0" />
+										</p:inputText>					                		
+						                <p:outputLabel value="Decimal:" />
+						                <p:inputText styleClass="moeda" 
+						                		readonly="#{mpFilterViewSistemaConfig.indEditavel}"
+						                		value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.valorD}">
+											<f:convertNumber maxFractionDigits="3" minFractionDigits="1" />
+										</p:inputText>					                		
+						                <p:outputLabel value="Boolean:" />
+						                <p:inputSwitch onLabel="Sim" offLabel="Não"
+						                		disabled="#{mpFilterViewSistemaConfig.indEditavel}"
+						                		value="#{mpFilterViewSistemaConfig.mpSistemaConfigSel.indValor}" />
+						         	</p:panelGrid>
+			        			</p:outputPanel>
+	
+						        <div>
+									<b:commandButton style="padding: 0 8px;" iconAwesome="save" look="link" ajax="true"  
+										onclick="ajax:mpFilterViewSistemaConfig.mpGrava()" 
+										oncomplete="PF('scDialog').hide();" 
+										update="frmSC" value="Confirma" />
+						            <b:button value="Cancela" onclick="PF('scDialog').hide();" />
+						        </div>
+						   					        
+						    </p:dialog>
+	
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

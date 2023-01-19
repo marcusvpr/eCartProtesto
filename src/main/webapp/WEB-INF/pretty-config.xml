@@ -1,0 +1,293 @@
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.4.1">
+
+	<url-mapping id="Inicio">
+		<pattern value="/Inicio" />
+		<view-id value="/indexSite.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Informacoes">
+		<pattern value="/Informacoes" />
+		<view-id value="/siteInformacoes.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Servicos">
+		<pattern value="/Servicos" />
+		<view-id value="/siteServicos.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Legislacoes">
+		<pattern value="/Legislacoes" />
+		<view-id value="/siteLegislacoes.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Links">
+		<pattern value="/Links" />
+		<view-id value="/siteLinks.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Contato">
+		<pattern value="/Contato" />
+		<view-id value="/siteContato.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="SiteConstrucao">
+		<pattern value="/SiteConstrucao" />
+		<view-id value="/MpConstrucao.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Login">
+		<pattern value="/Login" />
+		<view-id value="/MpLogin.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="RegeraSenha">
+		<pattern value="/RegeraSenha" />
+		<view-id value="/MpRegeraSenha.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Logout">
+		<pattern value="/Logout" />
+		<view-id value="/MpLogout.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Home">
+		<pattern value="/Home" />
+		<view-id value="/MpHome.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="AcessoNegado">
+		<pattern value="/AcessoNegado" />
+		<view-id value="/MpAcessoNegado.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="Erro">
+		<pattern value="/Erro" />
+		<view-id value="/MpErro.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="Erro404">
+		<pattern value="/Erro404" />
+		<view-id value="/Mp404.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="ContatoSites">
+		<pattern value="/ContatoSites" />
+		<view-id value="/mpCartorio/MpPesquisaContatoSites.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="SistemaConfigs">
+		<pattern value="/SistemaConfigs" />
+		<view-id value="/mpAdmin/MpPesquisaSistemaConfigs.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Site">
+		<pattern value="/Site" />
+		<view-id value="/indexSite.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="EmissaoBoleto">
+		<pattern value="/EmissaoBoleto" />
+		<view-id value="/mpUser/MpEmissaoBoleto.xhtml" />
+	</url-mapping>
+	<url-mapping id="EmissaoBoletoLogin">
+		<pattern value="/EmissaoBoletoLogin" />
+		<view-id value="/mpUser/MpEmissaoBoletoLogin.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="EmissaoTitulo">
+		<pattern value="/EmissaoTitulo" />
+		<view-id value="/mpUser/MpEmissaoTitulo.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="ServicoSite">
+		<pattern value="/ServicoSite" />
+		<view-id value="/MpServicoSite.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="ServicoTitulo">
+		<pattern value="/ServicoTitulo" />
+		<view-id value="/MpServicoTitulo.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="ServicoCancelamento">
+		<pattern value="/ServicoCancelamento" />
+		<view-id value="/MpServicoCancelamento.xhtml" />
+	</url-mapping>
+				
+	<url-mapping id="AutorizaCancelamento">
+		<pattern value="/AutorizaCancelamento" />
+		<view-id value="/mpUser/MpAutorizaCancelamento.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="AutorizaCancelamentoLogin">
+		<pattern value="/AutorizaCancelamentoLogin" />
+		<view-id value="/mpUser/MpAutorizaCancelamentoLogin.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="ServicoTituloWP">
+		<pattern value="/ServicoTituloWP" />
+		<view-id value="/MpServicoTituloWP.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaBoleto">
+		<pattern value="/CarregaBoleto" />
+		<view-id value="/mpCartorio/MpCarregaBoleto.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaBoletoIntimacao">
+		<pattern value="/CarregaBoletoIntimacao" />
+		<view-id value="/mpCartorio/MpCarregaBoletoIntimacao.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaTitulo">
+		<pattern value="/CarregaTitulo" />
+		<view-id value="/mpCartorio/MpCarregaTitulo.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaAutorizaCancelamento">
+		<pattern value="/CarregaAutorizaCancelamento" />
+		<view-id value="/mpCartorio/MpCarregaAutorizaCancelamento.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaCertidaoEletronica">
+		<pattern value="/CarregaCertidaoEletronica" />
+		<view-id value="/mpCartorio/MpCarregaCertidaoEletronica.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="Usuarios">
+		<pattern value="/Usuarios" />
+		<view-id value="/mpAdmin/MpPesquisaUsuarios.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="Grupos">
+		<pattern value="/Grupos" />
+		<view-id value="/mpAdmin/MpPesquisaGrupos.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="Logs">
+		<pattern value="/Logs" />
+		<view-id value="/mpCartorio/MpPesquisaLogs.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="BaixaBoletoImpresso">
+		<pattern value="/BaixaBoletoImpresso" />
+		<view-id value="/mpCartorio/MpBaixaBoletoImpresso.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="BaixaIntima21">
+		<pattern value="/BaixaIntima21" />
+		<view-id value="/mpCartorio/MpBaixaIntima21.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="RelatorioBoletoImpresso">
+		<pattern value="/RelatorioBoletoImpresso" />
+		<view-id value="/mpCartorio/MpRelatorioBoletoImpresso.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="BoletoImpressoJob">
+		<pattern value="/BoletoImpressoJob" />
+		<view-id value="/mpCartorio/MpBoletoImpressoJob.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CarregaTituloDifere">
+		<pattern value="/CarregaTituloDifere" />
+		<view-id value="/mpAdmin/MpCarregaTituloDifere.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Titulos">
+		<pattern value="/Titulos" />
+		<view-id value="/mpCartorio/MpPesquisaTitulos.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="Boletos">
+		<pattern value="/Boletos" />
+		<view-id value="/mpCartorio/MpPesquisaBoletos.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="BoletoIntimacaos">
+		<pattern value="/BoletoIntimacaos" />
+		<view-id value="/mpCartorio/MpPesquisaBoletoIntimacaos.xhtml" />
+	</url-mapping>
+	<url-mapping id="BoletoIntimacaosTst">
+		<pattern value="/BoletoIntimacaosTst" />
+		<view-id value="/mpCartorio/MpPesquisaBoletoIntimacaosTst.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="AutorizaCancelamentos">
+		<pattern value="/AutorizaCancelamentos" />
+		<view-id value="/mpCartorio/MpPesquisaAutorizaCancelamentos.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="Robot">
+		<pattern value="/Robot" />
+		<view-id value="/MpRobot.xhtml" />
+	</url-mapping>
+	<url-mapping id="RobotBoletoImpresso">
+		<pattern value="/RobotBoletoImpresso" />
+		<view-id value="/MpRobotBoletoImpresso.xhtml" />
+	</url-mapping>
+	<url-mapping id="RobotBoleto">
+		<pattern value="/RobotBoleto" />
+		<view-id value="/MpRobotBoleto.xhtml" />
+	</url-mapping>
+	<url-mapping id="RobotTitulo">
+		<pattern value="/RobotTitulo" />
+		<view-id value="/MpRobotTitulo.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="RegistraBoleto">
+		<pattern value="/RegistraBoleto" />
+		<view-id value="/mpCartorio/MpRegistraBoleto.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="GeraQRCode">
+		<pattern value="/GeraQRCode" />
+		<view-id value="/mpCartorio/MpGeraQRCode.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="BloqueiaBoleto">
+		<pattern value="/BloqueiaBoleto" />
+		<view-id value="/mpCartorio/MpBloqueiaBoleto.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="BloqueiaBoletoIntimacao">
+		<pattern value="/BloqueiaBoletoIntimacao" />
+		<view-id value="/mpCartorio/MpBloqueiaBoletoIntimacao.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="BloqueiaTitulo">
+		<pattern value="/BloqueiaTitulo" />
+		<view-id value="/mpCartorio/MpBloqueiaTitulo.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="BloqueiaAutorizaCancelamento">
+		<pattern value="/BloqueiaAutorizaCancelamento" />
+		<view-id value="/mpCartorio/MpBloqueiaAutorizaCancelamento.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="VersaoNews">
+		<pattern value="/VersaoNews" />
+		<view-id value="/mpCartorio/MpSiteVersaoNews.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="AlertaSites">
+		<pattern value="/AlertaSites" />
+		<view-id value="/mpCartorio/MpPesquisaAlertaSites.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="NoticiaSites">
+		<pattern value="/NoticiaSites" />
+		<view-id value="/mpCartorio/MpPesquisaNoticiaSites.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="UsuarioContatos">
+		<pattern value="/UsuarioContatos" />
+		<view-id value="/mpCartorio/MpPesquisaUsuarioContatos.xhtml" />
+	</url-mapping>
+		
+	<url-mapping id="CargaControles">
+		<pattern value="/CargaControles" />
+		<view-id value="/mpCartorio/MpPesquisaCargaControles.xhtml" />
+	</url-mapping>
+									
+</pretty-config>

@@ -1,0 +1,175 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<ui:define name="corpo">
+		
+		<b:jumbotron fluid="true" id="servicoId" style="padding-top: 5px; padding-bottom: 5px;">
+			<b:row>
+				<b:column col-md="5">
+				</b:column>
+				<b:column col-md="2">
+					<!-- h3 align="center"><font size="+2" color="grey">Confira Nossos Serviços</font></h3> -->
+					<b:image library="images" name="titulo_servicos.png"
+						tooltip="Nossos Serviços" tooltipPosition="right" 
+						style="max-width:100px; margin:0 auto; display:block; width:90%;" />
+				</b:column>
+				<b:column col-md="5">
+				</b:column>
+			</b:row>
+			<b:row>
+				<b:column col-md="5">
+				</b:column>
+				<b:column col-md="2">
+					<BR />
+				</b:column>
+				<b:column col-md="5" />
+			</b:row>
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="search" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Consulta Status</h4>
+						</h:panelGrid>
+	
+						<p style="font-size: 12px;"> Consultar o Andamento(Status) de um Protocolo, mediante pesquisa pelo número e
+						data de protocolo.</p>
+						
+						<p><b:button href="#{root}/ServicoTitulo" value="Acessar »" look="primary" 
+											iconAwesome="search" icon-size="1x" col-md="4" offset="2" /></p>
+						<p style="font-size: 12px;"></p>
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="cart-arrow-down" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Pagamento de Título</h4>
+						</h:panelGrid>
+	
+						<p style="font-size: 12px;">Emissão de boleto bancário para pagamento de título:<BR />
+							* Vedado o pagamento a menor do valor contido no boleto;<BR />
+							* Vedado o pagamento após a data de vencimento;<BR />
+							* Vedado o pagamento sujeito a compensação de cheque;<BR />
+							* Se o pagamento do boleto for feito sem a observância dos itens acima, o mesmo não 
+							será considerado e o título será protestado.<BR />
+							<BR />
+							As informações sobre os pagamentos feitos na rede bancária serão atualizados no primeiro
+							dia útil subsequente. 
+						</p>
+						
+						<p><b:button href="#{root}/ServicoSite?tab=0" value="Acessar »" look="primary" 
+											iconAwesome="credit-card" icon-size="1x" col-md="4" offset="2" /></p>
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="cogs" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Cancelamento</h4>
+						</h:panelGrid>
+	
+						<p style="font-size: 12px;">Cancelamentos:<BR />
+							* Sistema que permite, ao credor do título, que possua assinatura eletrônica, solicitar ou autorizar um cancelamento de protesto.
+							<br />O credor poderá autorizar online o cancelamento de protesto, informando ao cartório que o devedor pagou a dívida e está autorizado a cancelar o protesto, mediante o pagamento das despesas cartorárias.
+	    				</p>
+						
+						<p><b:button href="#{root}/ServicoCancelamento"
+								iconAwesome="credit-card" icon-size="1x" 
+								value="Informações sobre Cancelamento »" look="primary" col-md="8" offset="2" /></p>
+						<p><p:spacer width="10" height="10" /></p>
+						<p><b:button href="https://site.cenprotnacional.org.br/servicos#anuencia" target="_blank"
+								iconAwesome="sticky-note" icon-size="1x" 
+								value="Acessar Cancelamento»" look="primary" col-md="8" offset="2" /></p>
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			<b:row rendered="#{mpSeguranca.indCancelamento}">
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="cogs" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Verificar Autorização de Cancelamento</h4>
+						</h:panelGrid>
+	
+						<p style="font-size: 12px;">Verificar Autorização de Cancelamentos:<BR />
+							* Sistema que permite consultar quais títulos protestados, em seu documento, já podem ser cancelados. 
+	    				</p>
+						
+						<p><b:button href="#{root}/ServicoSite?tab=1"
+								iconAwesome="credit-card" icon-size="1x" 
+								value="Informações sobre Autorização de Cancelamento »" look="primary" col-md="8" offset="2" /></p>
+						<p><p:spacer width="10" height="10" /></p>
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="cogs" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Solicitação de Certidões</h4>
+						</h:panelGrid>
+	
+						<p style="font-size: 12px;">Certidões:<BR />
+							* Sistema que permite a Solicitação de Certidões de protesto junto aos cartórios
+							 ou distribuidores do Estado do Rio de Janeiro.  A certidão solicitada poderá ser
+							 retirada pessoalmente, enviada pelos correios ou recebida através de arquivo
+							  assinado eletronicamente.
+						</p>
+						
+						<p><b:button href="https://cartoriosdeprotestorj.com.br/" target="_blank" 
+								iconAwesome="sticky-note-o" icon-size="1x"
+								value="Acessar Certidões»" look="primary" col-md="8" offset="2" /></p>
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<b:panel>
+						<h:panelGrid columns="3" cellpadding="10">
+							<b:iconAwesome value="search-minus" size="2x" />
+							<p:spacer width="10" height="10" />
+							<h4>Consulta de Protestos</h4>
+						</h:panelGrid>
+						
+						<p style="font-size: 12px;">Consulte gratuitamente um protesto de forma rápida, segura e gratuita, em todo Estado do Rio de Janeiro e, também nos outros Estados do Brasil.</p>
+						
+						<p><b:button href="http://pesquisaprotesto.com.br/" target="_blank" value="Acessar »" 
+										iconAwesome="search-plus" icon-size="1x" look="primary" col-md="4" offset="2" /></p>
+						<p style="font-size: 12px;"></p>
+						
+					</b:panel>				
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+		</b:jumbotron>
+	
+	</ui:define>
+				
+</ui:composition>

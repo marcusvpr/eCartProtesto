@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+
+	<!-- FOOTER  -->
+	<div>
+		<b:row>
+			<b:column span="2">
+				<h:outputText value="" />
+			</b:column>
+			<b:column span="5">
+				<h:outputText value="#{mpIndexSiteBean.txtSiteFooter}" escape="false" />
+			</b:column>
+			<b:column span="1">
+				<h:outputText value="" />
+			</b:column>
+			<b:column span="3">
+				<h:outputText value=
+					"Copyright © 2017-2020 Versão: (#{mpSeguranca.sistemaVersao}). Todos direitos reservados. ( #{mpSeguranca.sistemaHora} )" />
+			</b:column>
+			<b:column span="1">
+				<h:outputText value="" />
+			</b:column>
+		</b:row>
+	</div>
+
+	<p:dialog id="modalDialogTrocSenhaID" header="Trocar Senha"
+		    					widgetVar="scDialogSenha" modal="true" width="500" height="250" showEffect="explode"
+		     					hideEffect="fade" resizable="false" closable="true">
+	
+		<b:form horizontal="true">		
+			
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+			
+			<b:inputSecret label="Nova Senha"
+				fieldId="senhaNovaAlt" name="senhaNovaAlt" required="true"
+				requiredMessage="Informar Nova Senha !"
+				validatorMessage="Tamanho Nova Senha Inválido! (min=6/max=20)"
+				colMd="6" labelColMd="5" value="#{mpLoginBean.senhaNovaAlterar}">
+			</b:inputSecret>
+			<b:inputSecret label="Confirma Nova Senha"
+				fieldId="senhaNovaAltConf" name="senhaNovaAltConf"
+				required="true" requiredMessage="Informar Nova Senha Confirmação !"
+				validatorMessage="Tamanho Nova Senha Confirmação Inválido! (min=6/max=20)"
+				colMd="6" labelColMd="5" value="#{mpLoginBean.senhaNovaAlterarConfirma}">
+			</b:inputSecret>
+			
+			<div>
+				<span style="float: right; height: 30px; line-height: 30px; margin-right: 60px">
+					<p:toolbar>
+						<p:toolbarGroup>
+							<b:commandButton style="padding: 0 4px;" iconAwesome="save" look="link" ajax="true"  
+								onclick="ajax:mpLoginBean.alterarSenha()" alt="Salva" />
+							<p:spacer></p:spacer>
+							<b:button iconAwesome="close" look="link" onclick="PF('scDialogSenha').hide();"
+								alt="Fecha" />
+						</p:toolbarGroup>
+					</p:toolbar>
+				</span>
+			</div>			
+			
+		</b:form>
+		
+	</p:dialog>
+
+</html>

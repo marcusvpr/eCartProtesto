@@ -1,0 +1,225 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewParam name="idBolParm" value="#{mpBoletoBean.idBolParm}" />
+
+   		<f:viewAction action="#{mpBoletoBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+      	<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:form id="frmSelBol" horizontal="true">
+			<!-- b:messages styleClass="msgs" redisplay="true" recursive="true" id="messages" -->
+			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+			
+			<!-- b:growl placementFrom="top" id="messages" delay="3000" escape="true"  -->
+			
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="2">
+						<h3>Emissão de Boleto</h3>
+					</b:column>
+					<b:column col-md="4">
+						<b:image small-screen="one-third" library="images"
+							name="boleto.png" tooltip="Emissão de Boleto"
+							tooltipPosition="right" />
+					</b:column>
+					<b:column col-md="2" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4">
+						<br />
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="8">
+
+						<b:panel style="padding-left:100px">
+
+							<b:panelGrid size="xs" columns="6">
+								<p:outputLabel value="Selecionar?" />
+								<b:radiobutton id="Oficio"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio1.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio1}" required="true"
+									requiredMessage="Favor selecione o Ofício desejado !" />
+								<b:radiobutton id="rbDest2"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio2.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio2}" />
+								<b:radiobutton id="rbDest3"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio3.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio3}" />
+								<b:radiobutton id="rbDest4"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio4.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio4}" />
+							</b:panelGrid>
+							<!-- b:message for="@form:@property(mpBoletoBean.mpCartorioOficioSel)"  -->
+						</b:panel>
+
+						<b:formGroup>
+							<b:inputText placeholder="Informe o Número do Protocolo"
+								required="true"
+								requiredMessage="Favor entre o Número do Protocolo"
+								value="#{mpBoletoBean.numeroIntimacao}" span="5">
+								<f:facet name="prepend">
+									<h:outputText value="Número do Protocolo:" />
+								</f:facet>
+							</b:inputText>
+							<b:inputText placeholder="Informe o CPF/CNPJ" required="true"
+								requiredMessage="Favor entre o Número do CPF / CNPJ"
+								value="#{mpBoletoBean.cpfCnpj}" span="4">
+								<f:facet name="prepend">
+									<h:outputText value="Número do CPF / CNPJ:" />
+								</f:facet>
+							</b:inputText>
+							<b:commandButton value="Listar Boletos »"
+								action="#{mpBoletoBean.listaBoleto}" look="primary" />
+						</b:formGroup>
+
+					</b:column>
+					<b:column col-md="2" />
+				</b:row>
+
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+
+						<b:dataTable id="idBoletoTab" value="#{mpBoletoBean.mpBoletoList}" var="mpBoletoX"
+							class="edtBoletoTab"						
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+														
+							<b:dataTableColumn value="#{mpBoletoX.nomeSacado}" order="asc" label="Nome Sacado" />
+							<b:dataTableColumn value="#{mpBoletoX.numeroDocumento}"
+								label="Numero Documento" style="text-align:center;" />
+							<b:dataTableColumn label="Data Vencimento" style="text-align:center;">
+								<h:outputText value="#{mpBoletoX.dataVencimento}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+								</h:outputText>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Valor Documento"
+								style="text-align:center;">
+								<h:outputText value="#{mpBoletoX.valorDocumento}">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+								</h:outputText>
+							</b:dataTableColumn>
+							<b:dataTableColumn label="(3) Ult.Digitos Protocolo?" data-type="text">
+								<h:inputText value="#{mpBoletoX.numeroIntimacaoCode}" />									
+							</b:dataTableColumn>
+							<b:dataTableColumn label="Ação">
+								<p:commandButton value="Gerar Boleto" icon="print"
+									ajax="true" update="@(.edtBoletoTab)" 
+									action="#{mpBoletoBean.geraBoleto}">
+									<!--  onclick="ajax:mpBoletoBean.geraBoleto()"  -->
+									<f:setPropertyActionListener value="#{mpBoletoX.numeroIntimacaoCode}" 
+																		target="#{mpBoletoBean.numeroIntimacaoCode}" />									
+									<f:setPropertyActionListener value="#{mpBoletoX}" 
+																		target="#{mpBoletoBean.mpBoletoSelX}" />									
+									<f:param name="idBolParm" value="#{mpBoletoX.id}" />
+									<p:fileDownload value="#{mpBoletoBean.file}" />
+								</p:commandButton>
+							</b:dataTableColumn>
+						</b:dataTable>
+
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+
+
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+
+					    <p:dataTable id="radioDT" var="mpBoletoY" value="#{mpBoletoBean.mpBoletoList}" 
+					    													selection="#{mpBoletoBean.mpBoletoSel}" 
+					    																									rowKey="#{mpBoletoY.id}">
+					        <f:facet name="header">
+					            <p:commandButton process="radioDT" update=":frmSelBol:bolDetail" icon="ui-icon-search" 
+					            								value="Exibir" oncomplete="PF('bolDialog').show()" />
+					        </f:facet>
+					        <p:column selectionMode="single" style="width:30px;text-align:center" />
+					        <p:column headerText="Nome Sacado">
+					            <h:outputText value="#{mpBoletoY.nomeSacado}" />
+					        </p:column>
+					        <p:column headerText="Número Documento" style="text-align:center">
+					            <h:outputText value="#{mpBoletoY.numeroDocumento}" />
+					        </p:column>
+					        <p:column headerText="Data Vencimento" style="text-align:center" 
+					        												sortBy="#{mpBoletoY.dataVencimento}">
+					            <h:outputText value="#{mpBoletoY.dataVencimento}">
+					            	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+					            </h:outputText>					            	
+					        </p:column>
+					        <p:column headerText="Nosso Número" style="text-align:center">
+					            <h:outputText value="#{mpBoletoY.nossoNumero}" />
+					        </p:column>
+					        <f:facet name="footer">
+					            <p:commandButton process="radioDT" update=":frmSelBol:bolDetail" icon="ui-icon-search" 
+					            								value="Exibir" oncomplete="PF('bolDialog').show()" />
+					        </f:facet>
+					    </p:dataTable>
+
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+				
+			</b:jumbotron>
+			
+		    <p:dialog header="Boleto Informação" widgetVar="bolDialog" modal="true" showEffect="fade"
+		     																	hideEffect="fade" resizable="false">
+		        <p:outputPanel id="bolDetail" style="text-align:center;">
+		            <p:panelGrid  columns="2" layout="grid" rendered="#{not empty mpBoletoBean.mpBoletoSel}"
+								style="border:0px none;background:none" styleClass="ui-fluid">		 
+
+		                <p:outputLabel value="Nome Sacado:" />
+		                <p:outputLabel value="#{mpBoletoBean.mpBoletoSel.nomeSacado}" />
+
+		                <p:outputLabel value="Número Documento:" />
+		                <p:outputLabel value="#{mpBoletoBean.mpBoletoSel.numeroDocumento}" />
+
+		                <p:outputLabel value="Nosso Número:" />
+		                <p:outputLabel value="#{mpBoletoBean.mpBoletoSel.nossoNumero}" />
+
+		                <p:outputLabel value="Data Vencimento:" />
+		                <p:outputLabel value="#{mpBoletoBean.mpBoletoSel.dataVencimento}">
+					    	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+		                </p:outputLabel>
+
+		                <p:outputLabel value="Valor Documento:" />
+		                <p:outputLabel value="#{mpBoletoBean.mpBoletoSel.valorDocumento}">
+							<f:convertNumber type="currency" pattern="###,##0.00" />
+		                </p:outputLabel>
+		 
+		                <p:outputLabel value="(3) Ult.Digitos Protocolo?" />
+		                <p:inputText value="#{mpBoletoBean.mpBoletoSel.numeroIntimacaoCode}" />
+		 
+		                <p:outputLabel value="Ação:" />
+		 				<p:commandButton value="Gerar Boleto" action="#{mpBoletoBean.geraBoleto}" look="primary" /> 
+		 
+		            </p:panelGrid>
+		        </p:outputPanel>
+		    </p:dialog>			
+			
+		</b:form>
+
+	</ui:define>
+
+</ui:composition>
+
+
+
+

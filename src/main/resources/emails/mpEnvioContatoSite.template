@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	</head>
+    <body>
+        <table>
+            <tr>
+                <td style="width: 500px">
+        			<img src="http://www.protestorjcapital.com.br:8080/apps/resources/images/logo_protestorj_smallXXX.png"
+        							alt="www.protestorjcapital.com.br" />
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 100px"><b>Informacao do Contato</b></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td style="width: 100px">Data Contato:</td>
+                <td>$mpContatoSite.dataContatoSDF</td>
+            </tr>
+            <tr>
+                <td>Nome:</td>
+                <td>$mpContatoSite.nome</td>
+            </tr>
+            <tr>
+                <td>E-mail:</td>
+                <td>$mpContatoSite.email</td>
+            </tr>
+            <tr>
+                <td>Telefone:</td>
+                <td>$mpContatoSite.telefone</td>
+            </tr>
+            <tr>
+                <td>Assunto:</td>
+                <td>$mpContatoSite.assunto</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">Mensagem:</td>
+                <td>$mpContatoSite.mensagem</td>
+            </tr>
+            <tr>
+                <td style="width: 100px">Destino:</td>
+                <td>$mpContatoSite.mpCartorioOficio.nome</td>
+            </tr>
+        </table>
+    </body>
+</html>

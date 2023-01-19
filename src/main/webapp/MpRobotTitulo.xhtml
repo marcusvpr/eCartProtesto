@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+	  xmlns:f="http://java.sun.com/jsf/core">
+      
+    <h:head>
+        <title>ROBOT Titulos - Cartórios Protestos Capital - RJ</title>
+        <meta name="author" content="MPXDS.com"></meta>
+    </h:head>
+
+	<f:metadata>
+		<f:viewParam name="ofX" value="#{mpRobotTituloBean.ofX}" />
+   		<f:viewAction action="#{mpRobotTituloBean.init}" />
+	</f:metadata>
+
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+    	<h3>Oficio : #{mpRobotTituloBean.ofX} Periodo: #{mpRobotTituloImpressoBean.dataDeSDF} / 
+    		#{mpRobotTituloBean.dataAteSDF} / Qtd.Titulos: #{mpRobotTituloBean.contTitulo}</h3>
+    	<h3>Mensagem : #{mpRobotTituloBean.mensagem}</h3> 
+    </h:body>
+
+</html>

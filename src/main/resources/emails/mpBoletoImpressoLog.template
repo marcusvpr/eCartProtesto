@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br" xml:lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+	</head>
+    <body>
+        <table>
+            <tr>
+                <td style="width: 500px">
+        			<img src="http://www.protestorjcapital.com.br:8080/apps/resources/images/logo_protestorj_smallXXX.png"
+        							alt="www.protestorjcapital.com.br" />
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="width: 500px"><b>Boleto Impresso Sistema WEB - ProtestoRjCapital</b></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Data:</td>
+                <td>$mpBoletoLog.dataGeracaoSDF</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Usuario:</td>
+                <td>$mpBoletoLog.usuarioNome</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">E-mail:</td>
+                <td>$mpBoletoLog.usuarioEmail</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Num.Oficio:</td>
+                <td>$mpBoletoLog.numeroOficio</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Protocolo:</td>
+                <td>$mpBoletoLog.protocolo</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Guia:</td>
+                <td>$mpBoletoLog.numeroGuia</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Valor Documento:</td>
+                <td>$mpBoletoLog.valorDocumento</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Valor Tarifa:</td>
+                <td>$mpBoletoLog.valorTarifa</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Valor CPMF:</td>
+                <td>$mpBoletoLog.valorCPMF</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Valor Leis:</td>
+                <td>$mpBoletoLog.valorLeis</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Valor Cobrado:</td>
+                <td>$mpBoletoLog.valorCobrado</td>
+            </tr>
+            <tr>
+                <td style="width: 200px">Mensagem Log:</td>
+                <td>$mpBoletoLog.mensagem</td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td> </td>
+                <td><b>Sistema WEB - ProtestoRjCapital</b></td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui"
+	template="/WEB-INF/template/MpLayoutPadrao.xhtml">
+
+	<ui:define name="corpo">
+
+		<h:form id="frmSql">
+
+			<h3>Envia Comando SQL</h3>
+
+			<b:messages styleClass="msgs" redisplay="true" recursive="true" />
+			<p:messages showDetail="false" autoUpdate="true" closable="true" />
+				
+			<b:growl placementFrom="top" delay="3000" escape="true" />
+
+			<p:panel header="Comando SQL" toggleable="true" toggleSpeed="500"
+					closeSpeed="500" collapsed="false">
+
+				<p:panelGrid columns="1" layout="grid" style="border:0px none;background:none" styleClass="ui-fluid">
+
+					<p:inputTextarea placeholder="Informar comando SQL"
+							maxlength="255" rows="3" value="#{mpEnviaSqlBean.comandoSQL}" />
+
+					<p:commandButton value="Executa SQL" action="#{mpEnviaSqlBean.executaSql}" />
+					<p:commandButton value="Exemplos SQL" action="#{mpEnviaSqlBean.onShowExemploSql}" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+			<p:panel header="Resultado SQL" toggleable="true" toggleSpeed="500"
+						closeSpeed="500" collapsed="#{mpEnviaSqlBean.indResultSQL}">
+
+				<p:panelGrid columns="1" layout="grid" style="border:0px none;background:none">
+					<p:inputTextarea readonly="true" maxlength="255" rows="5"
+								value="#{mpEnviaSqlBean.resultSQL}" />
+				</p:panelGrid>
+
+			</p:panel>
+
+			</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+   <f:viewParam name="dummy" />
+   	<f:event listener="#{mpGeraQRCodeBean.preRender}" type="preRenderView" />
+</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+	
+		<p:messages id="message" autoUpdate="false" showDetail="false" />
+
+		<b:container>
+			<br />
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="6">
+						<h4>Certidão Eletrônica - Geração QRCode</h4>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="6">
+						<h5>PathX : #{mpGeraQRCodeBean.pathY}</h5>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="6">
+						<p:panelGrid columns="1" layout="grid"
+							style="border:0px !important; background:none;"
+							styleClass="ui-panelgrid-blank">
+							<h:form id="frmUp" enctype="multipart/form-data">
+								<p:fileUpload label="Selecionar..." auto="true"
+									fileUploadListener="#{mpGeraQRCodeBean.handleFileUpload}"
+									mode="advanced" allowTypes="/(\.|\/)(pdf)$/" />
+							</h:form>
+						</p:panelGrid>
+						
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="6">
+						<h4>MsgX : #{mpGeraQRCodeBean.msgX}</h4>
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+			</b:jumbotron>
+
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,126 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+	          
+	<f:metadata>
+   		<f:viewParam name="idU" value="#{loginBean.idU}" />
+   		<f:event listener="#{mpLoginBean.preRender}" type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+	        
+	        <b:container>
+	            <b:row>
+	                <b:column col-md="1">
+	                </b:column>
+	                <b:column col-md="4">
+						<b:image style="max-width:300px; margin:0 auto; display:block; width:80%;"
+										library="images" name="area_restrita.png"  
+										tooltip="Acesso Area Restrita" tooltipPosition="right" />
+	                </b:column>
+	                <b:column col-md="4">
+	        			<h4 class="marketing"><b></b></h4>
+	                </b:column>
+	                <b:column col-md="3">
+	                </b:column>
+	            </b:row>
+	            <b:row>
+	                <b:column col-md="7">
+	        			
+						<h:form styleClass="navbar-form navbar-right" id="frm">
+	
+							<b:growl id="messages" globalOnly="true" placementFrom="top"
+	         					show-detail="true" show-summary="false" allowDismiss="true"
+	         					delay="10000" escape="true" />
+	         					
+							<div class="form-group">
+								<b:inputText placeholder="Usuário/E-Mail" fieldSize="sm"
+									required="true" requiredMessage="Favor entre o Usuário/E-mail!" 
+									value="#{mpLoginBean.loginEmail}"
+									fieldId="username" name="username" colMd="12" labelColMd="2">
+									<f:facet name="prepend">
+										<b:icon name="user" />
+									</f:facet>
+								</b:inputText>
+							</div>
+							<div class="form-group">
+								<b:inputSecret placeholder="Senha" fieldSize="sm"
+									required="true" requiredMessage="Favor entre a Senha!" 
+									fieldId="password" name="password" colMd="12" labelColMd="2">
+									<f:facet name="prepend">
+										<b:iconAwesome name="key" />
+									</f:facet>
+								</b:inputSecret>
+							</div> 
+	               			 #{' '}
+	                		<b:commandButton value="Acesse" look="primary" icon="chevron-right" iconAlign="right" />
+								
+						</h:form>        			
+	
+	                </b:column>
+	                <b:column col-md="5">
+	                </b:column>
+	            </b:row>
+	            <b:row>
+	                <b:column col-md="4">
+	                </b:column>
+	                <b:column col-md="4">
+	                	<p:spacer width="100" height="10" />
+	                </b:column>
+	                <b:column col-md="4">
+	                </b:column>
+	            </b:row>
+	            <b:row>
+	                <b:column col-md="4">
+	                </b:column>
+	                <b:column col-md="4">
+	                	<p:link outcome="MpRegeraSenha" value="Esqueci a Senha - Clique Aqui !" />                
+	                </b:column>
+	                <b:column col-md="4">
+	                </b:column>
+	            </b:row>
+	            <b:row>
+	                <b:column col-md="2">
+	                </b:column>
+	                <b:column col-md="8">
+	                	<b:button href="#{root}/ServicoSite" look="primary" col-md="10" offset="2"
+								value="Não tem conta? Crie seu cadastro - Clique Aqui ! »" />                
+	                </b:column>
+	                <b:column col-md="2">
+	                </b:column>
+	            </b:row>
+	            <b:row>
+	                <b:column col-md="4">
+	                </b:column>
+	                <b:column col-md="4">
+						<p></p>
+	                </b:column>
+	                <b:column col-md="4">
+	                </b:column>
+	            </b:row>
+	        </b:container>
+	
+		<script>
+			(function(i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function() {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script',
+					'https://www.google-analytics.com/analytics.js', 'ga');
+	
+			ga('create', 'UA-25650106-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+	
+	</ui:define>
+				
+</ui:composition>

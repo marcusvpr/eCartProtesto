@@ -1,0 +1,148 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteWP.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpServicoTituloBean.init}" />
+   		<f:viewAction action="#{mpTituloBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:container id="boletoServicoId">
+			<b:row>
+				<b:column col-md="12">
+					<b:panel collapsible="false" look="primary">
+						<f:facet name="heading">
+							<h:outputText value="" />
+						</f:facet>
+						<b:form id="frmSelBol" horizontal="true">
+							<!-- b:messages styleClass="msgs" redisplay="true" recursive="true" id="messages" -->
+							<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+							
+							<!-- b:growl placementFrom="top" id="messages" delay="3000" escape="true"  -->
+							
+							<b:jumbotron fluid="true">
+								<b:row>
+									<b:column col-md="2" />
+									<b:column col-md="5">
+										<br /><h4>Base de consulta é relativa aos últimos 180 dias.</h4>
+									</b:column>
+									<b:column col-md="3">
+										<!-- br />Data da atualização da base:
+										<h5>. 1º Ofício : #{mpTituloBean.horarioRobotOf1}</h5>
+										<h5>. 2º Ofício : #{mpTituloBean.horarioRobotOf2}</h5>
+										<h5>. 3º Ofício : #{mpTituloBean.horarioRobotOf3}</h5>
+										<h5>. 4º Ofício : #{mpTituloBean.horarioRobotOf4}</h5> -->
+									</b:column>
+									<b:column col-md="2" />
+								</b:row>
+								<b:row>
+									<b:column col-md="1" />
+									<b:column col-md="10">
+				
+										<b:panel style="padding-left:100px">
+				
+											<b:panelGrid size="xs" columns="6">
+												<p:outputLabel value="Selecionar?" />
+												<b:radiobutton id="Oficio"
+													value="#{mpTituloBean.mpCartorioOficioSel}"
+													itemLabel="#{mpTituloBean.mpCartorioOficio1.apelido}"
+													itemValue="#{mpTituloBean.mpCartorioOficio1}" required="true"
+													requiredMessage="Favor selecione o Ofício desejado !" />
+												<b:radiobutton id="rbDest2"
+													value="#{mpTituloBean.mpCartorioOficioSel}"
+													itemLabel="#{mpTituloBean.mpCartorioOficio2.apelido}"
+													itemValue="#{mpTituloBean.mpCartorioOficio2}" />
+												<b:radiobutton id="rbDest3"
+													value="#{mpTituloBean.mpCartorioOficioSel}"
+													itemLabel="#{mpTituloBean.mpCartorioOficio3.apelido}"
+													itemValue="#{mpTituloBean.mpCartorioOficio3}" />
+												<b:radiobutton id="rbDest4"
+													value="#{mpTituloBean.mpCartorioOficioSel}"
+													itemLabel="#{mpTituloBean.mpCartorioOficio4.apelido}"
+													itemValue="#{mpTituloBean.mpCartorioOficio4}" />
+											</b:panelGrid>
+											<!-- b:message for="@form:@property(mpTituloBean.mpCartorioOficioSel)"  -->
+										</b:panel>
+				
+								        <b:container>
+								            <b:row>
+								                <b:column col-md="1">
+								                </b:column>
+								                <b:column col-md="10">
+													<b:image small-screen="one-third" library="images" 
+														name="intimacao_protocolo.png" tooltipPosition="right"
+													 	tooltip="Localizar Protocolo e Data Protocolo" 
+														style="width:100%;" />
+								                </b:column>
+								                <b:column col-md="1">
+								                </b:column>
+								            </b:row>
+								        </b:container>
+														
+										<b:formGroup>
+											<b:inputText placeholder="Informe o Número do Protocolo" required="true" 
+												requiredMessage="Favor entre o Número do Protocolo" label="Protocolo:"
+												value="#{mpTituloBean.numeroProtocolo}" label-col-sm="2" col-sm="2"  />
+												
+											<!-- b:dateTimePicker required="true" show-time="false" label="Data do Protocolo:"
+												locale="pt" timeZone="America/Sao_Paulo" 
+												requiredMessage="Favor entre a Data Protocolo" format="DD/MM/YYYY"
+												value="#{mpTituloBean.dataProtocolo}" label-col-sm="2" col-sm="3" -->
+												
+											<p:outputLabel for="dataProt" value="Data do Protocolo:" />
+											<p:calendar pattern="dd/MM/yyyy" mask="true" id="dataProt" showOn="button"
+													locale="pt" timeZone="America/Sao_Paulo"
+													required="true" requiredMessage="Favor entre a Data Protocolo"
+													value="#{mpTituloBean.dataProtocolo}" />
+												
+											<p:spacer  width="5" height="5" />	
+											<b:commandButton value="Pesquisar »" ajax="false"
+												action="#{mpTituloBean.consultarTitulo}" look="primary" />
+											<br />
+											<!-- p:captcha label="Captcha" theme="white" language="pt" -->
+															 								    							
+										</b:formGroup>
+				
+									</b:column>
+									<b:column col-md="1" />
+								</b:row>
+								<b:row>
+									<b:column col-md="2" />
+									<b:column col-md="7">
+										<p:outputLabel value="Status : " />
+										<h2 style="color:blue">#{mpTituloBean.statusTitulo}</h2>
+									</b:column>
+									<b:column col-md="3">
+										<p:outputLabel value="Proceder Cancelamento ... " 
+											rendered="#{mpTituloBean.indTituloProtestadoOrdinario}"/>
+										<b:button href="https://cartoriosdeprotestorj.com.br/cancelamento" target="_blank" 
+											value="Acessar »" look="success" col-md="7" offset="1"
+											rendered="#{mpTituloBean.indTituloProtestadoOrdinario}" />
+											
+										<p:outputLabel value="Efetuar Pagamento - Emissão Boleto" 
+											rendered="#{mpTituloBean.indTituloProtestadoCustodiado}"/>
+										<b:button href="#{root}/EmissaoBoleto" value="Emitir »" 
+											look="success" col-md="7" offset="1"
+											rendered="#{mpTituloBean.indTituloProtestadoCustodiado}" />
+									</b:column>
+								</b:row>
+				
+							</b:jumbotron>
+				
+						</b:form>
+					</b:panel>
+				</b:column>
+			</b:row>
+		</b:container>
+
+	</ui:define>
+
+</ui:composition>

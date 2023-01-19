@@ -1,0 +1,140 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<h:form id="frmAS">
+		
+			<p:messages id="messages" showDetail="false" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="true" /> 
+		
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<h3>Consulta Carga Controle</h3>
+					</b:column>
+					<b:column col-md="3">
+						<p:commandButton value="Exportar para XLS" ajax="false" icon="fa fa-file-excel-o Fs14 red">
+							<p:dataExporter type="xls" target="mpCargaControlesTable" fileName="alertaSites"
+										postProcessor="#{mpFilterViewCargaControle.posProcessarXls}" />
+						</p:commandButton>
+					</b:column>
+				</b:row>
+	
+				<b:row>
+					<b:column col-md="12">
+									
+							<p:dataTable id="mpCargaControlesTable" sortMode="multiple" var="mpCargaControleX"
+									value="#{mpFilterViewCargaControle.mpCargaControleList}"
+									rowKey="#{mpCargaControle.numeroOficio}" reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado." rows="10"
+									paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="top">									
+
+						        <f:facet name="header">
+						            <p:outputPanel style="float:right">
+             							<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+											action="#{mpFilterViewCargaControle.novoMpCargaControle}" ajax="true"
+            								value="Novo" icon="fa fa-fw fa-edit" title="Novo Registro">
+            							</p:commandButton>										
+						            </p:outputPanel>
+						        </f:facet>
+						        									
+								<p:column headerText="Número Ofício" sortBy="#{mpCargaControleX.numeroOficio}" 
+									filterBy="#{mpCargaControleX.numeroOficio}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpCargaControleX.numeroOficio}" />
+    							</p:column>														
+								<p:column headerText="DtHr.Inicial" sortBy="#{mpCargaControleX.dataHoraIniSDF}"
+									filterBy="#{mpCargaControleX.dataHoraIniSDF}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpCargaControleX.dataHoraIniSDF}" />
+    							</p:column>														
+								<p:column headerText="DtHr.Final" sortBy="#{mpCargaControleX.dataHoraFimSDF}"
+									filterBy="#{mpCargaControleX.dataHoraFimSDF}" footerText="Contém" 
+									filterMatchMode="contains">
+        							<h:outputText value="#{mpCargaControleX.dataHoraFimSDF}" />
+    							</p:column>														
+								<p:column headerText="Mensagem">
+        							<h:outputText value="#{mpCargaControleX.mensagem}" />
+    							</p:column>														
+								<p:column headerText="Recorrente">
+        							<h:outputText value="#{mpCargaControleX.indRecorrente ? 'Sim' : 'Não'}" />
+    							</p:column>														
+								<p:column headerText="Ação" style="text-align:center">
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewCargaControle.alteraMpCargaControle}" ajax="true"
+            							value="Edita" icon="fa fa-fw fa-edit" title="Edita Registro">
+                						<f:setPropertyActionListener value="#{mpCargaControleX}" 
+                										target="#{mpFilterViewCargaControle.mpCargaControleSel}" />
+            						</p:commandButton>
+             						<p:commandButton update=":frmAS:scDialogId" oncomplete="PF('scDialog').show()" 
+										action="#{mpFilterViewCargaControle.apagaMpCargaControle}" ajax="true"
+            							value="Exclui" icon="fa fa-fw fa-remove" title="Exclui Registro">
+                						<f:setPropertyActionListener value="#{mpCargaControleX}" 
+                										target="#{mpFilterViewCargaControle.mpCargaControleSel}" />
+            						</p:commandButton>										
+								</p:column>
+							</p:dataTable>
+		
+			    			<p:dialog id="scDialogId" width="650"
+			    					header="Carga Controle Site #{mpFilterViewCargaControle.txtModoTela}"
+			    					widgetVar="scDialog" modal="true" showEffect="fade"
+			     					hideEffect="fade" resizable="true">
+						        
+						        <p:outputPanel id="scDetailId" style="text-align:center;">
+						            <p:panelGrid  columns="2" layout="grid" 
+										style="border:0px none;background:none" styleClass="ui-fluid">		 
+				
+						                <p:outputLabel value="Número Ofício:" />
+						                <p:inputText readonly="true"
+						                		value="#{mpFilterViewCargaControle.mpCargaControleSel.numeroOficio}" />
+						                		
+						                <p:outputLabel value="Data Inicial:" />
+										<p:calendar pattern="dd.MM.yyyy HH:mm" type="localDateTime" mask="true"
+											locale="pt" timeZone="America/Sao_Paulo"
+											value="#{mpFilterViewCargaControle.mpCargaControleSel.dataHoraIni}" />
+						                		
+						                <p:outputLabel value="Data Final:" />
+										<p:calendar pattern="dd.MM.yyyy HH:mm" type="localDateTime" mask="true"
+											locale="pt" timeZone="America/Sao_Paulo"
+											value="#{mpFilterViewCargaControle.mpCargaControleSel.dataHoraFim}" />
+						                		
+						                <p:outputLabel value="Mensagem:" />
+						                <p:inputTextarea lines="10" cols="70" 
+						                		readonly="#{mpFilterViewCargaControle.indEditavel}"
+						                		value="#{mpFilterViewCargaControle.mpCargaControleSel.mensagem}" />
+						                		
+						                <p:outputLabel value="Recorrente:" />
+						                <p:inputSwitch onLabel="Sim" offLabel="Não"
+						                		disabled="#{mpFilterViewCargaControle.indEditavel}"
+						                		value="#{mpFilterViewCargaControle.mpCargaControleSel.indRecorrente}" />
+						         	</p:panelGrid>
+			        			</p:outputPanel>
+	
+						        <div>
+									<b:commandButton style="padding: 0 8px;" iconAwesome="save" look="link" ajax="true"  
+										onclick="ajax:mpFilterViewCargaControle.mpGrava()" 
+										oncomplete="PF('scDialog').hide();" 
+										update="frmAS" value="Confirma" />
+						            <b:button value="Cancela" onclick="PF('scDialog').hide();" />
+						        </div>
+						   					        
+						    </p:dialog>
+	
+					</b:column>
+				</b:row>
+			</b:jumbotron>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

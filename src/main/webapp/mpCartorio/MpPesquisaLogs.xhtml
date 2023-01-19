@@ -1,0 +1,247 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpPesquisaLogsBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<b:jumbotron fluid="true">
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Consulta LOGs</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="10">
+					<h:form id="frmLogs">
+						<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+						<b:panel style="padding-left:50px">
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 1° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 2° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 3° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="( 4° Oficio )" />
+								<p:outputLabel value="" />
+								<p:outputLabel value="" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isAdministrador()}">
+								<p:outputLabel value="Selecionar?" />
+								<b:radiobutton id="Oficio"
+									value="#{mpPesquisaLogsBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaLogsBean.mpCartorioOficio1.apelido}"
+									itemValue="#{mpPesquisaLogsBean.mpCartorioOficio1}"
+									required="true"
+									requiredMessage="Favor selecione o Ofício desejado !" />
+								<b:radiobutton id="rbDest2"
+									value="#{mpPesquisaLogsBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaLogsBean.mpCartorioOficio2.apelido}"
+									itemValue="#{mpPesquisaLogsBean.mpCartorioOficio2}" />
+								<b:radiobutton id="rbDest3"
+									value="#{mpPesquisaLogsBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaLogsBean.mpCartorioOficio3.apelido}"
+									itemValue="#{mpPesquisaLogsBean.mpCartorioOficio3}" />
+								<b:radiobutton id="rbDest4"
+									value="#{mpPesquisaLogsBean.mpCartorioOficioSel}"
+									itemLabel="#{mpPesquisaLogsBean.mpCartorioOficio4.apelido}"
+									itemValue="#{mpPesquisaLogsBean.mpCartorioOficio4}" />
+							</b:panelGrid>
+						</b:panel>
+
+						<div>
+			            	<p:outputLabel value="Data De : " />
+							<p:spacer />
+							<p:calendar pattern="dd/MM/yyyy" mask="true"
+								locale="pt" timeZone="America/Sao_Paulo"
+								value="#{mpPesquisaLogsBean.dataDe}" />
+							<p:spacer />
+							<p:spacer />
+			            	<p:outputLabel value="Data Até : " />
+							<p:spacer />
+							<p:calendar pattern="dd/MM/yyyy" mask="true"
+								locale="pt" timeZone="America/Sao_Paulo"
+								value="#{mpPesquisaLogsBean.dataAte}" />
+							<p:spacer />
+							<b:commandButton style="padding: 0 4px;" value="Pesquisar" 
+								iconAwesome="search" look="link" ajax="true"  
+								onclick="ajax:mpPesquisaLogsBean.exibe()" update="frmLogs"/>
+					   </div>
+
+					   <b:tabView contentStyle="border-right: 1px solid #ddd;border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;padding:10px">
+						     <b:tab title="Boletos Impressos">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpBoletoLogList}"
+									var="mpBoletoLogX" class="edtBolLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado." rows="10"
+									paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="top">								
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpBoletoLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.numeroDocumento}" order="asc" label="Documento" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.boletoRegistro}" label="Boleto Registro" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.boletoRegistroRetorno}" 
+										label="Boleto Registro Retorno" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.ambienteBradesco}" order="asc" label="Amb.Bradesco" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoLogX.mensagem}" order="asc" label="Mensagem" />
+								</b:dataTable>
+						     </b:tab>
+						     <b:tab title="Titulos Consultados">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpTituloLogList}"
+									var="mpTituloLogX" class="edtTitLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado."
+									paginator="true" paginatorPosition="top">									
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpTituloLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpTituloLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;"
+										value="#{mpTituloLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpTituloLogX.numeroProtocolo}" order="asc" label="Protocolo" />
+								</b:dataTable>
+						     </b:tab>
+						     <b:tab title="Boletos Carregados">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpBoletoCargaLogList}"
+									var="mpBoletoCargaLogX" class="edtBolLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado."
+									paginator="true" paginatorPosition="top">									
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoCargaLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpBoletoCargaLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoCargaLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoCargaLogX.numeroRegistros}" order="asc" label="Quantidade" />
+								</b:dataTable>
+						     </b:tab>
+						     <b:tab title="Titulos Carregados">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpTituloCargaLogList}"
+									var="mpTituloCargaLogX" class="edtBolLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado."
+									paginator="true" paginatorPosition="top">									
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpTituloCargaLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpTituloCargaLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpTituloCargaLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpTituloCargaLogX.numeroRegistros}" order="asc" label="Quantidade" />
+								</b:dataTable>
+						     </b:tab>
+						     <b:tab title="Robot Carga">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpRobotLogList}"
+									var="mpRobotLogX" class="edtRobLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"									
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado."
+									paginator="true" paginatorPosition="top">									
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpRobotLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpRobotLogX.mpTipoRobot.descricao}" order="asc" label="Tipo" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpRobotLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpRobotLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpRobotLogX.numeroRegistros}" order="asc" label="Quantidade" />
+								</b:dataTable>
+						     </b:tab>
+						     <b:tab title="Boletos Intimação Carregados">
+								<b:dataTable value="#{mpPesquisaLogsBean.mpBoletoIntimacaoCargaLogList}"
+									var="mpBoletoIntimacaoCargaLogX" class="edtBolIntLogTab"
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+									reflow="true" style="margin-top:20px"
+									emptyMessage="Nenhum registro encontrado."
+									paginator="true" paginatorPosition="top">									
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoIntimacaoCargaLogX.numeroOficio}" order="asc" label="Oficio" />
+									<b:dataTableColumn style="text-align:center;" order="asc" label="Data">
+										<h:outputText value="#{mpBoletoIntimacaoCargaLogX.dataGeracao}">
+											<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>	
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoIntimacaoCargaLogX.usuarioNome}" order="asc" label="Usuário" />
+									<b:dataTableColumn style="text-align:center;" 
+										value="#{mpBoletoIntimacaoCargaLogX.numeroRegistros}" order="asc" 
+																									label="Quantidade" />
+								</b:dataTable>
+						     </b:tab>
+					    </b:tabView>
+						
+					</h:form>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+
+	</ui:define>
+
+</ui:composition>

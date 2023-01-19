@@ -1,0 +1,160 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	 <f:metadata>
+	  	<f:viewParam name="idC" value="#{mpContatoSiteBean.idC}" />
+		
+	   	<f:viewAction action="#{mpContatoSiteBean.init}" />
+	 </f:metadata>
+	
+	<ui:define name="corpo">
+		
+		<b:jumbotron fluid="true" id="contatoEnderecoId" style="padding-top: 5px; padding-bottom: 5px;">
+			<b:row>
+				<b:column col-md="5">
+				</b:column>
+				<b:column col-md="2">
+					<!-- h3 align="center"><font size="+2" color="grey">Contatos</font></h3> -->
+					<b:image library="images" name="titulo_contato.png"
+						tooltip="Contato" tooltipPosition="right" 
+						style="max-width:100px; margin:0 auto; display:block; width:90%;" />							
+				</b:column>
+				<b:column col-md="5">
+				</b:column>
+			</b:row>
+	
+			<b:row>
+				<b:column col-md="5">
+				</b:column>
+				<b:column col-md="2">
+					<BR />
+				</b:column>
+				<b:column col-md="5">
+				</b:column>
+			</b:row>
+		
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="5">
+					<b:panel>
+						<b:row>
+	    					<b:column><h4><h:outputText value="#{mpSiteBean.mpCartorioOficio1.nome}"/></h4></b:column>				
+						</b:row>
+						<b:row><b:column /></b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio1.endereco}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio1.bairroCidadeUF}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio1.telefones}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column>
+	    						<h:outputText value="WhatsApp: "/>
+	    						<p:link href="https://wa.me/55#{mpSiteBean.mpCartorioOficio1.celularNumero}" 
+	    											target="_blank"	value="#{mpSiteBean.mpCartorioOficio1.celular}"/>
+	    						<i class="fa fa-fw fa-whatsapp"></i>
+	    					</b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio1.email}"/></b:column>				
+						</b:row>
+					</b:panel>
+				</b:column>
+				<b:column col-md="5">
+					<b:panel>
+						<b:row>
+	    					<b:column><h4><h:outputText value="#{mpSiteBean.mpCartorioOficio2.nome}"/></h4></b:column>				
+						</b:row>
+						<b:row><b:column /></b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio2.endereco}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio2.bairroCidadeUF}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio2.telefone}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column>
+	    						<h:outputText value="WhatsApp: "/>
+	    						<p:link href="https://wa.me/55#{mpSiteBean.mpCartorioOficio2.celularNumero}" 
+	    											target="_blank"	value="#{mpSiteBean.mpCartorioOficio2.celular}"/>
+	    						<i class="fa fa-fw fa-whatsapp"></i>
+	    					</b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio2.email}"/></b:column>				
+						</b:row>
+					</b:panel>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="5">
+					<b:panel>
+						<b:row>
+	    					<b:column><h4><h:outputText value="#{mpSiteBean.mpCartorioOficio3.nome}"/></h4></b:column>				
+						</b:row>
+						<b:row><b:column /></b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio3.endereco}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio3.bairroCidadeUF}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio3.telefone}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio3.celular}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio3.email}"/></b:column>				
+						</b:row>
+					</b:panel>
+				</b:column>
+				<b:column col-md="5">
+					<b:panel>
+						<b:row>
+	    					<b:column><h4><h:outputText value="#{mpSiteBean.mpCartorioOficio4.nome}"/></h4></b:column>				
+						</b:row>
+						<b:row><b:column /></b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio4.endereco}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="#{mpSiteBean.mpCartorioOficio4.bairroCidadeUF}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="Tel.: #{mpSiteBean.mpCartorioOficio4.telefone}"/></b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column>
+	    						<h:outputText value="WhatsApp: "/>
+	    						<p:link href="https://wa.me/55#{mpSiteBean.mpCartorioOficio4.celularNumero}" 
+	    											target="_blank"	value="#{mpSiteBean.mpCartorioOficio4.celular}"/>
+	    						<i class="fa fa-fw fa-whatsapp"></i>
+	    					</b:column>				
+						</b:row>
+						<b:row>
+	    					<b:column><h:outputText value="E-mail: #{mpSiteBean.mpCartorioOficio4.email}"/></b:column>				
+						</b:row>
+					</b:panel>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+	
+	</ui:define>
+				
+</ui:composition>

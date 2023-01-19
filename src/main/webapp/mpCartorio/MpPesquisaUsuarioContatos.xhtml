@@ -1,0 +1,78 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpPesquisaUsuarioContatosBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+		<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:jumbotron fluid="true">
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Consulta Usuário Contato</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="2" />
+				<b:column col-md="8">
+
+					<h:form id="frmBols">
+						<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+						<b:formGroup>
+							<b:inputText placeholder="Informe o Cpf/CnpJ" cols="14"
+								value="#{mpPesquisaUsuarioContatosBean.cpfCnpj}">
+								<f:facet name="prepend">
+									<h:outputText value="Cpf/Cnpj :" style="font-weight:bold" />
+								</f:facet>
+							</b:inputText>
+							<p:spacer />
+							<b:commandButton value="Consultar »"
+								action="#{mpPesquisaUsuarioContatosBean.pesquisaUsuarioContato}" look="primary" />
+						</b:formGroup>
+					</h:form>
+
+				</b:column>
+				<b:column col-md="2" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="10">
+					<h:form id="frmPesqCont">
+						<b:growl id="growlPesqCont" placementFrom="top" delay="1000" escape="true" />
+					
+						<b:dataTable value="#{mpPesquisaUsuarioContatosBean.mpUsuarioContatoList}" fieldId="dataTable" 
+							name="dataTable" var="mpUsuarioContatoX" class="edtUsuarioContatoTab"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+							reflow="true" style="margin-top:20px"
+							emptyMessage="Nenhum registro encontrado." rows="10"
+							paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="top">								
+							<b:dataTableColumn value="#{mpUsuarioContatoX.cpfCnpj}" />
+							<b:dataTableColumn value="#{mpUsuarioContatoX.nome}" />
+							<b:dataTableColumn value="#{mpUsuarioContatoX.email}" />
+							<b:dataTableColumn value="#{mpUsuarioContatoX.telefone}" />
+       					</b:dataTable>
+					</h:form>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+
+	</ui:define>
+
+</ui:composition>

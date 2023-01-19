@@ -1,0 +1,57 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpo">
+
+      	<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:form id="frmSelBol" horizontal="true">
+			<b:messages styleClass="msgs" redisplay="true" recursive="true" />
+			<p:messages showDetail="false" autoUpdate="true" closable="true" />
+					
+			<b:growl id="growlR" placementFrom="center" delay="2000" escape="true" />
+			
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="2" />
+					<b:column col-md="4">
+						<h3>Regerar Senha</h3>
+					</b:column>
+					<b:column col-md="4">
+					</b:column>
+					<b:column col-md="2" />
+				</b:row>
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="6">
+						<p:outputPanel id="scDetailId" style="text-align:center;">
+							<p:outputLabel value="E-mail : " style="text-align:center;" />
+							<p:spacer width="50" height="10" />
+							<p:inputText placeholder="Informar seu E-mail" size="50"
+								value="#{mpRegeraSenhaBean.emailRegerar}" />
+						</p:outputPanel>
+					</b:column>
+					<b:column col-md="3" />
+				</b:row>
+				<b:row>
+					<b:column col-md="4" />
+					<b:column col-md="4">
+							<p:commandButton value="Enviar" id="ajax" update="growlR"
+								actionListener="#{mpRegeraSenhaBean.regeraAction}"
+								styleClass="ui-priority-primary" />
+					</b:column>
+					<b:column col-md="4" />
+				</b:row>
+
+			</b:jumbotron>
+
+		</b:form>
+
+	</ui:define>
+
+</ui:composition>

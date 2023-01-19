@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Cartórios Protestos Capital - RJ</title>
+        <meta name="author" content="MPXDS.com"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+
+		<ui:param name="urlX" value="#{request.requestURL}" />
+		<ui:param name="queryStringX" value="#{request.queryString}" />
+		<ui:param name="uriX" value="#{request.requestURI}" />
+		<ui:param name="schemeX" value="#{request.scheme}" />
+		<ui:param name="serverNameX" value="#{request.serverName}" />
+		<ui:param name="portNumberX" value="#{request.serverPort}" />
+		<ui:param name="contextPathX" value="#{request.contextPath}" />
+		<ui:param name="servletPathX" value="#{request.servletPath}" />
+		<ui:param name="pathInfoX" value="#{request.pathInfo}" />
+		<ui:param name="timeInfoX" value="#{request.getLocale()}" />
+		    
+        <b:container>
+            <b:row><h4> urlX = #{urlX} </h4></b:row>
+            <b:row><h4> queryStringX = #{queryStringX} </h4></b:row>
+            <b:row><h4> uriX = #{uriX} </h4></b:row>
+            <b:row><h4> schemeX = #{schemeX} </h4></b:row>
+            <b:row><h4> serverNameX = #{serverNameX} </h4></b:row>
+            <b:row><h4> portNumberX = #{portNumberX} </h4></b:row>
+            <b:row><h4> contextPathX = #{contextPathX} </h4></b:row>
+            <b:row><h4> servletPathX = #{servletPathX} </h4></b:row>
+            <b:row><h4> pathInfoX = #{pathInfoX} </h4></b:row>
+            <b:row><h4> timeInfoX = #{timeInfoX} </h4></b:row>
+        </b:container>
+
+    </h:body>
+</html>

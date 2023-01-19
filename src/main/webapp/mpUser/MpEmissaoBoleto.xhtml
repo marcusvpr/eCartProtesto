@@ -1,0 +1,563 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadraoSiteI.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<!-- f:viewParam name="idBolParm" value="#{mpBoletoBean.idBolParm}" />  -->
+
+   		<f:viewAction action="#{mpBoletoBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+		<h:outputScript name="js/print.min.js" target="head" />
+
+	    <script type="application/javascript">
+	       	function handleMsg(msg){
+	        	alert(msg);
+	    	}
+	    </script>
+	    
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" /> 
+
+      	<ui:param name="root" value="#{request.contextPath}" />
+
+		<b:form id="frmSelBol" horizontal="true">
+			<b:messages styleClass="msgs" redisplay="true" recursive="true" />
+			<p:messages showDetail="false" autoUpdate="true" closable="true" />
+			
+			<b:growl id="growl" placementFrom="top" delay="3000" escape="true" />
+			
+			<p:focus />
+			<p:growl id="msg" />
+								
+			<b:jumbotron fluid="true">
+				<b:row>
+					<b:column col-md="3" />
+					<b:column col-md="3">
+						<h3>Emissão de Boleto</h3>
+					</b:column>
+					<b:column col-md="4">
+						<b:image small-screen="one-third" library="images"
+							name="boleto.png" tooltip="Emissão de Boleto"
+							tooltipPosition="right" />
+					</b:column>
+					<b:column col-md="2">
+						<p:outputLabel value="Sem Registro BRADESCO" rendered="#{!mpBoletoBean.indRegistro}" />
+						<p:outputLabel value="HOMOLOGAÇÂO" 
+										rendered="#{mpBoletoBean.ambienteBradesco == 'HOMOLOGACAO' ? true : false}" />
+					</b:column>
+				</b:row>
+
+				<b:row>
+					<b:column col-md="1" />
+					<b:column col-md="10">
+						<b:panel style="padding-left:100px">
+	    					<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 1° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    					</b:panelGrid>
+	    					<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 2° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    					</b:panelGrid>
+	    					<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 3° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    					</b:panelGrid>
+	   						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="( 4° Oficio )" />
+									<p:outputLabel value="" />
+									<p:outputLabel value="" />
+	    					</b:panelGrid>
+	    					<b:panelGrid size="xs" columns="6" 
+	    						rendered="#{(mpBoletoBean.indAdministrador) or (mpBoletoBean.indUsuario)}">
+								<p:outputLabel value="Selecionar?" />
+								<b:radiobutton id="Oficio"
+									value="#{mpBoletoBean.mpCartorioOficioSel}" required="true"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio1.apelido}" 
+									itemValue="#{mpBoletoBean.mpCartorioOficio1}"
+									requiredMessage="Favor selecione o Ofício desejado !" />
+								<b:radiobutton id="rbDest2"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio2.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio2}" />
+								<b:radiobutton id="rbDest3"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio3.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio3}" />
+								<b:radiobutton id="rbDest4"
+									value="#{mpBoletoBean.mpCartorioOficioSel}"
+									itemLabel="#{mpBoletoBean.mpCartorioOficio4.apelido}"
+									itemValue="#{mpBoletoBean.mpCartorioOficio4}" />
+							</b:panelGrid>
+							<b:panelGrid size="xs" columns="4" 
+								rendered="#{mpBoletoBean.indComarca}">
+								<p:outputLabel value="Ou Comarca ?" />
+								<p:selectOneMenu
+									value="#{mpBoletoBean.mpCartorioComarcaSel}">
+									<f:selectItem itemLabel="Selecione..." itemValue="" />
+									<f:selectItems
+										value="#{mpBoletoBean.mpCartorioComarcaList}"
+										var="mpmpCartorioComarca" 
+										itemLabel="#{mpCartorioComarca.apelido}"
+										itemValue="#{mpCartorioComarca}" />
+								</p:selectOneMenu>
+							</b:panelGrid>
+							<!-- b:message for="@form:@property(mpBoletoBean.mpCartorioOficioSel)"  -->
+						</b:panel>
+					</b:column>
+					<b:column col-md="1" />
+				</b:row>
+				<b:row>
+					<b:column col-md="6">
+						<h:panelGrid columns="5" cellpadding="5" rendered="#{mpSeguranca.indEnviaEmailBoleto}">
+							<p:spacer width="30" height="10" /> 
+							<p:outputLabel value=" Envia por E-mail ?" />
+							<p:spacer width="10" height="10" /> 
+					        <p:inputSwitch onLabel="Sim" offLabel="Não"	value="#{mpBoletoBean.indEmailBoleto}">
+					            <p:ajax listener="#{mpBoletoBean.addMessageEmail}" update="emailBoletoId msg" />
+					        </p:inputSwitch>
+		                	<p:inputText id="emailBoletoId" size="45" readonly="#{!mpBoletoBean.indEmailBoleto}"
+		                		value="#{mpBoletoBean.emailBoleto}" />
+			            </h:panelGrid>
+					</b:column>
+					<b:column col-md="6">					
+					    <p:accordionPanel activeIndex="-">
+					        <p:tab title="Como localizar o código segurança do Boleto ??? Clique AQUI !">
+					            <h:panelGrid columns="1" cellpadding="10">
+									<b:image library="images" name="boleto_codigo_seguranca.png" 
+										tooltip="Localize o código segurança do Boleto..."
+										tooltipPosition="right" />
+					            </h:panelGrid>
+					        </p:tab>					
+					    </p:accordionPanel>					
+					</b:column>
+				</b:row>
+
+				<b:tabView id="tabViewIdEB" activeIndex="0">
+  					<b:tab id="tabIdEB" title="Emissão de Boleto">				
+						<b:row>
+							<b:column col-md="1" />
+							<b:column col-md="10">
+							    <p:accordionPanel activeIndex="-" rendered="#{mpSeguranca.isCartorio()}">
+							        <p:tab title="Informar Código de Barras... Clique AQUI !">
+							            <b:panelGrid size="xs" columns="1">
+											<b:formGroup>
+												<b:inputText placeholder="Informe o Código de Barras" 
+													value="#{mpBoletoBean.dataNumeroIntimacaoBarCode}" span="3">
+													<f:facet name="prepend">
+														<h:outputText value="Código de Barras:" />
+													</f:facet>
+												</b:inputText>
+												<b:commandButton value="Lista Boleto »" update="frmSelBol"
+													action="#{mpBoletoBean.listaBoletoCodigoBarra}" look="primary" />
+											</b:formGroup>
+							            </b:panelGrid>
+							        </p:tab>					
+							    </p:accordionPanel>					
+		
+								<h:panelGroup id="pnGroupIdEB" rendered="#{mpBoletoBean.indCartorio}"> 
+									<p:focus context="pnGroupIdEB" />
+							    	<b:panelGrid size="xs" columns="4">
+										<p:outputLabel value="" />
+										<b:dateTimePicker value="#{mpBoletoBean.dataIntimacao}" show-time="false" 
+											format="DD/MM/YYYY" label="Data :" label-col-sm="3" col-sm="8"
+											id="dataIntimacaoId" widgetVar="dataIntimacaoWv">
+										</b:dateTimePicker>
+										<b:inputText placeholder="Informe o Número do Protocolo"
+											value="#{mpBoletoBean.numeroIntimacao}">
+											<f:facet name="prepend">
+												<h:outputText value="Número do Protocolo :" 
+													style="font-weight:bold" />
+											</f:facet>
+										</b:inputText>
+										<b:commandButton value="Listar Boletos »" update="frmSelBol"
+												action="#{mpBoletoBean.listaBoleto}" look="primary" />
+									</b:panelGrid>
+								</h:panelGroup>
+								
+								<h:panelGroup rendered="#{mpBoletoBean.indUsuario}">
+							    	<b:panelGrid size="xs" columns="4">
+										<p:outputLabel value="" />
+										<b:inputText placeholder="Informe o Número do Protocolo" size="6"
+																		value="#{mpBoletoBean.numeroIntimacao}">
+											<f:facet name="prepend">
+												<h:outputText value="Número do Protocolo:" />
+											</f:facet>
+										</b:inputText>
+										<b:inputText id="cpfCnpj1" placeholder="Informe o CPF/CNPJ" size="12"
+											value="#{mpBoletoBean.cpfCnpj1}">
+											<f:facet name="prepend">
+												<h:outputText value="Número do CPF / CNPJ:" />
+											</f:facet>
+										</b:inputText>
+										<b:commandButton value="Listar Boletos »" update="frmSelBol"
+															action="#{mpBoletoBean.listaBoleto}" look="primary" />
+									</b:panelGrid>
+								</h:panelGroup>
+		
+							</b:column>
+							<b:column col-md="1" />
+						</b:row>
+		
+						<b:row>
+							<b:column col-md="12">
+		
+								<b:dataTable id="idBoletoTab" value="#{mpBoletoBean.mpBoletoList}" var="mpBoletoX"
+									class="edtBoletoTab"						
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+																
+									<b:dataTableColumn value="#{mpBoletoX.codigoOficio}º" order="asc" label="Oficio" 
+										style="text-align:center;" />
+									<b:dataTableColumn value="#{mpBoletoX.nomeSacado}" order="asc" label="Nome Sacado" />
+									<b:dataTableColumn value="#{mpBoletoX.numeroDocumento}"
+										label="Numero Documento" style="text-align:center;" />
+									<b:dataTableColumn label="Data Vencimento" style="text-align:center;">
+										<h:outputText value="#{mpBoletoX.dataVencimento}">
+											<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>
+									<b:dataTableColumn label="Valor Cobrado" style="text-align:center;">
+										<h:outputText value="#{mpBoletoX.valorCobrado}">
+											<f:convertNumber type="currency" pattern="###,##0.00" />
+										</h:outputText>
+									</b:dataTableColumn>
+									<b:dataTableColumn label="Codigo Segurança?" data-type="text" 
+																				rendered="#{mpSeguranca.isUsuario()}">
+										<h:inputText value="#{mpBoletoX.numeroIntimacaoCodeX}" />									
+									</b:dataTableColumn>
+									<b:dataTableColumn value="#{mpBoletoX.contadorImpressao}" label="Prt" />
+									<b:dataTableColumn label="Ação">
+											<p:commandButton id="geraButton"
+												action="#{mpBoletoBean.geraBoleto}"
+												value="Gerar Boleto" icon="print"
+												ajax="false" update="@(.edtBoletoTab)"> 
+												<f:setPropertyActionListener value="#{mpBoletoX.numeroIntimacaoCodeX}" 
+																		target="#{mpBoletoBean.numeroIntimacaoCode}" />									
+												<f:setPropertyActionListener value="#{mpBoletoX}" 
+																		target="#{mpBoletoBean.mpBoletoSelX}" />									
+											</p:commandButton>
+
+					            			<p:commandButton process="@this"
+					            					rendered="#{mpBoletoBean.indCartaoCielo}"
+					            					icon="ui-icon-search" update=":frmSelBol:idBolDetail" 
+					            					value="Pagar c/Cartão" 
+					            					oncomplete="PF('wizardDialog').show()">
+												<f:setPropertyActionListener value="#{mpBoletoX.numeroIntimacaoCodeX}" 
+																		target="#{mpBoletoBean.numeroIntimacaoCode}" />									
+												<f:setPropertyActionListener value="#{mpBoletoX}" 
+																		target="#{mpBoletoBean.mpBoletoSelX}" />									
+											</p:commandButton>
+											
+											<!-- p:commandButton id="prtButton" onclick="printJS('http://localhost:8080/MpProtRJCap/resources/pdfs/of1/MpBoleto_marcus_20190115_0902018070909P.pdf')"
+		    									value="Imprimir Boleto">
+											</p:commandButton  -->
+																			
+									</b:dataTableColumn>
+								</b:dataTable>
+		
+							</b:column>
+						</b:row>
+					</b:tab>					
+  					<b:tab id="tab2aVia" title="Boleto(s) Emitidos (2a.Via)">			
+						<f:facet name="anchor"><b:iconAwesome name="cog" spin="true" /></f:facet>
+						<b:row>
+							<b:column col-md="1" />
+							<b:column col-md="10">
+								<h:panelGroup rendered="#{mpBoletoBean.indUsuario}">
+							    	<b:panelGrid size="xs" columns="4">
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<b:inputText placeholder="Informe o CPF/CNPJ" size="12"
+											value="#{mpBoletoBean.cpfCnpj}">
+											<f:facet name="prepend">
+												<h:outputText value="Número do CPF / CNPJ:" />
+											</f:facet>
+										</b:inputText>
+										<b:commandButton value="Listar Boletos Emitidos »" update="frmSelBol"
+											action="#{mpBoletoBean.listaBoletoEmitido}" look="primary" />
+									</b:panelGrid>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{mpBoletoBean.indCartorio}"> 
+							    	<b:panelGrid size="xs" columns="4">
+										<p:outputLabel value="" />
+										<p:outputLabel value="" />
+										<b:commandButton value="Listar Boletos Emitidos »" update="frmSelBol"
+												action="#{mpBoletoBean.listaBoletoEmitido}" look="primary" />
+										<p:outputLabel value="" />
+									</b:panelGrid>
+								</h:panelGroup>
+							</b:column>
+							<b:column col-md="1" />					
+						</b:row>
+						<b:row>
+							<b:column col-md="1" />
+							<b:column col-md="10">
+		
+								<b:dataTable id="idBoletoTab" value="#{mpBoletoBean.mpBoletoListP}" var="mpBoletoXP"
+									class="edtBoletoTab"						
+									customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json">
+																
+									<b:dataTableColumn value="#{mpBoletoXP.codigoOficio}º" order="asc" label="Oficio" 
+										style="text-align:center;" />
+									<b:dataTableColumn value="#{mpBoletoXP.nomeSacado}" order="asc" label="Nome Sacado" />
+									<b:dataTableColumn value="#{mpBoletoXP.numeroDocumento}"
+										label="Numero Documento" style="text-align:center;" />
+									<b:dataTableColumn label="Data Vencimento" style="text-align:center;">
+										<h:outputText value="#{mpBoletoXP.dataVencimento}">
+											<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+										</h:outputText>
+									</b:dataTableColumn>
+									<b:dataTableColumn label="Valor Documento"
+										style="text-align:center;">
+										<h:outputText value="#{mpBoletoXP.valorDocumento}">
+											<f:convertNumber type="currency" pattern="###,##0.00" />
+										</h:outputText>
+									</b:dataTableColumn>
+									<b:dataTableColumn label="Codigo Segurança?" data-type="text" 
+																				rendered="#{mpSeguranca.isUsuario()}">
+										<h:inputText value="#{mpBoletoXP.numeroIntimacaoCodeX}" />									
+									</b:dataTableColumn>
+									<b:dataTableColumn value="#{mpBoletoXP.contadorImpressao}" label="Prt" />
+									<b:dataTableColumn label="Ação">
+
+									  	<b:commandButton id="downloadLink" value="Gerar 2a.Via do Boleto"
+									  		ajax="false" look="primary" icon="print">
+											<f:setPropertyActionListener value="#{mpBoletoXP.numeroIntimacaoCodeX}" 
+																		target="#{mpBoletoBean.numeroIntimacaoCode}" />									
+											<f:setPropertyActionListener value="#{mpBoletoXP}" 
+																		target="#{mpBoletoBean.mpBoletoSelX}" />									
+									    	<p:fileDownload value="#{mpBoletoBean.downloadValue}" />
+									  	</b:commandButton>														
+
+
+									</b:dataTableColumn>
+								</b:dataTable>
+		
+							</b:column>
+							<b:column col-md="1" />
+						</b:row>
+					</b:tab>					
+
+				</b:tabView>								
+			</b:jumbotron>
+
+		    <p:dialog header="Assistente Pagamento Cartão" widgetVar="wizardDialog" id="wizardDialogId"
+		     									modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+			  <p:outputPanel id="idBolDetail" style="text-align:center;">
+			
+			    <p:wizard flowListener="#{mpBoletoBean.onFlowProcess}" id="wizardId" style="width:600px;"
+			    															nextLabel="Próximo" backLabel="Voltar">
+			    
+			        <p:tab id="tabDadosBoletoId" title=" Dados Boleto">
+			            <p:panel header="Detalhes">
+			                <p:messages />
+	     																	
+				            <p:panelGrid  columns="2" layout="grid"
+								style="border:0px none;background:none" styleClass="ui-fluid">		 
+		
+				                <p:outputLabel value="Nome Sacado:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.nomeSacado}" />
+		
+				                <p:outputLabel value="Número Documento:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.numeroDocumento}" />
+		
+				                <p:outputLabel value="Nosso Número:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.nossoNumero}" />
+		
+				                <p:outputLabel value="Data Vencimento:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.dataVencimento}">
+							    	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				                </p:outputLabel>
+		
+				                <p:outputLabel value="Valor Cobrado:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorCobrado}">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>
+		
+				                <p:outputLabel value="Valor Documento:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorDocumento}" 
+				                															style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>
+		
+				                <p:outputLabel value="Valor Taxas:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorTaxas}" 
+				                															style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>
+				 
+				                <p:outputLabel value="Concorda com os Termos?: " />
+                    			<h:selectBooleanCheckbox value="#{mpBoletoBean.indTermoCartaoCielo}" /> 
+
+				            </p:panelGrid>
+				            
+				        </p:panel>
+			        </p:tab>
+
+			        <p:tab id="tabDividaTaxaId" title="Divida x Taxas">
+			            <p:panel header="Divida Principal x Emolumentos/Taxas">
+			                <p:messages id="idMsgDivTaxa"/>
+
+				            <p:panelGrid  columns="2" layout="grid"
+								style="border:0px none;background:none" styleClass="ui-fluid">		 
+
+				                <p:outputLabel value="Valor Cobrado:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorCobrado}">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>
+							</p:panelGrid>
+							
+				            <p:panelGrid  columns="3" layout="grid"
+								style="border:0px none;background:none" styleClass="ui-fluid">		 
+				                <p:outputLabel value="Valor Documento:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorDocumento}" style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+						        <p:selectOneMenu id="idNParcDoc" effect="fold" style="width:125px"
+						        	value="#{mpBoletoBean.cardNumeroParcelaDocSel}">
+						            <f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItems value="#{mpBoletoBean.cardNumeroParcelaDocList}"
+											var="cardNumeroParcela" itemLabel="#{cardNumeroParcela.descricao}"
+											itemValue="#{cardNumeroParcela}" />
+									
+									<p:ajax listener="#{mpBoletoBean.addNumeroParcela}" 
+																update=":frmSelBol:idBolDetail idMsgDivTaxa" />									
+						        </p:selectOneMenu>
+				                
+				                <p:outputLabel value="Valor Taxas:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorTaxas}" style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+						        <p:selectOneMenu id="idNParcTaxa" effect="fold" style="width:125px"
+						        	value="#{mpBoletoBean.cardNumeroParcelaDivSel}">
+						            <f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItems value="#{mpBoletoBean.cardNumeroParcelaDivList}"
+											var="cardNumeroParcela" itemLabel="#{cardNumeroParcela.descricao}"
+											itemValue="#{cardNumeroParcela}" />
+									
+									<p:ajax listener="#{mpBoletoBean.addNumeroParcela}" 
+																update=":frmSelBol:idBolDetail idMsgDivTaxa" />									
+						        </p:selectOneMenu>
+						        
+				                <p:outputLabel value=". Tarifas:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorTarifa}" style="color:red;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+				                <p:outputLabel value="" />
+				                <p:outputLabel value=". Leis:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorLeis}" style="color:red;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+				                <p:outputLabel value="" />
+
+                    		</p:panelGrid>
+	 
+	            		</p:panel>
+	       			</p:tab>
+			        <p:tab id="tabDadosCartaoId" title="Dados do Cartão">
+
+			            <p:panel id="panDadosCartaoId" header="Informações do Cartão #{mpBoletoBean.isWizardIndCartaoCredito() ? 'Crédito' : ''}">
+			                <p:messages id="idMsg" />
+
+				            <p:panelGrid columns="2" columnClasses="grid">
+				            
+								<h:outputText value="Bandeira Cartão:" />
+						        <p:selectOneMenu id="idBranch" effect="fold" style="width:125px"
+						        	value="#{mpBoletoBean.cardBrandSel}">
+						            <f:selectItem itemLabel="Selecione" itemValue="" />
+									<f:selectItems value="#{mpBoletoBean.cardBrandList}"
+											var="cardBrand" itemLabel="#{cardBrand.bandeira}"
+											itemValue="#{cardBrand}" />
+						        </p:selectOneMenu>
+						        
+								<h:outputText value="Nome Cartão:" />
+								<p:inputText placeholder="Informe Nome Cartão" style="width:300px"
+									value="#{mpBoletoBean.wizardNomeCartaoCredito}" />
+								<h:outputText value="Número Cartão:" />
+								<p:inputText placeholder="Informe Número Cartão" style="width:300px" 
+									value="#{mpBoletoBean.wizardNumeroCartaoCredito}" />
+									
+								<h:outputText value="CVV Cartão Crédito:" 
+									rendered="#{mpBoletoBean.wizardIndCartaoCredito}" />								
+								<p:inputMask placeholder="Informe CVV Cartão Crédito" style="width:100px" 
+									rendered="#{mpBoletoBean.isWizardIndCartaoCredito()}"
+									value="#{mpBoletoBean.wizardCVVCartaoCredito}" mask="999" />
+								<h:outputText value="Validade Cartão Crédito: Ex.: 03/2031"  
+									rendered="#{mpBoletoBean.wizardIndCartaoCredito}" />
+								<p:inputMask placeholder="Informe Validade Cartão Crédito"  style="width:100px" 
+									 rendered="#{mpBoletoBean.isWizardIndCartaoCredito()}"
+									value="#{mpBoletoBean.wizardValidadeCartaoCredito}" mask="99/9999" />
+
+                    		</p:panelGrid>
+	 
+	            		</p:panel>
+	       			</p:tab>
+			 
+			        <p:tab id="tabConfirmacaoId" title="Confirmação">
+			            <p:panel header="Confirma Transação com o Cartão">
+			                <p:messages />
+
+			                <h:panelGrid id="confirmacaoId" columns="2" columnClasses="grid">
+								<h:outputText value="Nome Cartão:" />
+								<p:outputLabel style="width:300px"
+									value="#{mpBoletoBean.wizardNomeCartaoCredito}" />
+								<h:outputText value="Número Cartão:" />
+								<p:outputLabel style="width:300px" 
+									value="#{mpBoletoBean.wizardNumeroCartaoCredito}" />
+								<h:outputText value="CVV Cartão Crédito:" rendered="#{indCartaoCredito}" />
+								<p:outputLabel style="width:100px" rendered="#{indCartaoCredito}"
+									value="#{mpBoletoBean.wizardCVVCartaoCredito}" mask="999" />
+								<h:outputText value="Validade Cartão Crédito:" rendered="#{indCartaoCredito}" />
+								<p:outputLabel style="width:100px" rendered="#{indCartaoCredito}"
+									value="#{mpBoletoBean.wizardValidadeCartaoCredito}" mask="99/99" />
+				                <p:outputLabel value="Valor Cobrado:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorCobrado}">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>
+                    		</h:panelGrid>
+							<b:panelGrid size="xs" columns="3">
+				                <p:outputLabel value=". Valor Documento:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorDocumento}" style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+				                <p:outputLabel value="#{mpBoletoBean.cardNumeroParcelaDocSel.descricao}" 
+				                																style="color:blue;" />
+				                <p:outputLabel value=". Valor Taxa:" />
+				                <p:outputLabel value="#{mpBoletoBean.mpBoletoSelX.valorTaxas}" style="color:blue;">
+									<f:convertNumber type="currency" pattern="###,##0.00" />
+				                </p:outputLabel>				                
+				                <p:outputLabel value="#{mpBoletoBean.cardNumeroParcelaDivSel.descricao}"
+				                															 	style="color:blue;" />
+                    		</b:panelGrid>
+	 
+	                		<p:commandButton value="Finaliza Operação" action="#{mpBoletoBean.saveCartaoCielo}" 
+	                															update="growl" process="@this" />
+	            		</p:panel>
+	       			</p:tab>
+	    		</p:wizard>
+			  </p:outputPanel>
+		    </p:dialog>			
+
+		</b:form>
+
+	</ui:define>
+
+</ui:composition>

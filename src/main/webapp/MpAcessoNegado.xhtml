@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+      
+    <h:head>
+        <title>Cartórios Protestos Capital - RJ</title>
+        <meta name="author" content="MPXDS.com"></meta>
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+	
+    	<ui:param name="root" value="#{request.contextPath}" />
+
+        <b:container>
+            <b:row>
+                <b:column col-md="4">
+                </b:column>
+                <b:column col-md="4">
+                	<a href="#{root}/Login">
+						<b:image small-screen="one-third" library="images" name="access-denied.png"  
+							style="width: 300px;" tooltip="Acesso não autorizado !" tooltipPosition="right" />
+					</a>
+                </b:column>
+                <b:column col-md="4">
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column col-md="4">
+                </b:column>
+                <b:column col-md="4">
+        			<h4 class="marketing"><b>Desculpe, você não tem acesso nessa página.</b></h4>
+                </b:column>
+                <b:column col-md="4">
+                </b:column>
+            </b:row>
+            <hr/>
+            <footer>
+            <p>Copyright © 2017-2017 MPXDS Informática. Todos direitos reservados.</p>
+            </footer>
+        </b:container>
+
+    </h:body>
+</html>

@@ -1,0 +1,261 @@
+<ui:composition template="/WEB-INF/template/MpLayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+   		<f:viewAction action="#{mpPesquisaBoletoIntimacaosBean.init}" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+
+	  <h:form id="frmBolIntimacaos">
+
+		<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+		<ui:include src="/WEB-INF/template/MpBotoesPadrao.xhtml" />
+
+		<b:jumbotron fluid="true">
+			<b:row>
+				<b:column col-md="3" />
+				<b:column col-md="6">
+					<h3>Consulta Boleto Intimação</h3>
+				</b:column>
+				<b:column col-md="3" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="2" />
+				<b:column col-md="8">
+
+
+					<b:panel style="padding-left:100px">
+
+						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf1()}">
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="( 1° Oficio )" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+						</b:panelGrid>
+						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf2()}">
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="( 2° Oficio )" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+						</b:panelGrid>
+						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf3()}">
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="( 3° Oficio )" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+						</b:panelGrid>
+						<b:panelGrid size="xs" columns="6" rendered="#{mpSeguranca.isUsuarioOf4()}">
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="( 4° Oficio )" />
+							<p:outputLabel value="" />
+							<p:outputLabel value="" />
+						</b:panelGrid>
+						<b:panelGrid size="xs" columns="6"
+							rendered="#{mpSeguranca.isAdministrador()}">
+							<p:outputLabel value="Selecionar?" />
+							<b:radiobutton id="Oficio"
+								value="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficioSel}"
+								required="true"
+								itemLabel="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio1.apelido}"
+								itemValue="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio1}"
+								requiredMessage="Favor selecione o Ofício desejado !" />
+							<b:radiobutton id="rbDest2"
+								value="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficioSel}"
+								itemLabel="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio2.apelido}"
+								itemValue="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio2}" />
+							<b:radiobutton id="rbDest3"
+								value="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficioSel}"
+								itemLabel="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio3.apelido}"
+								itemValue="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio3}" />
+							<b:radiobutton id="rbDest4"
+								value="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficioSel}"
+								itemLabel="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio4.apelido}"
+								itemValue="#{mpPesquisaBoletoIntimacaosBean.mpCartorioOficio4}" />
+						</b:panelGrid>
+
+    					<b:panelGrid size="xs" columns="6">
+			            	<p:outputLabel value="Data De : " />
+							<p:calendar pattern="dd/MM/yyyy" mask="true"
+								locale="pt" timeZone="America/Sao_Paulo"
+								value="#{mpPesquisaBoletoIntimacaosBean.dataDe}" />
+							<p:spacer />
+			            	<p:outputLabel value="Data Até : " />
+							<p:calendar pattern="dd/MM/yyyy" mask="true"
+								locale="pt" timeZone="America/Sao_Paulo"
+								value="#{mpPesquisaBoletoIntimacaosBean.dataAte}" />
+							<p:spacer />
+					   </b:panelGrid>
+
+					</b:panel>
+
+					<b:formGroup>
+						<b:inputText placeholder="Informe o Número do Protocolo" cols="6"
+							value="#{mpPesquisaBoletoIntimacaosBean.numeroIntimacao}">
+							<f:facet name="prepend">
+								<h:outputText value="Número do Protocolo :" style="font-weight:bold" />
+							</f:facet>
+						</b:inputText>
+						<p:spacer />
+						<b:commandButton value="Consultar Boleto Intimações »"
+							action="#{mpPesquisaBoletoIntimacaosBean.pesquisaBoletoIntimacao}" look="primary" />
+					</b:formGroup>
+
+				</b:column>
+				<b:column col-md="2" />
+			</b:row>
+
+			<b:row>
+				<b:column col-md="1" />
+				<b:column col-md="10">
+					<h:form id="frmSCB">
+						<p:messages showDetail="false" autoUpdate="true" closable="true" />			
+						<b:growl placementFrom="top" delay="3000" escape="true" />
+					
+						<b:dataTable value="#{mpPesquisaBoletoIntimacaosBean.mpBoletoIntimacaoList}"
+							var="mpBoletoIntimacaoX" class="edtBoletoIntimacaoTab"
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+							reflow="true" style="margin-top:20px"
+							emptyMessage="Nenhum registro encontrado."
+							paginator="true" paginatorPosition="top">
+
+							<b:dataTableColumn style="text-align:center;" label="PDF Base64">									
+							    <b:commandButton ajax="false" look="primary"
+							    	value="Baixar" title="Download Intimação PDF" 
+							    	actionListener="#{mpPesquisaBoletoIntimacaosBean.download(mpBoletoIntimacaoX)}">
+							        <p:fileDownload value="#{mpPesquisaBoletoIntimacaosBean.fileDownX}" />
+							    </b:commandButton>
+							</b:dataTableColumn>
+							<b:dataTableColumn style="text-align:center;" label="Oficio"
+								value="#{mpBoletoIntimacaoX.codigoOficio}" />
+							<b:dataTableColumn style="text-align:center;"  label="Data Documento"
+								value="#{mpBoletoIntimacaoX.dataDocumentoDMY}" />
+							<b:dataTableColumn style="text-align:center;"  label="Data Distribuicao"
+								value="#{mpBoletoIntimacaoX.dataDistribuicaoDMY}" />
+							<b:dataTableColumn style="text-align:center;"  label="Data Protocolo"
+								value="#{mpBoletoIntimacaoX.dataProtocoloDMY}" />
+							<b:dataTableColumn style="text-align:center;"  label="Número Intimação"
+								value="#{mpBoletoIntimacaoX.numeroIntimacao}" />
+							<b:dataTableColumn style="text-align:center;" label="Número Intimação Code"
+								value="#{mpBoletoIntimacaoX.numeroIntimacaoCode}" />
+							<b:dataTableColumn style="text-align:center;" label="Cpf/Cnpj"
+								value="#{mpBoletoIntimacaoX.cpfCnpj}" />
+							<b:dataTableColumn style="text-align:left;" label="Nome Sacado"
+								value="#{mpBoletoIntimacaoX.nomeSacado}" />
+							<b:dataTableColumn style="text-align:center;" label="Núm.Doc;"
+								value="#{mpBoletoIntimacaoX.numeroDocumento}" />
+							<b:dataTableColumn style="text-align:center;" label="Nosso.Núm"
+								value="#{mpBoletoIntimacaoX.nossoNumero}" />
+							<b:dataTableColumn style="text-align:center;" label="Nosso NúmDig."
+								value="#{mpBoletoIntimacaoX.nossoNumeroDig}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Doc"
+								value="#{mpBoletoIntimacaoX.valorDocumento}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Acresc"
+								value="#{mpBoletoIntimacaoX.valorAcrescimo}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Cobr"
+								value="#{mpBoletoIntimacaoX.valorCobrado}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Tar"
+								value="#{mpBoletoIntimacaoX.valorTarifa}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.CPMF"
+								value="#{mpBoletoIntimacaoX.valorCPMF}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Leis"
+								value="#{mpBoletoIntimacaoX.valorLeis}" />
+							<b:dataTableColumn style="text-align:center;" label="Vl.Saldo"
+								value="#{mpBoletoIntimacaoX.valorSaldo}" />
+							<b:dataTableColumn style="text-align:center;" label="Dt.Doc"
+								value="#{mpBoletoIntimacaoX.dataDocumentoDMY}" />
+							<b:dataTableColumn style="text-align:center;" label="Dt.Venc"
+								value="#{mpBoletoIntimacaoX.dataVencimentoDMY}" />
+							<b:dataTableColumn style="text-align:center;" label="Instrução8"
+								value="#{mpBoletoIntimacaoX.boletoInstrucao8}" />
+							<b:dataTableColumn style="text-align:center;" label="N.Ger.PDF"
+								value="#{mpBoletoIntimacaoX.numeroGeracaoPdf}" />
+							<b:dataTableColumn style="text-align:center;" label="Rua"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.logradouro}" />
+							<b:dataTableColumn style="text-align:center;" label="Num"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.numero}" />
+							<b:dataTableColumn style="text-align:center;" label="Complem"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.complemento}" />
+							<b:dataTableColumn style="text-align:center;" label="Cidade"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.cidade}" />
+							<b:dataTableColumn style="text-align:center;" label="Bairro"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.bairro}" />
+							<b:dataTableColumn style="text-align:center;" label="CEP"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.cep}" />
+							<b:dataTableColumn style="text-align:center;" label="UF"
+								value="#{mpBoletoIntimacaoX.mpEnderecoLocal.mpEstadoUF}" />
+							<b:dataTableColumn style="text-align:center;" label="Cart"
+								value="#{mpBoletoIntimacaoX.carteira}" />
+							<b:dataTableColumn style="text-align:center;" label="Cod.Barra"
+								value="#{mpBoletoIntimacaoX.codigoBarras}" />
+							<b:dataTableColumn style="text-align:center;" label="AgCCed"
+								value="#{mpBoletoIntimacaoX.agenciaCodigoCedente}" />
+							<b:dataTableColumn style="text-align:center;" label="LinhaD"
+								value="#{mpBoletoIntimacaoX.linhaDigitavel}" />
+							<b:dataTableColumn style="text-align:center;" label="Dat.Venc1"
+								value="#{mpBoletoIntimacaoX.dataVencimento1}" />
+							<b:dataTableColumn style="text-align:center;" label="Cod.Barra1"
+								value="#{mpBoletoIntimacaoX.codigoBarras1}" />
+							<b:dataTableColumn style="text-align:center;" label="AgCCed1"
+								value="#{mpBoletoIntimacaoX.agenciaCodigoCedente1}" />
+							<b:dataTableColumn style="text-align:center;" label="LinhaD1"
+								value="#{mpBoletoIntimacaoX.linhaDigitavel1}" />
+							<b:dataTableColumn style="text-align:center;" label="DtHRReg"
+								value="#{mpBoletoIntimacaoX.dataHoraRegistro}" />
+							<b:dataTableColumn style="text-align:center;" label="Esp.Doc"
+								value="#{mpBoletoIntimacaoX.especieDocumento}" />
+							<b:dataTableColumn style="text-align:center;" label="NumGuia"
+								value="#{mpBoletoIntimacaoX.numeroGuiaGerado}" />
+							<b:dataTableColumn style="text-align:center;" label="Ind16H"
+								value="#{mpBoletoIntimacaoX.indApos16h ? 'SIM' : ''}"  />
+							<b:dataTableColumn style="text-align:center;" label="N.Impr."
+								value="#{mpBoletoIntimacaoX.contadorImpressao}" />
+							<b:dataTableColumn style="text-align:center;" label="Liq."
+								value="#{mpBoletoIntimacaoX.indLiquidado ? 'SIM' : ''}"  />
+							<b:dataTableColumn style="text-align:center;" label="Nome.PDF"
+								value="#{mpBoletoIntimacaoX.nomePdfGerado}" />
+							<b:dataTableColumn style="text-align:center;" label="IndAberto"
+								value="#{mpBoletoIntimacaoX.indAberto ? 'SIM' : ''}"  />
+							<b:dataTableColumn style="text-align:center;" label="Num.Titulo"
+								value="#{mpBoletoIntimacaoX.numeroTitulo}" />
+							<b:dataTableColumn style="text-align:center;" label="FinsA"
+								value="#{mpBoletoIntimacaoX.finsFalimentares}" />
+							<b:dataTableColumn style="text-align:center;" label="Endosso"
+								value="#{mpBoletoIntimacaoX.endosso}" />
+							<b:dataTableColumn style="text-align:center;" label="Dat.Emiss"
+								value="#{mpBoletoIntimacaoX.dataEmissaoDMY}" />
+							<b:dataTableColumn style="text-align:center;" label="Dat.VencT"
+								value="#{mpBoletoIntimacaoX.dataVencimentoTitulo}" />
+							<b:dataTableColumn style="text-align:center;" label="Mot.Protesto"
+								value="#{mpBoletoIntimacaoX.motivoProtesto}" />
+							<b:dataTableColumn style="text-align:center;" label="Nome Apresent."
+								value="#{mpBoletoIntimacaoX.nomeApresentante}" />
+							<b:dataTableColumn style="text-align:center;" label="Nome Cedente"
+								value="#{mpBoletoIntimacaoX.nomeCedente}" />
+							<b:dataTableColumn style="text-align:center;" label="Nome Sacador"
+								value="#{mpBoletoIntimacaoX.nomeSacador}" />
+							<b:dataTableColumn style="text-align:center;" label="Custas"
+								value="#{mpBoletoIntimacaoX.custas}" />
+						</b:dataTable>
+					</h:form>
+				</b:column>
+				<b:column col-md="1" />
+			</b:row>
+		</b:jumbotron>
+		
+	  </h:form>
+
+	</ui:define>
+
+</ui:composition>
